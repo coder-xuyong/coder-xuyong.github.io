@@ -1,0 +1,1 @@
+{% getSiteOnline site.json %}

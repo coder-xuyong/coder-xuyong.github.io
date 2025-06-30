@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: coder-xuyong's blog
+title: coder-xuyong
 subtitle: ''
 description: '桃花仙人种桃树，又折花枝当酒钱'
 keywords: 网站的关键词。 支持多个关键词
 author: coder-xuyong
-language: zh-Cn
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -41,10 +41,13 @@ external_link:
 filename_case: 0
 render_drafts: false
 post_asset_folder: true
-relative_link: true
-marked:
-  prependRoot: true
-  postAsset: true
+# 图片插件
+inline_image:  
+    enabled: true
+    compress: false
+    remote: false
+    limit: 2048
+relative_link: false
 future: true
 syntax_highlighter: highlight.js
 highlight:
