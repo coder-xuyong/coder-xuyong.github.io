@@ -170,7 +170,7 @@ post_meta:
 # 首页头图的设置
 # 默认: 头图全屏，站点信息在中间
 # 站点信息的位置，例如: 300px/300em/300rem/10%
-index_site_info_top:
+index_site_info_top: 
 # 头图的高度，例如: 300px/300em/300rem
 index_top_img_height: 400px
 
@@ -346,7 +346,7 @@ aside:
       # 按钮文本
       text: Follow Me
       # 按钮链接
-      link: https://github.com/xxxxxx
+      link: https://github.com/coder-xuyong
   card_announcement:
     # 是否显示公告卡片
     enable: true
@@ -362,8 +362,8 @@ aside:
     sort_order: 1
   card_newest_comments:
     # 是否显示最新评论卡片
-    enable: false
-    sort_order: 5
+    enable: true
+    sort_order: 2
     # 显示评论数量
     limit: 6
     # 单位：分钟，保存数据到 localStorage
@@ -377,7 +377,7 @@ aside:
     limit: 8
     # 选择：none / true / false
     expand: none
-    sort_order: 2
+    sort_order: 3
   card_tags:
     # 是否显示标签卡片
     enable: true
@@ -401,7 +401,7 @@ aside:
     order: -1
     # 显示归档数量，0 表示显示所有
     limit: 8
-    sort_order: 3
+    sort_order: 5
   card_post_series:
     # 是否显示系列文章卡片
     enable: true

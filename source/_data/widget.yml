@@ -5,4 +5,3 @@ bottom:
     icon: fas fa-heartbeat
     order: 7
     html: '<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=5V2tOKp8qAdRM-i8eu7ETTO9ugt5uKbbG-U7Yj8uMl8"></script>'
-
