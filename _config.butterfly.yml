@@ -107,7 +107,8 @@ cover:
   position: both
   # 当未设置封面时，显示默认封面
   default_cover:
-    # - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+    - https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
 
 # 替换损坏的图片
 error_img:
@@ -188,7 +189,12 @@ subtitle:
 # 首页文章佈局
 # 1: 行佈局
 # 2: 列布局
-index_layout: 1
+# 3: Cover and info alternate between left and right
+# 4: Cover on top, info on the bottom
+# 5: Info displayed on the cover
+# 6: Masonry layout - Cover on top, info on the bottom
+# 7: Masonry layout - Info displayed on the cover
+index_layout: 3
 
 # 在首页显示文章简介
 # 1: 描述
