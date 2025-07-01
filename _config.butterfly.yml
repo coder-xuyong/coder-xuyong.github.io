@@ -614,9 +614,9 @@ comments:
   # 如果设置为 true，评论计数将无效
   lazyload: false
   # 在文章顶部图片中显示评论计数
-  count: false
+  count: true
   # 在主页显示评论计数
-  card_post_count: false
+  card_post_count: true
 
 # Disqus 评论插件配置
 # 官方文档：https://disqus.com/
