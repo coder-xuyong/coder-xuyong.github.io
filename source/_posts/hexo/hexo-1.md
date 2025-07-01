@@ -7,8 +7,8 @@ categories: hexo
 tags: hexo
 sticky: 1
 keywords: 需要,xuyong
-top_img: https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
-cover: https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
+# top_img: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
+cover: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
 ---
 ## 认识 hexo
 简单来说，就是一个博客框架。社区很活跃，里面有很懂框架可以直接使用和自定义。

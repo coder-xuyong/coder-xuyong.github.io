@@ -113,9 +113,9 @@ cover:
   position: both
   # 当未设置封面时，显示默认封面
   default_cover:
-    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
-    - https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
-    - https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png
+    - https://mc.kurogames.com/static4.0/assets/heiHaiAn_1-57561854.jpg
+    - https://mc.kurogames.com/static4.0/assets/heiHaiAn_2-0333aeb7.jpg
+    - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
 
 
 # 替换损坏的图片

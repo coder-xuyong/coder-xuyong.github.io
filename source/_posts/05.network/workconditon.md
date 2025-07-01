@@ -3,6 +3,7 @@ title: 遇到的网络相关的问题
 date: 2025-04-01
 lastUpdated: true
 isOrigin: true
+cover: https://mc.kurogames.com/static4.0/assets/jinxi-0e048c86.png
 author: 
     - name: xuyong
       url: https://github.com/coder-xuyong

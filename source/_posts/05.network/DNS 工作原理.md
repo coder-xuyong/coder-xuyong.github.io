@@ -3,6 +3,7 @@ title: DNS 工作原理
 date: 2025-02-17
 lastUpdated: true
 isOrigin: true
+cover: https://mc.kurogames.com/static4.0/assets/changli-72d264b6.png
 author: 
     - name: xuyong
       url: https://github.com/coder-xuyong
