@@ -5,11 +5,10 @@ updated: 2025-07-01
 type: categories
 categories: hexo
 tags: hexo
-description: 页面描述
+sticky: 1
 keywords: 需要,xuyong
 top_img: https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
 cover: https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
-highlight_shrink: false
 ---
 ## 认识 hexo
 简单来说，就是一个博客框架。社区很活跃，里面有很懂框架可以直接使用和自定义。
@@ -36,6 +35,10 @@ npm install
 ## 使用 theme
 
 详情参考：https://butterfly.js.org/
+
+## 配置评论系统
+
+详情参考：https://zhuanlan.zhihu.com/p/603658639
 
 ## 遇见的问题
 
