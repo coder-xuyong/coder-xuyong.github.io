@@ -7,7 +7,9 @@ order: 1
 author: 
     - name: itheima
 category:
-  - java
+  - Java
+  - IO
+  - netty
 tag:
   - netty
   - nio

@@ -8,7 +8,9 @@ author:
     - name: xuyong
       url: https://github.com/coder-xuyong
 category:
-  - io
+  - Java
+  - IO
+  - ftp
 
 tag:
   - ftp

@@ -6,7 +6,9 @@ order: 4
 author: 
     - name: itheima
 category:
-  - java
+  - Java
+  - IO
+  - netty
 tag:
   - netty
 permalinkPattern: :year/:month/:day/:slug.html  

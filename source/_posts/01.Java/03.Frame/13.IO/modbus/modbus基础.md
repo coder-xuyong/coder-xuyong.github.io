@@ -5,7 +5,9 @@ date: 2023-06-05
 order: 1
 lastUpdated: true
 category:
-  - java
+  - Java
+  - IO
+  - netty
 tag:
   - modbus
 permalinkPattern: :year/:month/:day/:slug.html
