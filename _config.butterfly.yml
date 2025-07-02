@@ -12,7 +12,7 @@ nav:
 
 menu:
   首页: / || fas fa-home
-  时间轴: /archives/ || fas fa-archive
+  归档: /archives/ || fas fa-archive
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
   友链: /link/ || fas fa-link
@@ -207,8 +207,8 @@ subtitle:
   source: false
   # 如果关闭打字机效果，副标题将仅显示 sub 的第一行内容
   sub:
-    - 今日事&#44;今日毕
-    - Never put off till tomorrow what you can do today
+    - 心有所向，日复一日，必有精进。
+    - 无论是冒险还是做生意，机会都稍纵即逝。
 # 首页文章佈局
 # 1: 行佈局
 # 2: 列布局
