@@ -40,6 +40,9 @@ npm install
 
 详情参考：https://zhuanlan.zhihu.com/p/603658639
 
+giscus 无法使用最新评论外挂模块，转 gitalk，具体详情参考：https://www.cnblogs.com/qisi007/p/13731562.html
+https://www.summer889.com/2024/11/12/%E6%9C%89%E7%9A%84%E6%B2%A1%E7%9A%84/hexo%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/
+
 ## 遇见的问题
 
 ### md 文档中图片相对路径失效

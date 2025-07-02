@@ -607,7 +607,7 @@ comments:
   # 如果不需要评论功能，保持为空
   # 选择：Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # 两个评论系统的格式：Disqus,Waline
-  use: Giscus
+  use: gitalk,giscus
   # 按钮旁边显示评论系统名称
   text: true
   # 懒加载：评论系统将在评论元素进入浏览器视口时加载
@@ -646,15 +646,16 @@ livere:
 # 官方文档：https://github.com/gitalk/gitalk
 gitalk:
   # GitHub 应用的客户端 ID
-  client_id:
+  client_id: Ov23li4gzANXxmx9072g
   # GitHub 应用的客户端密钥
-  client_secret:
+  client_secret: b4da9f4490b2864bfdee5df73655329a642c6112
   # 存储评论的仓库名称
-  repo:
+  repo: coder-xuyong.github.io
   # 仓库拥有者的用户名
-  owner:
+  owner: coder-xuyong
   # 管理员用户名列表
   admin:
+    - coder-xuyong
   # 其他可选配置
   option:
 
@@ -736,9 +737,8 @@ giscus:
   # 分类 ID
   category_id: DIC_kwDOPE-aFs4CsT6N
   # 主题配置，light 为浅色主题，dark 为深色主题
-  theme:
-    light: light
-    dark: dark
+  light_theme: light
+  dark_theme: dark
   # 其他可选配置
   option:
 
