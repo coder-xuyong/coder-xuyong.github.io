@@ -227,7 +227,7 @@ toc:
   # 是否显示目录编号
   number: true
   # 是否默认展开目录
-  expand: true
+  expand: false
   # 是否使用简洁风格（仅适用于文章）
   style_simple: false
   # 是否显示滚动百分比
@@ -406,7 +406,7 @@ aside:
     # 是否显示系列文章卡片
     enable: true
     # 标题显示系列名称
-    series_title: false
+    series_title: true
     # 排序方式：title 或 date
     orderBy: 'date'
     # 排序顺序：1 表示升序，-1 表示降序
