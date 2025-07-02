@@ -964,7 +964,7 @@ activate_power_mode:
   # 是否启用彩色效果
   colorful: true
   # 是否启用震动效果
-  shake: true
+  shake: false
   # 是否在移动设备上启用
   mobile: false
 
