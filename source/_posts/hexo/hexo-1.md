@@ -26,6 +26,9 @@ npm install
 ```
 5.在 hexo 根目录终端输入： `hexo server`，启动程序，访问 http://localhost:4000/ 不报错即成功。
 
+## 常用命令
+1.在终端输入 `hexo new page 导航栏名字`,如：`hexo new page about`
+
 ## 配置 github pages
 
 **注意：** 创建github 仓库的时候，必须要一个 README.md，不然会失败。
