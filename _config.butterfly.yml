@@ -87,7 +87,8 @@ disable_top_img: false
 default_top_img: /medias/img/banner.jpg
 
 # 主页的横幅图片
-index_img: /medias/img/banner.jpg
+index_img: https://prod-alicdn-community.kurobbs.com/forum/4331cb9499664e9b9c6b18c3457f3a3c20250515.jpg?x-oss-process=image%2Fformat%2Cwebp
+
 
 # 归档页的横幅图片
 archive_img: /medias/img/banner.jpg
@@ -130,6 +131,19 @@ cover:
     - https://mc.kurogames.com/static4.0/assets/heiHaiAn_1-57561854.jpg
     - https://mc.kurogames.com/static4.0/assets/heiHaiAn_2-0333aeb7.jpg
     - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
+    - https://mc.kurogames.com/static4.0/assets/rinascita-07-8efa8dff.webp
+    - https://mc.kurogames.com/static4.0/assets/rinascita-05-8c20dcd5.webp
+    - https://mc.kurogames.com/static4.0/assets/rinascita-01-081e2381.webp
+    - https://mc.kurogames.com/static4.0/assets/rinascita-04-3174d302.webp
+    - https://mc.kurogames.com/static4.0/assets/septimont-3-24e3dc02.webp
+    - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
+    - https://mc.kurogames.com/static4.0/assets/cheng-xiao-shan-cbd72499.jpg
+    - https://mc.kurogames.com/static4.0/assets/big-hl-247d5093.jpg
+    - https://mc.kurogames.com/static4.0/assets/rinascita-9c7cece0.jpg
+    - https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/images/1734710400000/n3qs9jq3haepkx3wb0-1734782831518.jpg
+    - https://prod-alicdn-community.kurobbs.com/forum/b51b98c22f8a46318d0d7070023b9e3d20250528.jpg
+    - https://prod-alicdn-community.kurobbs.com/forum/d2036651e4724eb7bd27a319e98b75b120250630.png?x-oss-process=image%2Fformat%2Cwebp
+
 
 
 # 替换损坏的图片
@@ -186,7 +200,7 @@ post_meta:
 # 站点信息的位置，例如: 300px/300em/300rem/10%
 index_site_info_top: 
 # 头图的高度，例如: 300px/300em/300rem
-index_top_img_height: 400px
+index_top_img_height: 
 
 # 首页的副标题设置
 subtitle: 
@@ -241,7 +255,7 @@ toc:
   # 是否显示目录编号
   number: true
   # 是否默认展开目录
-  expand: false
+  expand: true
   # 是否使用简洁风格（仅适用于文章）
   style_simple: false
   # 是否显示滚动百分比
@@ -390,7 +404,7 @@ aside:
     # 显示分类数量，0 表示显示所有
     limit: 8
     # 选择：none / true / false
-    expand: none
+    expand: false
     sort_order: 3
   card_tags:
     # 是否显示标签卡片

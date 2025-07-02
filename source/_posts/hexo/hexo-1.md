@@ -8,7 +8,8 @@ tags: hexo
 sticky: 1
 keywords: 需要,xuyong
 # top_img: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
-cover: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
+# cover: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
+cover: https://prod-alicdn-community.kurobbs.com/forum/a5219288c7ea486f89f08f40c300d53820250508.jpg?x-oss-process=image%2Fformat%2Cwebp
 ---
 ## 认识 hexo
 简单来说，就是一个博客框架。社区很活跃，里面有很懂框架可以直接使用和自定义。
