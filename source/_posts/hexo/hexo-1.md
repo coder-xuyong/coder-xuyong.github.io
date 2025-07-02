@@ -85,6 +85,11 @@ limit 限制图片大小（kb）在此以内才会进行转换
 注意：
 > 由于本身Hexo带有缓存会导致插件第一次使用可能会出现无效果，请使用hexo clean清除缓存后即可正常使用
 
+### 未找到相关的 Issues 进行评论 请联系 @coder-xuyong 初始化创建
+
+本地尝试登陆评论失败
+
+上传到github 后，使用 https://coder-xuyong.github.io 登陆评论，成功！
 
 
 ## 参考
