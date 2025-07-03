@@ -402,7 +402,7 @@ aside:
     # 是否显示分类卡片
     enable: true
     # 显示分类数量，0 表示显示所有
-    limit: 8
+    limit: 0
     # 选择：none / true / false
     expand: false
     sort_order: 3

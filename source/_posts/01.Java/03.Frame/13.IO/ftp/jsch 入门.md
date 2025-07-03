@@ -7,9 +7,10 @@ isOrigin: true
 author: 
     - name: xuyong
       url: https://github.com/coder-xuyong
-category:
+categories:
   - Java
-  - IO
+  - 2.Frame
+  - 2.IO
   - ftp
 
 tag:

@@ -3,12 +3,12 @@ title: Spring 其他
 date: 2020-02-26 23:48:06
 categories:
   - Java
-  - 框架
-  - Spring
+  - 2.Frame
+  - 1.Spring
   - Spring其他
 tags:
   - Java
-  - 框架
+  - Frame
   - Spring
   - SpringBoot
 permalink: /pages/6bb8c1/

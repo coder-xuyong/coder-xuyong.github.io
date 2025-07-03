@@ -6,9 +6,9 @@ isOrigin: true
 author: 
     - name: xuyong
       url: https://github.com/coder-xuyong
-category:
-  - java
-  - Framework
+categories:
+  - Java
+  - 2.Framework
 
 tag:
   - nio

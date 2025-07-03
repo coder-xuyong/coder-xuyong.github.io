@@ -4,10 +4,11 @@ title: modbus 基础
 date: 2023-06-05
 order: 1
 lastUpdated: true
-category:
+categories:
   - Java
-  - IO
-  - netty
+  - 2.Frame
+  - 2.IO
+  - modbus
 tag:
   - modbus
 permalinkPattern: :year/:month/:day/:slug.html

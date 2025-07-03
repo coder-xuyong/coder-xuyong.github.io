@@ -3,12 +3,12 @@ title: 5.Spring 集成
 date: 2020-02-26 23:47:47
 categories:
   - Java
-  - 框架
-  - Spring
+  - 2.Frame
+  - 1.Spring
   - Spring集成
 tags:
   - Java
-  - 框架
+  - Frame
   - Spring
   - SpringBoot
   - 集成

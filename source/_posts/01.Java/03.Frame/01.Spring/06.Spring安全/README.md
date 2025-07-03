@@ -3,12 +3,12 @@ title: 6.Spring 安全
 date: 2020-02-27 23:47:47
 categories:
   - Java
-  - 框架
-  - Spring
+  - 2.Frame
+  - 1.Spring
   - Spring集成
 tags:
   - Java
-  - 框架
+  - Frame
   - Spring
   - SpringBoot
   - 集成

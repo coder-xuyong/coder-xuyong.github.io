@@ -3,12 +3,12 @@ title: 1.Spring 核心
 date: 2020-02-26 23:47:47
 categories:
   - Java
-  - 框架
-  - Spring
-  - Spring核心
+  - 2.Frame
+  - 1.Spring
+  - 1.Spring核心
 tags:
   - Java
-  - 框架
+  - Frame
   - Spring
   - SpringBoot
 permalinkPattern: :year/:month/:day/:slug.html

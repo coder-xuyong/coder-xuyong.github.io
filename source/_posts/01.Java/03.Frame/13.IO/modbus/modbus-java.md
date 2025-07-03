@@ -4,10 +4,11 @@ title: java 整合 modbus
 date: 2025-06-22
 lastUpdated: true
 order: 2
-category:
+categories:
   - Java
-  - IO
-  - netty
+  - 2.Frame
+  - 2.IO
+  - modbus
 tag:
   - modbus
 permalinkPattern: :year/:month/:day/:slug.html

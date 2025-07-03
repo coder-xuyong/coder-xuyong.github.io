@@ -3,12 +3,12 @@ title: 2.Spring 数据篇
 date: 2022-09-18 11:05:36
 categories:
   - Java
-  - 框架
-  - Spring
-  - Spring数据
+  - 2.Frame
+  - 1.Spring
+  - 2.Spring数据
 tags:
   - Java
-  - 框架
+  - Frame
   - Spring
   - SpringBoot
   - 数据库

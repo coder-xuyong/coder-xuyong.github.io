@@ -5,9 +5,10 @@ lastUpdated: true
 order: 4
 author: 
     - name: itheima
-category:
+categories:
   - Java
-  - IO
+  - 2.Frame
+  - 2.IO
   - netty
 tag:
   - netty
