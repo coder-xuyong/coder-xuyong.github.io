@@ -110,7 +110,7 @@ category_img: /medias/img/banner.jpg
 category_per_img: /medias/img/banner.jpg
 
 # 页脚的背景图片
-footer_img: false
+footer_img: true
 
 # 网站背景
 # 可以设置为颜色或图片
@@ -334,7 +334,7 @@ footer:
     # 网站创建年份
     since: 2025
   # 自定义文本
-  custom_text: Hi, welcome to my <a href="https://coder-xuyong.github.io/">blog</a>!
+  custom_text: Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!
   # custom_text: <a href="icp链接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a>
   # 主题和框架的版权声明
   copyright: true
