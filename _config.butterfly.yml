@@ -115,7 +115,7 @@ footer_img: true
 # 网站背景
 # 可以设置为颜色或图片
 # 图片格式: url(http://xxxxxx.com/xxx.jpg)
-background: '#f3f6f7'
+background: '#fafafa'
 
 # 封面设置
 cover:
