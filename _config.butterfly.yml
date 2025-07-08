@@ -291,7 +291,7 @@ reward:
 # 轻鬆在线浏览和编辑博客源代码
 post_edit:
   # 是否启用在线编辑
-  enable: false
+  enable: true
   # url: https://github.com/用户名/仓库名/edit/分支名/子目录名/
   # 例如: https://github.com/jerryc127/butterfly.js.org/edit/main/source/
   url: https://github.com/coder-xuyong/coder-xuyong.github.io/edit/main/source/
