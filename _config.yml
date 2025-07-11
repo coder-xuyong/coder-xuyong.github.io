@@ -110,5 +110,6 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment  
 deploy:
   type: git
-  respository: https://coder-xuyong.github.io
-  branch: main
+  repo: 
+    github: https://github.com/coder-xuyong/coder-xuyong.github.io,master
+  # branch: main
