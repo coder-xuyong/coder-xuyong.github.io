@@ -7,6 +7,7 @@ nav:
   logo: /medias/img/logo.png
   # 是否显示标题
   display_title: true
+  display_post_title: true
   # 是否固定导航栏
   fixed: false
 
@@ -328,6 +329,7 @@ noticeOutdate:
 # 页脚设置
 # --------------------------------------
 footer:
+  nav:
   owner:
     # 是否启用所有者显示
     enable: true
@@ -337,7 +339,9 @@ footer:
   custom_text: Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!
   # custom_text: <a href="icp链接"><img class="icp-icon" src="icp图片"><span>备案号：xxxxxx</span></a>
   # 主题和框架的版权声明
-  copyright: true
+  copyright:
+    enable: true
+    version: true
 
 # --------------------------------------
 # 侧边栏设置
@@ -506,6 +510,8 @@ rightside_item_order:
   # 显示的默认项目：toc,chat,comment
   show:
 
+# 右下方配置按钮的动画
+rightside_config_animation: true
 # --------------------------------------
 # 全局设置
 # --------------------------------------
@@ -842,6 +848,26 @@ cloudflare_analytics:
 # 官方网站：https://clarity.microsoft.com/
 microsoft_clarity:
 
+# https://umami.is/
+umami_analytics:
+  enable: false
+  # For self-hosted setups, configure the hostname of the Umami instance
+  serverURL:
+  website_id:
+  option:
+  UV_PV:
+    site_uv: false
+    site_pv: false
+    page_pv: false
+    # Umami Cloud (API key) / self-hosted Umami (token)
+    token:
+
+# https://www.googletagmanager.com/
+google_tag_manager:
+  tag_id:
+  # optional
+  domain:
+  
 # --------------------------------------
 # 广告配置
 # --------------------------------------
