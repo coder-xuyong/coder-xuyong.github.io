@@ -1,7 +1,4 @@
----
-title: hexo + butterlfy
----
-
+# hexo 和 butterfly 搭建 blog
 ## 认识 hexo
 简单来说，就是一个博客框架。社区很活跃，里面有很懂框架可以直接使用和自定义。
 更多详情，直接查看官网： https://hexo.io/zh-cn/docs/index.html
