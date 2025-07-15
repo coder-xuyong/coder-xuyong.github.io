@@ -5,7 +5,7 @@ date: 2025-06-22
 lastUpdated: true
 order: 2
 categories:
-  - Java
+  - 1.Java
   - 2.Frame
   - 2.IO
   - modbus

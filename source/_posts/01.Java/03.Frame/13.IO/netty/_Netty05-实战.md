@@ -7,7 +7,7 @@ author:
     - name: xuyong
       url: https://github.com/coder-xuyong
 categories:
-  - Java
+  - 1.Java
   - 2.Framework
 
 tag:

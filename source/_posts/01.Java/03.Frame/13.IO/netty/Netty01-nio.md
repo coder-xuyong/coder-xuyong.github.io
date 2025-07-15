@@ -7,7 +7,7 @@ order: 1
 author: 
     - name: itheima
 categories:
-  - Java
+  - 1.Java
   - 2.Frame
   - 2.IO
   - netty

@@ -2,7 +2,7 @@
 title: 2.Spring 数据篇
 date: 2022-09-18 11:05:36
 categories:
-  - Java
+  - 1.Java
   - 2.Frame
   - 1.Spring
   - 2.Spring数据

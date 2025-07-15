@@ -2,7 +2,7 @@
 title: 4.Spring IO
 date: 2022-09-18 11:34:00
 categories:
-  - Java
+  - 1.Java
   - 2.Frame
   - 1.Spring
   - SpringIO
