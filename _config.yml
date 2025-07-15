@@ -108,8 +108,8 @@ theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment  
-deploy:
-  type: git
-  repo: 
-    github: https://github.com/coder-xuyong/coder-xuyong.github.io,gh-pages
-  # branch: main
+# deploy:
+#   type: git
+#   repo: 
+#     github: https://github.com/coder-xuyong/coder-xuyong.github.io,gh-pages
+#   # branch: main
