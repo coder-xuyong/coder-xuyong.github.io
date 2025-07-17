@@ -102,6 +102,10 @@ limit 限制图片大小（kb）在此以内才会进行转换
 > https://snowtafir.top/posts/2022bn5s.html
 > https://butterfly.js.org/posts/b37b5fe3/?highlight=%E5%BC%95%E5%85%A5
 
+### butterfly 右下角悬浮菜单栏
+js里面的的元素可能不对，需要自己校对一下
+> https://snowtafir.top/posts/2020bkm9.html#butterfly%E5%8F%B3%E4%B8%8B%E8%A7%92%E6%82%AC%E6%B5%AE%E8%8F%9C%E5%8D%95%E6%A0%8F
+
 ## 参考
 - https://www.cnblogs.com/mlzrq/p/16099460.html
 - https://arcsin2.cloud/2023/02/23/Hexo-%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/
