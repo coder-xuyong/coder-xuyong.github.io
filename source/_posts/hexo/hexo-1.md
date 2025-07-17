@@ -96,6 +96,12 @@ limit 限制图片大小（kb）在此以内才会进行转换
 上传到github 后，使用 https://coder-xuyong.github.io 登陆评论，成功！
 
 
+## 自定义
+
+### 自定义波浪特效
+> https://snowtafir.top/posts/2022bn5s.html
+> https://butterfly.js.org/posts/b37b5fe3/?highlight=%E5%BC%95%E5%85%A5
+
 ## 参考
 - https://www.cnblogs.com/mlzrq/p/16099460.html
 - https://arcsin2.cloud/2023/02/23/Hexo-%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/
