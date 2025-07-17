@@ -103,7 +103,8 @@ limit 限制图片大小（kb）在此以内才会进行转换
 > https://butterfly.js.org/posts/b37b5fe3/?highlight=%E5%BC%95%E5%85%A5
 
 ### butterfly 右下角悬浮菜单栏
-js里面的的元素可能不对，需要自己校对一下
+js里面的的元素可能不对，需要自己校对一下（后面抛弃了，参考了源码的写法）
+可以直接搜索源码方法 `getScrollPercent`，参考一下它被引用的 tocScrollFn 的 js的写法。
 > https://snowtafir.top/posts/2020bkm9.html#butterfly%E5%8F%B3%E4%B8%8B%E8%A7%92%E6%82%AC%E6%B5%AE%E8%8F%9C%E5%8D%95%E6%A0%8F
 
 ## 参考

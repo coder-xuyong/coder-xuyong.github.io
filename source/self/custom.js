@@ -2,17 +2,26 @@
 window.onscroll = percent;// 执行函数
 // 页面百分比
 function percent() {
-    let a = document.documentElement.scrollTop || window.pageYOffset, // 卷去高度
-        b = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight) - document.documentElement.clientHeight, // 整个网页高度
-        result = Math.round(a / b * 100), // 计算百分比
-        up = document.querySelector("#go-up") // 获取按钮
+    const currentTop = window.scrollY || document.documentElement.scrollTop;
+    const ele = document.getElementById('article-container')
+    const up = document.getElementById("go-up");
+    let docHeight, winHeight, headerHeight, contentMath
+    docHeight = ele.clientHeight;
+    winHeight = window.innerHeight;
+    headerHeight = ele.offsetTop;
+    contentMath = Math.max(
+      docHeight - winHeight,
+      document.documentElement.scrollHeight - winHeight
+    );
 
-    if (result <= 95) {
-        up.childNodes[0].style.display = 'none'
-        up.childNodes[2].style.display = 'block'
-        up.childNodes[2].innerHTML = result;
+    const scrollPercent = (currentTop - headerHeight) / contentMath;
+    let result = Math.max(0, Math.min(100, Math.round(scrollPercent * 100)))
+    if (result < 95) {
+      up.childNodes[0].style.display = "none";
+      up.childNodes[2].style.display = "block";
+      up.childNodes[2].innerHTML = result;
     } else {
-        up.childNodes[2].style.display = 'none'
-        up.childNodes[0].style.display = 'block'
+      up.childNodes[2].style.display = "none";
+      up.childNodes[0].style.display = "block";
     }
 }
