@@ -2,8 +2,11 @@
 window.onscroll = percent;// 执行函数
 // 页面百分比
 function percent() {
-    const currentTop = window.scrollY || document.documentElement.scrollTop;
     const ele = document.getElementById('article-container')
+    if(!ele){
+        return
+    }
+    const currentTop = window.scrollY || document.documentElement.scrollTop;
     const up = document.getElementById("go-up");
     let docHeight, winHeight, headerHeight, contentMath
     docHeight = ele.clientHeight;
