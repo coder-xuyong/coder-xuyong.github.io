@@ -34,7 +34,15 @@ npm install
 
 **注意：** 创建github 仓库的时候，必须要一个 README.md，不然会失败。
 
-详情查看：https://hexo.io/zh-cn/docs/github-pages
+详情查看官网文档：https://hexo.io/zh-cn/docs/github-pages
+
+### 进阶
+
+- Netlify：https://www.cnblogs.com/codernie/p/9062104.html
+- Vercel：https://www.cnblogs.com/aitec/articles/vercel.html
+
+#### netlify 尝试
+时间有点老，但是能用：https://blog.grin.cool/blog/hexo-blog
 
 ## 使用 theme
 
