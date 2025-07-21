@@ -52,8 +52,8 @@ npm install
 **注意：**
 
 github pages 和 netlify 使用同一个分支，会冲突。
-所以暂时关闭掉 github pages，在仓库中，按如下设置，即可关闭：Settings > Pages > Source > None，同时将 `.github\workflows\pages.yml` 里面的内容给注释掉，提交代码。 
-如果需要恢复 github pages，可以操作：Settings > Pages > Source > github actions ，同时将 `.github\workflows\pages.yml` 里面的注释取消后，在提交一次代码，即可自动部署。
+所以暂时关闭掉 github pages，在仓库中，按如下设置，即可关闭：Settings > Pages > Source > None，同时将 `.github\workflows\pages.yml` 里面的主分支 main 给改为一个不存在的分支，如 main2，提交代码。 
+如果需要恢复 github pages，可以操作：Settings > Pages > Source > github actions ，同时将 `.github\workflows\pages.yml` 里面的指定分支（on:push:branches）改为 main 后，在提交一次代码，即可自动部署。
 
 备注：
 > 后续可以去了解构建命令的含义，自行修改构建的分支和目录之后，就不会冲突了。（本人懒）
