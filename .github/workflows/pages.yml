@@ -13,7 +13,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # If your repository depends on submodule, please see: https://github.com/actions/checkout
-          ref: blog_pages
+          ref: main
           submodules: recursive
       - name: Use Node.js 20
         uses: actions/setup-node@v4
