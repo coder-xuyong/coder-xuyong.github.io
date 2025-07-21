@@ -13,6 +13,10 @@
 - class_name: 网站
   class_desc: 值得推荐的网站
   link_list:
+    - name: netlify
+      link: https://app.netlify.com/
+      avatar: https://app.netlify.com/favicon.ico
+      descr: 一个专为现代 Web 项目打造的自动化托管平台
     - name: Youtube
       link: https://www.youtube.com/
       avatar: https://i.loli.net/2020/05/14/9ZkGg8v3azHJfM1.png
