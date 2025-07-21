@@ -51,7 +51,7 @@ npm install
 
 **注意：**
 github pages 和 netlify 使用同一个分支，会冲突。
-所以暂时关闭掉 github pages，在仓库中，按如下设置，即可关闭：Settings > Pages > Source > None
+所以暂时关闭掉 github pages，在仓库中，按如下设置，即可关闭：Settings > Pages > Source > None，同时将 `.github\workflows\pages.yml` 里面的内容给注释掉
 如果需要恢复 github pages，可以操作：Settings > Pages > Source > github actions ，后在提交一次代码，即可自动部署。
 
 备注：
