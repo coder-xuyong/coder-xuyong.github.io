@@ -42,6 +42,7 @@ npm install
 - Vercel：https://www.cnblogs.com/aitec/articles/vercel.html
 
 #### netlify 尝试
+test
 时间有点老，但是能用：https://blog.grin.cool/blog/hexo-blog
 
 ## 使用 theme
