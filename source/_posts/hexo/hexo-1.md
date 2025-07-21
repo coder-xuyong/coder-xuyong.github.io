@@ -42,7 +42,6 @@ npm install
 - Vercel：https://www.cnblogs.com/aitec/articles/vercel.html
 
 #### netlify 尝试
-
 提前说明，很简单，官网注册一个账号，使用github注册，绑定一个已有的blog项目，跟着指引走就可以了。
 
 官网地址：https://app.netlify.com/
