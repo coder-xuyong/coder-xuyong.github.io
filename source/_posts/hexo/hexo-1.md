@@ -32,7 +32,7 @@ npm install
 
 ## 配置 github pages
 
-**注意：** 创建github 仓库的时候，必须要一个 README.md，不然会失败。
+**注意：** 创建github 仓库的时候，必须要一个 README.md，不然会失败。 
 
 详情查看官网文档：https://hexo.io/zh-cn/docs/github-pages
 
