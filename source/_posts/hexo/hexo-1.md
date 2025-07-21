@@ -42,8 +42,16 @@ npm install
 - Vercel：https://www.cnblogs.com/aitec/articles/vercel.html
 
 #### netlify 尝试
-test
+
 时间有点老，但是能用：https://blog.grin.cool/blog/hexo-blog
+
+**注意：**
+github pages 和 netlify 使用同一个分支，会冲突。
+所以暂时关闭掉 github pages，在仓库中，按如下设置，即可关闭：Settings > Pages > Source > None
+如果需要恢复 github pages，可以操作：Settings > Pages > Source > github actions ，后在提交一次代码，即可自动部署。
+
+备注：
+> 后续可以去了解构建命令的含义，自行修改构建的分支和目录之后，就不会冲突了。（本人懒）
 
 ## 使用 theme
 
