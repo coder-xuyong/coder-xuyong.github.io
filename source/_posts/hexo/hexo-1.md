@@ -1,12 +1,12 @@
 ---
-title: 认识 hexo
+title: hexo 使用记录
 date: 2025-07-01
 updated: 2025-07-01
 type: categories
 categories: hexo
 tags: hexo
 sticky: 1
-keywords: 需要,xuyong
+keywords: xuyong
 # top_img: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
 # cover: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
 cover: https://prod-alicdn-community.kurobbs.com/forum/a5219288c7ea486f89f08f40c300d53820250508.jpg?x-oss-process=image%2Fformat%2Cwebp
@@ -42,6 +42,27 @@ npm install
 - Vercel：https://www.cnblogs.com/aitec/articles/vercel.html
 
 #### netlify 尝试
+
+先说结论，不是很理想，对于githubpages的速度提升不是很大：
+- 优点：netlify.app 可以过移动网的防火墙
+- 缺点：微信浏览器无法访问。
+
+
+| 指标      | github pages | netlify |
+| ----------- | ----------- | ----------- | 
+| 国内访问速度(avg)      | 2.044s      | 3.588s |
+| 运营商访问   | 移动网无法访问        | 三大isp都可以访问 |
+| 微信访问   | 可以访问        | 无法访问 |
+
+> 国内访问速度是通过站长之家测试 [站长工具>国内测速](https://tool.chinaz.com/speedtest)
+
+测试数据详情如下：
+![github pages](img/github_pages_1.jpg)
+![netlify](img/netlify_1.jpg)
+
+
+##### 具体操作步骤
+
 提前说明，很简单，官网注册一个账号，使用github注册，绑定一个已有的blog项目，跟着指引走就可以了。
 
 官网地址：https://app.netlify.com/
@@ -51,11 +72,70 @@ npm install
 **注意：**
 
 github pages 和 netlify 使用同一个分支，会冲突。
-所以暂时关闭掉 github pages，在仓库中，按如下设置，即可关闭：Settings > Pages > Source > None，同时将 `.github\workflows\pages.yml` 里面的主分支 main 给改为一个不存在的分支，如 main2，提交代码。 
-如果需要恢复 github pages，可以操作：Settings > Pages > Source > github actions ，同时将 `.github\workflows\pages.yml` 里面的指定分支（on:push:branches）改为 main 后，在提交一次代码，即可自动部署。
+尝试将 github pages 关闭，但是由于不想删除 `.github\workflows\pages.yml`  ，导致一直关不掉。
+
+于是重新修改逻辑，将 github pages 所需的静态文件放在分支 blog_pages 里面，再在 仓库中，按如下设置，
+修改分支：Settings > Pages > Build and deployment > Branch> Deploy from a branch > blog_pages >  /(root)
+
+**同时在仓库设置中启用工作流写入权限：**
+- 访问仓库的 Settings > Actions > General
+- Workflow permissions 部分：
+    - 选择 Read and write permissions
+    - 勾选 Allow GitHub Actions to create and approve pull requests
+
+修改page.yml 文件的内容为：
+```yaml
+name: Pages
+
+on:
+  push:
+    branches:
+      - main  # 触发部署的源分支
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+          submodules: recursive
+      
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+       
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Build
+        run: npm run build  # 生成静态文件到 public 目录
+
+      - name: Deploy to Pages Branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: blog_pages  # 目标分支名称
+          force_orphan: true  # 确保分支只包含最新文件
+```
+
 
 备注：
-> 后续可以去了解构建命令的含义，自行修改构建的分支和目录之后，就不会冲突了。（本人懒）
+> page.yml 文件内容是 deep seek 生成的，具体的意思和语法需要查看 [github actions](https://docs.github.com/zh/actions) 的语法。
+
+
+#### Vercel 尝试
+
+由于 Vercel 国内被屏蔽掉了，必须要有域名，由于想白嫖，所以暂时不考虑
 
 ## 使用 theme
 
