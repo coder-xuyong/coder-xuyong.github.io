@@ -132,6 +132,13 @@ jobs:
 备注：
 > page.yml 文件内容是 deep seek 生成的，具体的意思和语法需要查看 [github actions](https://docs.github.com/zh/actions) 的语法。
 
+##### gitalk 登陆失败
+如图：
+![gitalk auth failed](img/gitalk_1.png)
+gitalk_login
+
+
+
 
 #### Vercel 尝试
 
