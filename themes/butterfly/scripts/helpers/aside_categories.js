@@ -18,10 +18,36 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
   const isExpand = options.expand !== 'none'
   const expandClass = isExpand && options.expand === true ? 'expand' : ''
   const buttonLabel = this._p('aside.more_button')
+  const showPosts = Object.prototype.hasOwnProperty.call(options, 'show_posts') ? options.show_posts : true
+  const postLimit = options.post_limit || 20 // 默认显示20篇文章
 
   const prepareQuery = parent => {
     const query = parent ? { parent } : { parent: { $exists: false } }
     return categories.find(query).sort(orderby, order).filter(cat => cat.length)
+  }
+
+  const generatePostList = (posts) => {
+    let result = ''
+    const limitedPosts = posts.limit(postLimit).toArray()
+    
+    limitedPosts.forEach(post => {
+      result += `<li class="card-article-list-item">
+                  <a class="card-article-list-link" href="${this.url_for(post.path)}">
+                    <span class="card-article-list-name">${post.title}</span>
+                  </a>
+                </li>`
+    })
+    
+    // 添加"更多"链接
+    if (posts.length > postLimit) {
+      result += `<li class="card-article-list-item">
+                  <a class="card-article-list-link" href="${this.url_for(posts.data[0].path.split('/')[0])}/">
+                    <span class="card-article-list-name">${this._p('aside.more_article')} (${posts.length - postLimit})</span>
+                  </a>
+                </li>`
+    }
+    
+    return result
   }
 
   const hierarchicalList = (remaining, level = 0, parent) => {
@@ -31,14 +57,26 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
         if (remaining > 0) {
           remaining -= 1
           let child = ''
+          let postList = ''
+          
+          // 递归生成子分类
           if (!depth || level + 1 < depth) {
             const childList = hierarchicalList(remaining, level + 1, cat._id)
             child = childList.result
             remaining = childList.remaining
           }
+          
+          // 在最深层级生成文章列表
+          const isLeafCategory = (!depth || level >= depth - 1) && !child && showPosts
+          if (isLeafCategory && cat.posts && cat.posts.length > 0) {
+            postList = `<ul class="card-article-list child">${generatePostList(cat.posts)}</ul>`
+          }
 
-          const parentClass = isExpand && !parent && child ? 'parent' : ''
-          result += `<li class="card-category-list-item ${parentClass}">`
+          // 判断是否有展开内容
+          const hasExpandContent = child || postList
+          const hasChildClass = hasExpandContent ? 'parent' : ''
+
+          result += `<li class="card-category-list-item ${hasChildClass}">`
           result += `<a class="card-category-list-link" href="${this.url_for(cat.path)}">`
           result += `<span class="card-category-list-name">${cat.name}</span>`
 
@@ -46,14 +84,21 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
             result += `<span class="card-category-list-count">${cat.length}</span>`
           }
 
-          if (isExpand && !parent && child) {
+          // 所有层级都显示展开图标（如果有内容）
+          if (isExpand && hasExpandContent) {
             result += `<i class="fas fa-caret-left ${expandClass}"></i>`
           }
 
           result += '</a>'
 
+          // 子分类列表
           if (child) {
             result += `<ul class="card-category-list child">${child}</ul>`
+          }
+          
+          // 文章列表
+          if (postList) {
+            result += postList
           }
 
           result += '</li>'

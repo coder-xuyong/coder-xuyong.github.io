@@ -229,6 +229,182 @@ js里面的的元素可能不对，需要自己校对一下（后面抛弃了，
 可以直接搜索源码方法 `getScrollPercent`，参考一下它被引用的 tocScrollFn 的 js的写法。
 > https://snowtafir.top/posts/2020bkm9.html#butterfly%E5%8F%B3%E4%B8%8B%E8%A7%92%E6%82%AC%E6%B5%AE%E8%8F%9C%E5%8D%95%E6%A0%8F
 
+
+### 主页分类卡片自定义
+
+目标，层级分类自定义展开。
+找到 themes\butterfly\scripts\helpers\aside_categories.js ，其中找到 hierarchicalList 方法下的这段代码
+
+```js
+const parentClass = isExpand && !parent && child ? 'parent' : ''
+result += `<li class="card-category-list-item ${parentClass}">`
+result += `<a class="card-category-list-link" href="${this.url_for(cat.path)}">`
+result += `<span class="card-category-list-name">${cat.name}</span>`
+
+if (showCount) {
+  result += `<span class="card-category-list-count">${cat.length}</span>`
+}
+
+if (isExpand && !parent && child) {
+  result += `<i class="fas fa-caret-left ${expandClass}"></i>`
+}
+```
+
+将这段代码的 `&& !parent` 去除掉
+
+但是这样，无法显示文章，因此，继续修改 aside_categories.js 文件
+
+```js
+// ....前面不变
+const buttonLabel = this._p('aside.more_button')
+  const showPosts = Object.prototype.hasOwnProperty.call(options, 'show_posts') ? options.show_posts : true
+  const postLimit = options.post_limit || 20 // 默认显示20篇文章
+
+  const prepareQuery = parent => {
+    const query = parent ? { parent } : { parent: { $exists: false } }
+    return categories.find(query).sort(orderby, order).filter(cat => cat.length)
+  }
+
+  const generatePostList = (posts) => {
+    let result = ''
+    const limitedPosts = posts.limit(postLimit).toArray()
+    
+    limitedPosts.forEach(post => {
+      result += `<li class="card-article-list-item">
+                  <a class="card-article-list-link" href="${this.url_for(post.path)}">
+                    <span class="card-article-list-name">${post.title}</span>
+                  </a>
+                </li>`
+    })
+    
+    // 添加"更多"链接
+    if (posts.length > postLimit) {
+      result += `<li class="card-article-list-item">
+                  <a class="card-article-list-link" href="${this.url_for(posts.data[0].path.split('/')[0])}/">
+                    <span class="card-article-list-name">${this._p('aside.more_article')} (${posts.length - postLimit})</span>
+                  </a>
+                </li>`
+    }
+    
+    return result
+  }
+
+  const hierarchicalList = (remaining, level = 0, parent) => {
+    let result = ''
+    if (remaining > 0) {
+      prepareQuery(parent).forEach(cat => {
+        if (remaining > 0) {
+          remaining -= 1
+          let child = ''
+          let postList = ''
+          
+          // 递归生成子分类
+          if (!depth || level + 1 < depth) {
+            const childList = hierarchicalList(remaining, level + 1, cat._id)
+            child = childList.result
+            remaining = childList.remaining
+          }
+          
+          // 在最深层级生成文章列表
+          const isLeafCategory = (!depth || level >= depth - 1) && !child && showPosts
+          if (isLeafCategory && cat.posts && cat.posts.length > 0) {
+            postList = `<ul class="card-article-list child">${generatePostList(cat.posts)}</ul>`
+          }
+
+          // 判断是否有展开内容
+          const hasExpandContent = child || postList
+          const hasChildClass = hasExpandContent ? 'parent' : ''
+
+          result += `<li class="card-category-list-item ${hasChildClass}">`
+          result += `<a class="card-category-list-link" href="${this.url_for(cat.path)}">`
+          result += `<span class="card-category-list-name">${cat.name}</span>`
+
+          if (showCount) {
+            result += `<span class="card-category-list-count">${cat.length}</span>`
+          }
+
+          // 所有层级都显示展开图标（如果有内容）
+          if (isExpand && hasExpandContent) {
+            result += `<i class="fas fa-caret-left ${expandClass}"></i>`
+          }
+
+          result += '</a>'
+
+          // 子分类列表
+          if (child) {
+            result += `<ul class="card-category-list child">${child}</ul>`
+          }
+          
+          // 文章列表
+          if (postList) {
+            result += postList
+          }
+
+          result += '</li>'
+        }
+      })
+    }
+    return { result, remaining }
+  }
+
+// ···后面不变
+
+```
+
+同时修改自定义的css文件
+```css
+
+.card-category-list-link,
+.card-article-list-link {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* 图标样式 */
+.card-category-list-link i {
+  margin-left: auto;
+  padding: 0 5px;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
+
+/* 展开状态旋转图标 */
+.card-category-list-link i.expand {
+  transform: rotate(-90deg);
+}
+
+/* 文章列表样式 */
+.card-article-list {
+  padding-left: 20px;
+}
+
+.card-article-list-item {
+  list-style: none;
+  position: relative;
+}
+
+.card-article-list-item:before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+/* 文章链接样式 */
+.card-article-list-link {
+  padding: 5px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* 子分类缩进 */
+.card-category-list .child {
+  padding-left: 15px;
+}
+```
 ## 参考
 - https://www.cnblogs.com/mlzrq/p/16099460.html
 - https://arcsin2.cloud/2023/02/23/Hexo-%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/

@@ -126,4 +126,56 @@ button#go-up:hover #percent {
     font-size: 18px;
 }
 
+/* =================================================================== 首页分类卡片自定义 ====================================================================== */
+/* 文章列表样式 */
+/* 确保所有层级图标垂直居中 */
+.card-category-list-link,
+.card-article-list-link {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
+/* 图标样式 */
+.card-category-list-link i {
+  margin-left: auto;
+  padding: 0 5px;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
+
+/* 展开状态旋转图标 */
+.card-category-list-link i.expand {
+  transform: rotate(-90deg);
+}
+
+/* 文章列表样式 */
+.card-article-list {
+  padding-left: 20px;
+}
+
+.card-article-list-item {
+  list-style: none;
+  position: relative;
+}
+
+.card-article-list-item:before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+/* 文章链接样式 */
+.card-article-list-link {
+  padding: 5px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* 子分类缩进 */
+.card-category-list .child {
+  padding-left: 15px;
+}
