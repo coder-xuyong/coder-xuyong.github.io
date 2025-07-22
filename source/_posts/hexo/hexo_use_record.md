@@ -50,13 +50,14 @@ npm install
 
 | 指标      | github pages | netlify |
 | ----------- | ----------- | ----------- | 
-| 国内访问速度(avg)      | 2.044s      | 3.588s |
+| 国内访问速度(avg) [站长之家](https://tool.chinaz.com/speedtest)   | 2.044s      | 3.588s |
+| 国内访问速度(avg) [itdog](https://www.itdog.cn/http/)     | 1.356s      | 1.486s |
 | 运营商访问   | 移动网无法访问        | 三大isp都可以访问 |
 | 微信访问   | 可以访问        | 无法访问 |
 
 > 国内访问速度是通过站长之家测试 [站长工具>国内测速](https://tool.chinaz.com/speedtest)
 
-测试数据详情如下：
+站长之家测试数据详情如下：
 ![github pages](img/github_pages_1.jpg)
 ![netlify](img/netlify_1.jpg)
 
@@ -136,8 +137,14 @@ jobs:
 如图：
 ![gitalk auth failed](img/gitalk_1.png)
 
-暂时无法解决
+**解决方法：**
 
+在 github 的仓库中，Your Avatar > Settings > Developer settings > OAuth Apps > Your_App_Name
+里面有 Homepage URL 和 Authorization callback URL ，将其改为 xx.netlify.app 的地址
+
+总结：gitalk 只能绑定一个域名地址；
+
+> 参考：https://github.com/reportportal/reportportal/issues/2374
 
 #### Vercel 尝试
 
