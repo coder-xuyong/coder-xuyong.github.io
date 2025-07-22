@@ -148,14 +148,19 @@ jobs:
 详情参考：https://butterfly.js.org/
 
 ## 配置评论系统
-
+### giscus
 详情参考：https://zhuanlan.zhihu.com/p/603658639
 
+### gitalk
 giscus 无法使用最新评论外挂模块，转 gitalk，具体详情参考：https://www.cnblogs.com/qisi007/p/13731562.html
 https://www.summer889.com/2024/11/12/%E6%9C%89%E7%9A%84%E6%B2%A1%E7%9A%84/hexo%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/
 
 **注意：**
 > gitalk 文件名不能有中文，不然会失效
+
+### twikoo
+后面有时间在实践
+https://niezicheng.github.io/blog-hexo/posts/a77c77c/
 
 ## 遇见的问题
 
