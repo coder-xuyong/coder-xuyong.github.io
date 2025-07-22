@@ -647,7 +647,7 @@ comments:
   text: true
   # 懒加载：评论系统将在评论元素进入浏览器视口时加载
   # 如果设置为 true，评论计数将无效
-  lazyload: false
+  lazyload: true
   # 在文章顶部图片中显示评论计数
   count: false
   # 在主页显示评论计数
