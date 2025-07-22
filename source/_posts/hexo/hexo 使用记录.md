@@ -135,8 +135,8 @@ jobs:
 ##### gitalk 登陆失败
 如图：
 ![gitalk auth failed](img/gitalk_1.png)
-gitalk_login
 
+暂时无法解决
 
 
 #### Vercel 尝试
@@ -153,6 +153,9 @@ gitalk_login
 
 giscus 无法使用最新评论外挂模块，转 gitalk，具体详情参考：https://www.cnblogs.com/qisi007/p/13731562.html
 https://www.summer889.com/2024/11/12/%E6%9C%89%E7%9A%84%E6%B2%A1%E7%9A%84/hexo%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/
+
+**注意：**
+> gitalk 文件名不能有中文，不然会失效
 
 ## 遇见的问题
 
