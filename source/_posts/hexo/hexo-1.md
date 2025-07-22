@@ -1,7 +1,7 @@
 ---
 title: hexo 使用记录
 date: 2025-07-01
-updated: 2025-07-01
+# updated: 2025-07-01
 type: categories
 categories: hexo
 tags: hexo
