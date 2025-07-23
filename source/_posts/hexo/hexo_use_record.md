@@ -405,6 +405,23 @@ const buttonLabel = this._p('aside.more_button')
   padding-left: 15px;
 }
 ```
+
+**加上按照文章order排序**：
+将 `const limitedPosts = posts.limit(postLimit).toArray()` 给替换为如下的代码：
+```js
+  // 替换原有的 toArray() 调用
+    const allPosts = posts.toArray();
+    
+    // 按 order 字段排序（升序）
+    allPosts.sort((a, b) => {
+      const orderA = a.order || Number.MAX_SAFE_INTEGER;
+      const orderB = b.order || Number.MAX_SAFE_INTEGER;
+      return orderA - orderB;
+    });
+    
+    // 应用限制
+    const limitedPosts = allPosts.slice(0, postLimit);
+```
 ## 参考
 - https://www.cnblogs.com/mlzrq/p/16099460.html
 - https://arcsin2.cloud/2023/02/23/Hexo-%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/

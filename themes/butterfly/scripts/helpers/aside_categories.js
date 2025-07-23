@@ -28,7 +28,19 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
 
   const generatePostList = (posts) => {
     let result = ''
-    const limitedPosts = posts.limit(postLimit).toArray()
+    // 替换原有的 toArray() 调用
+    const allPosts = posts.toArray();
+    
+    // 按 order 字段排序（升序）
+    allPosts.sort((a, b) => {
+      const orderA = a.order || Number.MAX_SAFE_INTEGER;
+      const orderB = b.order || Number.MAX_SAFE_INTEGER;
+      return orderA - orderB;
+    });
+    
+    // 应用限制
+    const limitedPosts = allPosts.slice(0, postLimit);
+    // const limitedPosts = posts.limit(postLimit).toArray()
     
     limitedPosts.forEach(post => {
       result += `<li class="card-article-list-item">
