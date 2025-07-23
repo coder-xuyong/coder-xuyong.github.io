@@ -9,7 +9,7 @@ author:
       url: https://github.com/coder-xuyong
 categories:
   - 1.Java
-  - 2.Frame
+  - 3.Frame
   - 2.IO
   - ftp
 
