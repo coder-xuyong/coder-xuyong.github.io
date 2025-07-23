@@ -8,10 +8,10 @@ category:
   - 6.windows
 
 tag:
-  - java
-  - spring
-  - springboot
-  - shell
+  - Java
+  - Spring
+  - Springboot
+  - Shell
 permalinkPattern: :year/:month/:day/:slug.html
 ---
 
