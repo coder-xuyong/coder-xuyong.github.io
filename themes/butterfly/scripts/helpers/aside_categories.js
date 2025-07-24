@@ -19,7 +19,7 @@ hexo.extend.helper.register('aside_categories', function (categories, options = 
   const expandClass = isExpand && options.expand === true ? 'expand' : ''
   const buttonLabel = this._p('aside.more_button')
   const showPosts = Object.prototype.hasOwnProperty.call(options, 'show_posts') ? options.show_posts : true
-  const postLimit = options.post_limit || 20 // 默认显示20篇文章
+  const postLimit = options.post_limit || 30 // 默认显示20篇文章
 
   const prepareQuery = parent => {
     const query = parent ? { parent } : { parent: { $exists: false } }
