@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>6.Spring 安全 | coder-xuyong</title><meta name="author" content="coder-xuyong"><meta name="copyright" content="coder-xuyong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Spring 集成 章节主要针对：Spring 与第三方框架、库集成。如：Cache、Scheduling、JMS、JMX 等。  📖 内容 Spring 安全  📚 资料 官方 Spring 官网 Spring Framework 官方文档 Spring Github   书籍 《Spring In Action》   教程 《小马哥讲 Spring 核心编程思想》 geekbang-les">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.Spring 安全">
+<meta property="og:url" content="https://coder-xuyong.github.io/2020/02/27/01.Java/03.Frame/01.Spring/06.Spring%E5%AE%89%E5%85%A8/README/">
+<meta property="og:site_name" content="coder-xuyong">
+<meta property="og:description" content="Spring 集成 章节主要针对：Spring 与第三方框架、库集成。如：Cache、Scheduling、JMS、JMX 等。  📖 内容 Spring 安全  📚 资料 官方 Spring 官网 Spring Framework 官方文档 Spring Github   书籍 《Spring In Action》   教程 《小马哥讲 Spring 核心编程思想》 geekbang-les">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp">
+<meta property="article:published_time" content="2020-02-27T15:47:47.000Z">
+<meta property="article:modified_time" content="2025-07-25T08:52:36.566Z">
+<meta property="article:author" content="coder-xuyong">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Frame">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="集成">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "6.Spring 安全",
+  "url": "https://coder-xuyong.github.io/2020/02/27/01.Java/03.Frame/01.Spring/06.Spring%E5%AE%89%E5%85%A8/README/",
+  "image": "https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp",
+  "datePublished": "2020-02-27T15:47:47.000Z",
+  "dateModified": "2025-07-25T08:52:36.566Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "coder-xuyong",
+      "url": "https://coder-xuyong.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/medias/img/logo.png"><link rel="canonical" href="https://coder-xuyong.github.io/2020/02/27/01.Java/03.Frame/01.Spring/06.Spring%E5%AE%89%E5%85%A8/README/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: coder-xuyong","link":"链接: ","source":"来源: coder-xuyong","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '6.Spring 安全',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/self/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #fafafa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">151</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">131</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">35</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/medias/img/logo.png" alt="Logo"><span class="site-name">coder-xuyong</span></a><a class="nav-page-title" href="/"><span class="site-name">6.Spring 安全</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">6.Spring 安全<a class="post-edit-link" href="https://github.com/coder-xuyong/coder-xuyong.github.io/edit/main/source/_posts/01.Java/03.Frame/01.Spring/06.Spring安全/README.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-27T15:47:47.000Z" title="发表于 2020-02-27 23:47:47">2020-02-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-25T08:52:36.566Z" title="更新于 2025-07-25 16:52:36">2025-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/3-Frame/">3.Frame</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/3-Frame/1-Spring/">1.Spring</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/3-Frame/1-Spring/Spring%E9%9B%86%E6%88%90/">Spring集成</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">83</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-07-25 16:52:36&quot;}" hidden></div><h1 id="Spring-集成"><a href="#Spring-集成" class="headerlink" title="Spring 集成"></a>Spring 集成</h1><blockquote>
+<p>章节主要针对：Spring 与第三方框架、库集成。如：Cache、Scheduling、JMS、JMX 等。</p>
+</blockquote>
+<h2 id="📖-内容"><a href="#📖-内容" class="headerlink" title="📖 内容"></a>📖 内容</h2><ul>
+<li><a href="01.SpringBoot%E4%B9%8B%E5%AE%89%E5%85%A8%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">Spring 安全</a></li>
+</ul>
+<h2 id="📚-资料"><a href="#📚-资料" class="headerlink" title="📚 资料"></a>📚 资料</h2><ul>
+<li><strong>官方</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://spring.io/">Spring 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/index.html">Spring Framework 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framework">Spring Github</a></li>
+</ul>
+</li>
+<li><strong>书籍</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://item.jd.com/12622829.html">《Spring In Action》</a></li>
+</ul>
+</li>
+<li><strong>教程</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/course/intro/265">《小马哥讲 Spring 核心编程思想》</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/geektime-geekbang/geekbang-lessons">geekbang-lessons</a></li>
+<li><a target="_blank" rel="noopener" href="http://jinnianshilongnian.iteye.com/blog/1482071">跟我学 Spring3</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="🚪-传送"><a href="#🚪-传送" class="headerlink" title="🚪 传送"></a>🚪 传送</h2><p>◾ 💧 <a target="_blank" rel="noopener" href="https://dunwu.github.io/waterdrop/">钝悟的 IT 知识图谱</a> ◾ 🎯 <a target="_blank" rel="noopener" href="https://github.com/dunwu/blog">我的博客</a> ◾</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io">coder-xuyong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io/2020/02/27/01.Java/03.Frame/01.Spring/06.Spring%E5%AE%89%E5%85%A8/README/">https://coder-xuyong.github.io/2020/02/27/01.Java/03.Frame/01.Spring/06.Spring%E5%AE%89%E5%85%A8/README/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://coder-xuyong.github.io" target="_blank">coder-xuyong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Spring/">Spring</a><a class="post-meta__tags" href="/tags/Frame/">Frame</a><a class="post-meta__tags" href="/tags/SpringBoot/">SpringBoot</a><a class="post-meta__tags" href="/tags/%E9%9B%86%E6%88%90/">集成</a></div><div class="post-share"><div class="social-share" data-image="https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/pages/00b04d/" title="Mysql 事务"><img class="cover" src="https://raw.githubusercontent.com/dunwu/images/master/snap/202310260703504.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Mysql 事务</div></div><div class="info-2"><div class="info-item-1">Mysql 事务 不是所有的 Mysql 存储引擎都实现了事务处理。支持事务的存储引擎有：InnoDB 和 NDB Cluster。不支持事务的存储引擎，代表有：MyISAM。 用户可以根据业务是否需要事务处理（事务处理可以保证数据安全，但会增加系统开销），选择合适的存储引擎。  事务简介事务概念“事务”指的是满足 ACID 特性的一组操作。事务内的 SQL 语句，要么全执行成功，要么全执行失败。可以通过 Commit 提交一个事务，也可以使用 Rollback 进行回滚。  ACIDACID 是数据库事务正确执行的四个基本要素。  原子性（Atomicity） 事务被视为不可分割的最小单元，事务中的所有操作要么全部提交成功，要么全部失败回滚。 回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。   一致性（Consistency） 数据库在事务执行前后都保持一致性状态。 在一致性状态下，所有事务对一个数据的读取结果都是相同的。   隔离性（Isolation） 一个事务所做的修改在最终提交以前，对其它事务是不可见的。   持久性（Durab...</div></div></div></a><a class="pagination-related" href="/pages/6bb8c1/" title="Spring 其他"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/d2036651e4724eb7bd27a319e98b75b120250630.png?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Spring 其他</div></div><div class="info-2"><div class="info-item-1">Spring 其他📖 内容 Spring4 升级 SpringBoot 之 banner SpringBoot 之 Actuator  📚 资料 官方 Spring 官网 Spring Framework 官方文档 Spring Github   书籍 《Spring In Action》   教程 《小马哥讲 Spring 核心编程思想》 geekbang-lessons 跟我学 Spring3    🚪 传送◾ 💧 钝悟的 IT 知识图谱 ◾ 🎯 我的博客 ◾ </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/pages/d6025b/" title="5.Spring 集成"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/rinascita-04-3174d302.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-26</div><div class="info-item-2">5.Spring 集成</div></div><div class="info-2"><div class="info-item-1">Spring 集成 章节主要针对：Spring 与第三方框架、库集成。如：Cache、Scheduling、JMS、JMX 等。  📖 内容 Spring 集成缓存中间件 Spring 集成定时任务中间件 Spring 集成 Dubbo  📚 资料 官方 Spring 官网 Spring Framework 官方文档 Spring Github   书籍 《Spring In Action》   教程 《小马哥讲 Spring 核心编程思想》 geekbang-lessons 跟我学 Spring3    🚪 传送◾ 💧 钝悟的 IT 知识图谱 ◾ 🎯 我的博客 ◾ </div></div></div></a><a class="pagination-related" href="/2020/08/11/01.Java/03.Frame/01.Spring/00.Spring%E7%BB%BC%E5%90%88/02.SpringBoot%E7%9F%A5%E8%AF%86%E6%B8%85%E5%8D%95/" title="SpringBoot 知识清单"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/heiHaiAn_1-57561854.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-12</div><div class="info-item-2">SpringBoot 知识清单</div></div><div class="info-2"><div class="info-item-1">SpringBoot 知识图谱  预警：本文非常长，建议先 mark 后看，也许是最后一次写这么长的文章 说明：前面有 4 个小节关于 Spring 的基础知识，分别是：IOC 容器、JavaConfig、事件监听、SpringFactoriesLoader 详解，它们占据了本文的大部分内容，虽然它们之间可能没有太多的联系，但这些知识对于理解 Spring Boot 的核心原理至关重要，如果你对 Spring 框架烂熟于心，完全可以跳过这 4 个小节。正是因为这个系列的文章是由这些看似不相关的知识点组成，因此取名知识清单。   在过去两三年的 Spring 生态圈，最让人兴奋的莫过于 Spring Boot 框架。或许从命名上就能看出这个框架的设计初衷：快速的启动 Spring 应用。因而 Spring Boot 应用本质上就是一个基于 Spring 框架的应用，它是 Spring 对“约定优先于配置”理念的最佳实践产物，它能够帮助开发者更快速高效地构建基于 Spring 生态圈的应用。 那 Spring Boot 有何魔法？自动配置、起步依赖、Actuator、命令行界面(CL...</div></div></div></a><a class="pagination-related" href="/pages/dbf521/" title="SpringBoot 基本原理"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/rinascita-01-081e2381.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-13</div><div class="info-item-2">SpringBoot 基本原理</div></div><div class="info-2"><div class="info-item-1">SpringBoot 基本原理SpringBoot 为我们做的自动配置，确实方便快捷，但一直搞不明白它的内部启动原理，这次就来一步步解开 SpringBoot 的神秘面纱，让它不再神秘。   123456@SpringBootApplicationpublic class Application &#123;    public static void main(String[] args) &#123;        SpringApplication.run(Application.class, args);    &#125;&#125;  从上面代码可以看出，Annotation 定义（@SpringBootApplication）和类定义（SpringApplication.run） 最为耀眼，所以要揭开 SpringBoot 的神秘面纱，我们要从这两位开始就可以了。 SpringBootApplication 背后的秘密123456789101112@Target(ElementType.TYPE)            // 注解的适用范围，其中TYPE用于描述类、...</div></div></div></a><a class="pagination-related" href="/pages/950e4d/" title="SpringBoot 之快速入门"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-10</div><div class="info-item-2">SpringBoot 之快速入门</div></div><div class="info-2"><div class="info-item-1">SpringBoot 之快速入门Spring Boot 简介Spring Boot 可以让使用者非常方便的创建 Spring 应用。 Spring Boot 的目标是：  为所有 Spring 开发者提供更快且可广泛访问的入门体验。 开箱即用 提供一系列通用的非功能特性（例如嵌入式服务、安全、指标、健康检查和外部化配置） 完全不需要代码生成，也不需要 XML 配置。  Spring Boot 系统要求Spring Boot 的构建工具要求：    Build Tool Version    Maven 3.5+   Gradle 6.8.x, 6.9.x, and 7.x   Spring Boot 支持的 Servlet 容器：    Name Servlet Version    Tomcat 9.0 4.0   Jetty 9.4 3.1   Jetty 10.0 4.0   Undertow 2.0 4.0   部署第一个 Spring Boot 项目 本节介绍如何开发一个小的“Hello World!” web 应用示例，来展示 Spring Boot 的一些关键功能。...</div></div></div></a><a class="pagination-related" href="/pages/0fb992/" title="SpringBoot 之属性加载详解"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/cheng-xiao-shan-cbd72499.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-10</div><div class="info-item-2">SpringBoot 之属性加载详解</div></div><div class="info-2"><div class="info-item-1">SpringBoot 之属性加载详解加载 property 顺序Spring Boot 加载 property 顺序如下：  Devtools 全局配置 (当 devtools 被激活 ~/.spring-boot-devtools.properties). 测试环境中的 @TestPropertySource 注解配置 测试环境中的属性 properties：@SpringBootTest 和 测试注解. 命令行参数 SPRING_APPLICATION_JSON 属性 ServletConfig 初始化参数 ServletContext 初始化参数 JNDI attributes from 通过 java:comp/env 配置的 JNDI 属性 Java 系统属性 (System.getProperties()) 操作系统环境比那里 RandomValuePropertySource 加载 random.* 形式的属性 jar 包外的 application-&#123;profile&#125;.properties 或 application-&#123;profile...</div></div></div></a><a class="pagination-related" href="/pages/cb598e/" title="SpringBoot 之 Profile"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/rinascita-04-3174d302.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-18</div><div class="info-item-2">SpringBoot 之 Profile</div></div><div class="info-2"><div class="info-item-1">SpringBoot 之 Profile 一个应用为了在不同的环境下工作，常常会有不同的配置，代码逻辑处理。Spring Boot 对此提供了简便的支持。 关键词： @Profile、spring.profiles.active  区分环境的配置properties 配置假设，一个应用的工作环境有：dev、test、prod 那么，我们可以添加 4 个配置文件：  applcation.properties - 公共配置 application-dev.properties - 开发环境配置 application-test.properties - 测试环境配置 application-prod.properties - 生产环境配置  在 applcation.properties 文件中可以通过以下配置来激活 profile： 1spring.profiles.active = test  yml 配置与 properties 文件类似，我们也可以添加 4 个配置文件：  applcation.yml - 公共配置 application-dev.yml - 开发环境配置 ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">coder-xuyong</div><div class="author-info-description">生如牛马不得闲</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">151</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">131</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">35</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/coder-xuyong"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring-%E9%9B%86%E6%88%90"><span class="toc-number">1.</span> <span class="toc-text">Spring 集成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%96-%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">📖 内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9A-%E8%B5%84%E6%96%99"><span class="toc-number">1.2.</span> <span class="toc-text">📚 资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%AA-%E4%BC%A0%E9%80%81"><span class="toc-number">1.3.</span> <span class="toc-text">🚪 传送</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/06/30/hexo/hexo_use_record/" title="hexo 使用记录"><img src="https://prod-alicdn-community.kurobbs.com/forum/a5219288c7ea486f89f08f40c300d53820250508.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo 使用记录"/></a><div class="content"><a class="title" href="/2025/06/30/hexo/hexo_use_record/" title="hexo 使用记录">hexo 使用记录</a><time datetime="2025-06-30T16:00:00.000Z" title="发表于 2025-07-01 00:00:00">2025-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/21/06.windows/windows%E5%AE%89%E8%A3%85sftp/" title="windows安装sftp"><img src="https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="windows安装sftp"/></a><div class="content"><a class="title" href="/2025/06/21/06.windows/windows%E5%AE%89%E8%A3%85sftp/" title="windows安装sftp">windows安装sftp</a><time datetime="2025-06-21T16:00:00.000Z" title="发表于 2025-06-22 00:00:00">2025-06-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/21/01.Java/03.Frame/13.IO/modbus/modbus-java/" title="java 整合 modbus"><img src="https://mc.kurogames.com/static4.0/assets/rinascita-07-8efa8dff.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 整合 modbus"/></a><div class="content"><a class="title" href="/2025/06/21/01.Java/03.Frame/13.IO/modbus/modbus-java/" title="java 整合 modbus">java 整合 modbus</a><time datetime="2025-06-21T16:00:00.000Z" title="发表于 2025-06-22 00:00:00">2025-06-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By coder-xuyong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div><div class="footer_custom_text">Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><!-- butterfly右下角悬浮菜单栏 百分比--><span id="percent">0</span></button><!-- butterfly右下角悬浮菜单栏 直达底部--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23li4gzANXxmx9072g',
+      clientSecret: 'b4da9f4490b2864bfdee5df73655329a642c6112',
+      repo: 'coder-xuyong.github.io',
+      owner: 'coder-xuyong',
+      admin: ['coder-xuyong'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'f731bd45cbb4717bd34f2b927b1cc0a3'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="/self/custom.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search key word" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
