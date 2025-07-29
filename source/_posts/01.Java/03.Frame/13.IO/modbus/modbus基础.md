@@ -1,7 +1,5 @@
 ---
 title: modbus 基础
-# icon: pen-to-square
-date: 2023-06-05
 order: 1
 lastUpdated: true
 categories:
@@ -11,7 +9,9 @@ categories:
   - modbus
 tag:
   - modbus
-permalinkPattern: :year/:month/:day/:slug.html
+permalinkPattern: ':year/:month/:day/:slug.html'
+abbrlink: ef3d4bfa
+date: 2023-06-05 00:00:00
 ---
 
 

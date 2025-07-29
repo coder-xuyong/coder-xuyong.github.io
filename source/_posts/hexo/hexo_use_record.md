@@ -1,15 +1,14 @@
 ---
 title: hexo 使用记录
-date: 2025-07-01
-# updated: 2025-07-01
 type: categories
 categories: hexo
 tags: hexo
 sticky: 1
 keywords: xuyong
-# top_img: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
-# cover: https://mc.kurogames.com/static4.0/assets/lupa-1e612111.webp
-cover: https://prod-alicdn-community.kurobbs.com/forum/a5219288c7ea486f89f08f40c300d53820250508.jpg?x-oss-process=image%2Fformat%2Cwebp
+cover: >-
+  https://prod-alicdn-community.kurobbs.com/forum/a5219288c7ea486f89f08f40c300d53820250508.jpg?x-oss-process=image%2Fformat%2Cwebp
+abbrlink: c81d9ccd
+date: 2025-07-01 00:00:00
 ---
 ## 认识 hexo
 简单来说，就是一个博客框架。社区很活跃，里面有很懂框架可以直接使用和自定义。
@@ -168,6 +167,58 @@ https://www.summer889.com/2024/11/12/%E6%9C%89%E7%9A%84%E6%B2%A1%E7%9A%84/hexo%E
 ### twikoo
 后面有时间在实践
 https://niezicheng.github.io/blog-hexo/posts/a77c77c/
+
+## 配置文章的路由
+
+
+Add plugin to Hexo:
+
+```shell
+npm install hexo-abbrlink --save
+```
+
+Modify permalink in config.yml file:
+
+```shell
+permalink: posts/:abbrlink/ 
+# or
+permalink: posts/:abbrlink.html
+```
+
+Configs in `_config.yml`:
+
+```yml
+# abbrlink config
+abbrlink:
+  alg: crc32      # Algorithm used to calc abbrlink. Support crc16(default) and crc32
+  rep: hex        # Representation of abbrlink in URLs. Support dec(default) and hex
+  drafts: false   # Whether to generate abbrlink for drafts. (false in default)
+  force: false    # Enable force mode. In this mode, the plugin will ignore the cache, and calc the abbrlink for every post even it already had an abbrlink. (false in default)
+  writeback: true # Whether to write changes to front-matters back to the actual markdown files. (true in default)
+```
+
+### 样本
+
+The generated link will look like the following:
+
+```
+crc16 & hex
+https://post.zz173.com/posts/66c8.html
+
+crc16 & dec
+https://post.zz173.com/posts/65535.html
+```
+
+```
+crc32 & hex
+https://post.zz173.com/posts/8ddf18fb.html
+
+crc32 & dec
+https://post.zz173.com/posts/1690090958.html
+```
+
+### 参考
+> https://github.com/ohroy/hexo-abbrlink?tab=readme-ov-file
 
 ## 遇见的问题
 

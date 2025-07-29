@@ -1,11 +1,9 @@
 ---
 title: NIO 基础
-# cover: https://webstatic.mihoyo.com/upload/contentweb/2022/06/30/4c4b8babc68ffedce9bd5766b60e1ae5_8781849729625946129.png
-date: 2024-07-24
 lastUpdated: true
 order: 1
-author: 
-    - name: itheima
+author:
+  - name: itheima
 categories:
   - 1.Java
   - 3.Frame
@@ -14,7 +12,9 @@ categories:
 tag:
   - netty
   - nio
-permalinkPattern: :year/:month/:day/:slug.html  
+permalinkPattern: ':year/:month/:day/:slug.html'
+abbrlink: bfd15f47
+date: 2024-07-24 00:00:00
 ---
 
 # 源码可下载

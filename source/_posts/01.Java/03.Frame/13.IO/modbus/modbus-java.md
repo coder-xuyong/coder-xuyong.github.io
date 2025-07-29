@@ -1,7 +1,5 @@
 ---
 title: java 整合 modbus
-# icon: pen-to-square
-date: 2025-06-22
 lastUpdated: true
 order: 2
 categories:
@@ -11,7 +9,9 @@ categories:
   - modbus
 tag:
   - modbus
-permalinkPattern: :year/:month/:day/:slug.html
+permalinkPattern: ':year/:month/:day/:slug.html'
+abbrlink: 5674b7a7
+date: 2025-06-22 00:00:00
 ---
 
 ## 整合 modbus 小 demo

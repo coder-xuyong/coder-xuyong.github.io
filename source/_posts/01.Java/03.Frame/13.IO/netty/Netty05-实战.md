@@ -1,22 +1,23 @@
 ---
 title: Netty05-实战
-date: 2025-02-21
 lastUpdated: true
 isOrigin: true
-author: 
-    - name: xuyong
-      url: https://github.com/coder-xuyong
+author:
+  - name: xuyong
+    url: 'https://github.com/coder-xuyong'
 categories:
   - 1.Java
-  - 3.Framework
-
+  - 3.Frame
+  - 2.IO
+  - netty
 tag:
   - nio
   - netty
-
 order: 5
 star: true
-permalinkPattern: :year/:month/:day/:slug.html
+permalinkPattern: ':year/:month/:day/:slug.html'
+abbrlink: 1238dab2
+date: 2025-02-21 00:00:00
 ---
 
 # 源代码

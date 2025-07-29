@@ -1,10 +1,9 @@
 ---
 title: Netty 进阶
-date: 2024-07-24
 lastUpdated: true
 order: 3
-author: 
-    - name: itheima
+author:
+  - name: itheima
 categories:
   - 1.Java
   - 3.Frame
@@ -12,7 +11,9 @@ categories:
   - netty
 tag:
   - netty
-permalinkPattern: :year/:month/:day/:slug.html  
+permalinkPattern: ':year/:month/:day/:slug.html'
+abbrlink: 922301ec
+date: 2024-07-24 00:00:00
 ---
 
 Netty 进阶

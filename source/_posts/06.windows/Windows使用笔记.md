@@ -1,15 +1,15 @@
 ---
 title: Windows 使用笔记
-date: 2025-06-16
 order: 2
 lastUpdated: true
 category:
   - 6.windows
-
 tag:
   - shell
   - windows
-permalinkPattern: :year/:month/:day/:slug.html
+permalinkPattern: ':year/:month/:day/:slug.html'
+abbrlink: 8ee5e59e
+date: 2025-06-16 00:00:00
 ---
 
 ## 修改注册表显卡型号
