@@ -48,7 +48,7 @@
     animation-delay: -5s;
     -webkit-animation-duration: 20s;
     animation-duration: 20s;
-    fill: #f9fafb
+    fill: #f9fafb6c
 }
 
 @-webkit-keyframes move-forever {
