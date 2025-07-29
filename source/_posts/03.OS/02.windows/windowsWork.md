@@ -3,7 +3,8 @@ title: Windows 工作常用操作
 order: 1
 lastUpdated: true
 category:
-  - 6.windows
+  - 3.OS
+  - 2.windows
 tag:
   - Java
   - Spring

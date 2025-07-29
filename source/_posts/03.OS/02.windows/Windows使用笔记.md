@@ -3,7 +3,8 @@ title: Windows 使用笔记
 order: 2
 lastUpdated: true
 category:
-  - 6.windows
+  - 3.OS
+  - 2.windows
 tag:
   - shell
   - windows
