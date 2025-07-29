@@ -13,13 +13,15 @@ nav:
 
 menu:
   首页: / || fas fa-home
+  合集||fa-solid fa-bars-progress:
+    Java: /java/ || fa-brands fa-java
   归档: /archives/ || fas fa-archive
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
   友链: /link/ || fas fa-link
-  List||fas fa-list:
-    Music: /music/ || fas fa-music
-    Movie: /movies/ || fas fa-video
+  # List||fas fa-list:
+  #   Music: /music/ || fas fa-music
+  #   Movie: /movies/ || fas fa-video
   # 关于: /about/ || fas fa-heart
   
   # List||fas fa-list:
@@ -934,7 +936,7 @@ theme_color:
 #   文本选择颜色
   text_selection: "#00c4b6"
 #   链接颜色
-  link_color: "#99a9bf"
+  link_color: "#49b1f5" # "#99a9bf"
 #   元数据颜色
   meta_color: "#858585"
 #   水平线颜色
