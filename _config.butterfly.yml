@@ -17,6 +17,9 @@ menu:
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
   友链: /link/ || fas fa-link
+  # List||fas fa-list:
+  #   Music: /music/ || fas fa-music
+  #   Movie: /movies/ || fas fa-video
   # 关于: /about/ || fas fa-heart
   
   # List||fas fa-list:
@@ -391,7 +394,7 @@ aside:
     limit: 3
     # 排序方式：date / updated
     sort: date
-    sort_order: 1
+    sort_order: 3
   card_newest_comments:
     # 是否显示最新评论卡片
     enable: true
@@ -414,7 +417,7 @@ aside:
     post_limit: 15
     # 选择：none / true / false
     expand: false
-    sort_order: 3
+    sort_order: 1
   card_tags:
     # 是否显示标签卡片
     enable: true
@@ -429,7 +432,7 @@ aside:
     sort_order: 4
   card_archives:
     # 是否显示归档卡片
-    enable: true
+    enable: false
     # 归档类型：monthly / yearly
     type: monthly
     # 日期格式，例如：YYYY年MM月
@@ -603,7 +606,7 @@ search:
   # 本地搜索
   local_search:
     # 页面加载时预加载搜索数据
-    preload: true
+    preload: false
     # 每篇文章显示的顶部 n 个搜索结果，设置为 -1 显示所有结果
     top_n_per_article: 1
     # 将 HTML 字符串反转义为可读内容
