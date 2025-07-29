@@ -8,3 +8,5 @@ categories:
   - 1.基础特性
 ---
 ## github
+
+{% post_link hexo/04.md语法 ' 🚀 markdown 语法可以查看' %}

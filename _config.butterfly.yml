@@ -17,9 +17,9 @@ menu:
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
   友链: /link/ || fas fa-link
-  # List||fas fa-list:
-  #   Music: /music/ || fas fa-music
-  #   Movie: /movies/ || fas fa-video
+  List||fas fa-list:
+    Music: /music/ || fas fa-music
+    Movie: /movies/ || fas fa-video
   # 关于: /about/ || fas fa-heart
   
   # List||fas fa-list:
@@ -384,9 +384,9 @@ aside:
       link: https://github.com/coder-xuyong
   card_announcement:
     # 是否显示公告卡片
-    enable: true
+    enable: false
     # 公告内容
-    content: This is my Blog
+    content: welcome
   card_recent_post:
     # 是否显示最近文章卡片
     enable: true
@@ -422,7 +422,7 @@ aside:
     # 是否显示标签卡片
     enable: true
     # 显示标签数量，0 表示显示所有
-    limit: 40
+    limit: 20
     # 是否启用颜色
     color: true
     # 标签排序方式：random/name/length
