@@ -977,9 +977,10 @@ preloader:
   # 资源
   # 1. 全屏加载
   # 2. 进度条
-  source: 2
+  source: 3
   # pace 主题 (参见 https://codebyzach.github.io/pace/)
-  pace_css_url:
+  pace_css_url: /self/progress_bar.css
+  avatar: /medias/img/logo.png
 
 # 页面过渡效果
 enter_transitions: true
@@ -1274,6 +1275,7 @@ css_prefix: true
 inject:
   head:
     - <link rel="stylesheet" href="/self/custom.css">
+    - <link rel="stylesheet" href="/self/progress_bar.css">
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
     - <script src="/self/custom.js"></script>
