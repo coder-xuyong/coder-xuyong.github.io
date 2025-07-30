@@ -1281,7 +1281,6 @@ inject:
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
     - <script src="/self/custom.js"></script>
-    - <script defer src="https://vercount.one/js"></script>
     # - <script src="xxxx"></script>
 
 # CDN 设置
@@ -1303,4 +1302,3 @@ CDN:
 
   option:
     fontawesome: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css
-    busuanzi: https://cn.vercount.one/js?i=
