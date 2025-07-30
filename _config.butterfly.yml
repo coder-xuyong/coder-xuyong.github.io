@@ -1281,7 +1281,7 @@ inject:
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
     - <script src="/self/custom.js"></script>
-    - <script defer src="https://vercount.one/js"></script>
+    # - <script defer src="https://vercount.one/js"></script>
     # - <script src="xxxx"></script>
 
 # CDN 设置
