@@ -5,9 +5,24 @@ tags: 'java'
 ---
 ## github
 {% note green 'fas fa-rocket' %}
-{% post_link hexo/04.md语法 ' 🚀 markdown 语法可以查看' %}
+{% post_link hexo/02.md语法 ' 🚀 markdown 语法可以查看' %}
 {% endnote %}
 ## 📖 内容
+餐前小点：根据菜鸟教程，把java基础知识，按自己的理解，整理一个基础笔记。后续的面试题，可以补充在这个上面。
+**目标，先过八股文，再过java基础。对应面试题不懂的情况下，把对应的部分的知识点整理成笔记博客。**
+
+java基础，可以过一遍：https://www.bilibili.com/video/BV1gb42177hm
+java 八股文：https://www.bilibili.com/video/BV1yT411H7YK
+collection
+thread
+jvm
+redis
+mysql
+spring
+cloud
+rabbitMQ
+kafka
+技术场景
 
 ### JavaSE
 
