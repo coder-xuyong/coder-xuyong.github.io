@@ -8,6 +8,10 @@ tags: 'java'
 {% post_link hexo/02.md语法 ' 🚀 markdown 语法可以查看' %}
 {% endnote %}
 
+
+## 狼人杀
+https://zhuanlan.zhihu.com/p/235174749
+
 ## zzqa
 1. AMC：微信公总号推送报警
 2. 数据对接：望江平
