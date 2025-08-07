@@ -9,6 +9,8 @@ tags: 'java'
 {% endnote %}
 
 
+## 社保缴纳
+https://wenda.bendibao.com/live/2024115/186941.shtm
 
 ## zzqa
 1. AMC：微信公总号推送报警
