@@ -11,6 +11,7 @@ tags: 'java'
 
 ## 社保缴纳
 https://wenda.bendibao.com/live/2024115/186941.shtm
+支付宝上搜索灵活就业
 
 ## zzqa
 1. AMC：微信公总号推送报警
