@@ -9,8 +9,6 @@ tags: 'java'
 {% endnote %}
 
 
-## 狼人杀
-https://zhuanlan.zhihu.com/p/235174749
 
 ## zzqa
 1. AMC：微信公总号推送报警
@@ -27,7 +25,7 @@ https://zhuanlan.zhihu.com/p/235174749
 12. csp 企业微信Python
 13. 蒙达SIM卡
 14. 公司官网
-15. OA办公管理系统
+15. OA办公管理系统（时间戳问题）
 
 ## 记录一个转正申请
 尊敬的领导：
