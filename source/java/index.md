@@ -15,9 +15,9 @@ https://wenda.bendibao.com/live/2024115/186941.shtm
 
 ## zzqa
 1. AMC：微信公总号推送报警
-2. 数据对接：望江平
+2. 数据对接：（sqlite、netty、restful、mysql、modbus）
 3. csv导出工具
-4. 明阳诊断报告
+4. 诊断报告
 5. 雷电流监测项目
 6. 光纤监测项目
 7. sqltool
@@ -26,9 +26,10 @@ https://wenda.bendibao.com/live/2024115/186941.shtm
 10. s8000
 11. 数据库崩溃处理
 12. csp 企业微信Python
-13. 蒙达SIM卡
+13. 蒙达SIM卡（https://blog.csdn.net/weixin_45121946/article/details/107187920、https://blog.csdn.net/weixin_43943548/article/details/109843533）
 14. 公司官网
 15. OA办公管理系统（时间戳问题）
+16. 弗兰德i18n
 
 ## 记录一个转正申请
 尊敬的领导：
