@@ -15,14 +15,14 @@ https://wenda.bendibao.com/live/2024115/186941.shtm
 
 ## zzqa
 1. AMC：微信公总号推送报警
-2. 数据对接：（sqlite、netty、restful、mysql、modbus）
-3. csv导出工具
+2. 数据对接：（sqlite、netty、mysql、modbus、sftp）
+3. csv导出工具（QACS2000_EXport）
 4. 诊断报告
 5. 雷电流监测项目
 6. 光纤监测项目
 7. sqltool
 8. flex 系统
-9. sqlite
+9. cs2000_sqlite
 10. s8000
 11. 数据库崩溃处理
 12. csp 企业微信Python
@@ -30,6 +30,15 @@ https://wenda.bendibao.com/live/2024115/186941.shtm
 14. 公司官网
 15. OA办公管理系统（时间戳问题）
 16. 弗兰德i18n
+17. CS2000
+18. sqltool_minio
+19. config (波形查看工具)
+20. 北斗基准站、叶片反旋、雷电流、光纤、振动
+
+## 欲学习内容标志
+1. netty 有点难，后期在啃一下。
+
+
 
 ## 记录一个转正申请
 尊敬的领导：
@@ -80,6 +89,94 @@ cloud
 rabbitMQ
 kafka
 技术场景
+
+
+## csp
+
+1、前置必须条件
+自建应用略，可以参考之前的。
+(1)企业ID：每个企业都拥有唯一的corpid，获取此信息可在管理后台“我的企业”－“企业信息”下查看“企业ID”（需要有管理员权限）
+(2)AgentId：每个应用都有唯一的agentid。在管理后台->“应用管理”->“应用”，点进某个应用，即可看到agentid。
+(3)Secret：secret是企业应用里面用于保障数据安全的“钥匙”，每一个应用都有一个独立的访问密钥，为了保证数据的安全，secret务必不能泄漏。secret查看方法：在管理后台->“应用管理”->“应用”->“自建”，点进某个应用，即可看到。
+(4)access_token：access_token是企业后台去企业微信的后台获取信息时的重要票据，由corpid和secret产生。所有接口在通信时都需要携带此信息用于验证接口的访问权限
+2、应用设置
+(1)在应用的功能中的自定义菜单设置需要访问的菜单的网页链接。
+(2)在应用的开发者接口-网页授权及JS-SDK中设置可信域名。此域名得是公司的域名的子域名，在域名网站（如阿里云）里配置。
+(3)需要配置可信域名需完成域名归属认证，会下载一个txt文件，此文件放置在前端开发。或者说是域名访问的根目录下，完成认证。
+(4)启用企业微信授权登录
+(5)部署django的服务器的公网ip，需要加入企业微信后台的可信ip配置。
+3、部署项目到测试服务器
+构建vue项目和django项目的Dockerfile文件。如下：
+①Vue的Dockerfile，放在代码根目录，此外根目录还必须要有server.js文件，此文件在代码根目录存在，此处尚不给出。然后执行打包命令 docker build -t my_vue_app .
+②完成后运行：docker run -d -p 8080:8080 my_vue_app
+
+1. 使用官方的 Node.js 镜像作为基础镜像
+FROM node:14
+
+2. 设置工作目录
+WORKDIR /app
+
+3. 复制 package.json 和 package-lock.json
+COPY package*.json ./
+
+4. 安装项目依赖
+RUN npm config set registry https://registry.npmmirror.com/ && npm install
+
+5. 复制所有源代码到工作目录
+COPY . .
+
+6. 构建 Vue 项目
+RUN npm run build
+
+7. 安装 Express
+RUN npm config set registry https://registry.npmmirror.com/ && npm install express
+
+8. 暴露端口
+EXPOSE 8080
+
+9. 启动 Node.js 服务器
+CMD ["node", "server.js"]
+
+③Django的Dockerfile文件上传至代码根目录。然后执行打包命令 docker build -t my_django_app .
+④完成后运行：docker run -d -p 8000:8000 my_django_app
+
+10. 使用官方的 Python 镜像作为基础镜像
+FROM python:3.7.9 
+
+11. 设置工作目录
+WORKDIR /app
+
+12. 复制项目文件到工作目录
+COPY . /app
+
+13. 安装系统依赖
+RUN apt-get update \
+    && apt-get install -y gcc 
+
+14. 安装 Python 依赖
+RUN pip install --no-cache-dir -r packet_look -i https://mirrors.aliyun.com/pypi/simple/
+
+15. 暴露端口
+EXPOSE 8000
+
+16. 运行 Django 开发服务器
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+### 配置0.151公网Nginx的反向代理
+添加类似如下配置，完成之后重启Nginx
+	server {
+		listen 80;
+		server_name pms.windit.com.cn;
+		
+		location / {
+			proxy_pass http://10.100.50.21:8080/;
+			index index.html index.htm;
+		}
+		location /api {
+                    proxy_pass http://10.100.50.21:8000;
+                    index index.html index.htm;
+		}
+ }
 
 ### JavaSE
 

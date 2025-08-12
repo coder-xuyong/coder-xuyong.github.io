@@ -9,6 +9,8 @@ categories:
   - modbus
 tag:
   - modbus
+series:
+  - modbus
 permalinkPattern: ':year/:month/:day/:slug.html'
 abbrlink: 5674b7a7
 date: 2025-06-22 00:00:00
