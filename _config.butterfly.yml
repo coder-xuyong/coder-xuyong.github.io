@@ -134,21 +134,57 @@ cover:
   position: both
   # 当未设置封面时，显示默认封面
   default_cover:
-    - https://mc.kurogames.com/static4.0/assets/heiHaiAn_1-57561854.jpg
-    - https://mc.kurogames.com/static4.0/assets/heiHaiAn_2-0333aeb7.jpg
-    - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
-    - https://mc.kurogames.com/static4.0/assets/rinascita-07-8efa8dff.webp
-    - https://mc.kurogames.com/static4.0/assets/rinascita-05-8c20dcd5.webp
-    - https://mc.kurogames.com/static4.0/assets/rinascita-01-081e2381.webp
-    - https://mc.kurogames.com/static4.0/assets/rinascita-04-3174d302.webp
-    - https://mc.kurogames.com/static4.0/assets/septimont-3-24e3dc02.webp
-    - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
-    - https://mc.kurogames.com/static4.0/assets/cheng-xiao-shan-cbd72499.jpg
-    - https://mc.kurogames.com/static4.0/assets/big-hl-247d5093.jpg
-    - https://mc.kurogames.com/static4.0/assets/rinascita-9c7cece0.jpg
-    # - https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/images/1734710400000/n3qs9jq3haepkx3wb0-1734782831518.jpg
-    - https://prod-alicdn-community.kurobbs.com/forum/b51b98c22f8a46318d0d7070023b9e3d20250528.jpg
-    - https://prod-alicdn-community.kurobbs.com/forum/d2036651e4724eb7bd27a319e98b75b120250630.png?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/0b28c3fd7f1e433d9327dd08ae7943ef20250905.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/6edb712c4a9a46bb843646404a0ff2db20250904.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/dbc6de3bf3ec4db59f8ca4288cfa3e3c20250507.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/f59dff6fb93d4904b442d315738e6a6420250507.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/dddd5d37f41343ac9c0b9500f111fbae20250423.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp
+    - https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://mc.kurogames.com/static4.0/assets/younuo-691764b5.webp
+    # - https://mc.kurogames.com/static4.0/assets/augusta-08ddb40d.webp
+    # - https://mc.kurogames.com/static4.0/assets/fuluoluo-232aa3a3.webp
+    # - https://mc.kurogames.com/static4.0/assets/katixiya-fa64ee5a.webp
+    # - https://mc.kurogames.com/static4.0/assets/xiakong-dbbda672.webp
+    # - https://mc.kurogames.com/static4.0/assets/zanni-41ce156d.webp
+    # - https://mc.kurogames.com/static4.0/assets/cantarella-01b25be7.png
+    # # - https://mc.kurogames.com/static4.0/assets/bulante-c31ca81d.png
+    # - https://mc.kurogames.com/static4.0/assets/feibi-36352884.png
+    # # - https://mc.kurogames.com/static4.0/assets/luokeke-1387eb0d.png
+    # - https://mc.kurogames.com/static4.0/assets/kelaita-5e9e2c53.png
+    # - https://mc.kurogames.com/static4.0/assets/camellya-ef2698c7.png
+    # - https://mc.kurogames.com/static4.0/assets/shorekeeper-36913543.png
+    # # - https://mc.kurogames.com/static4.0/assets/anke-c336246d.png
+    # # - https://mc.kurogames.com/static4.0/assets/xiangliyao-4985c5e0.png
+    # - https://mc.kurogames.com/static4.0/assets/zhezhi-179891f8.png
+    # - https://mc.kurogames.com/static4.0/assets/changli-72d264b6.png
+    # # - https://mc.kurogames.com/static4.0/assets/jinxi-0e048c86.png
+    # - https://mc.kurogames.com/static4.0/assets/yinlin-b9baa4b4.png
+    # # - https://mc.kurogames.com/static4.0/assets/jiyan-89f00d83.png
+    # # - https://mc.kurogames.com/static4.0/assets/lingyang-18e9cafb.png
+    # # - https://mc.kurogames.com/static4.0/assets/weilinai-4a35ce55.png
+    # # - https://mc.kurogames.com/static4.0/assets/jianxin-a9135a9f.png
+
+    # - https://mc.kurogames.com/static4.0/assets/heiHaiAn_1-57561854.jpg
+    # - https://mc.kurogames.com/static4.0/assets/heiHaiAn_2-0333aeb7.jpg
+    # - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
+    # - https://mc.kurogames.com/static4.0/assets/rinascita-07-8efa8dff.webp
+    # - https://mc.kurogames.com/static4.0/assets/rinascita-05-8c20dcd5.webp
+    # - https://mc.kurogames.com/static4.0/assets/rinascita-01-081e2381.webp
+    # - https://mc.kurogames.com/static4.0/assets/rinascita-04-3174d302.webp
+    # - https://mc.kurogames.com/static4.0/assets/septimont-3-24e3dc02.webp
+    # - https://mc.kurogames.com/static4.0/assets/septimont-1-4d3e99bc.webp
+    # - https://mc.kurogames.com/static4.0/assets/cheng-xiao-shan-cbd72499.jpg
+    # - https://mc.kurogames.com/static4.0/assets/big-hl-247d5093.jpg
+    # - https://mc.kurogames.com/static4.0/assets/rinascita-9c7cece0.jpg
+    # # - https://media-cdn-mingchao.kurogame.com/akiwebsite/website2.0/images/1734710400000/n3qs9jq3haepkx3wb0-1734782831518.jpg
+    # - https://prod-alicdn-community.kurobbs.com/forum/b51b98c22f8a46318d0d7070023b9e3d20250528.jpg
+    # - https://prod-alicdn-community.kurobbs.com/forum/d2036651e4724eb7bd27a319e98b75b120250630.png?x-oss-process=image%2Fformat%2Cwebp
 
 
 
