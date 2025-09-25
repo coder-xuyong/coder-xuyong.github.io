@@ -20,7 +20,6 @@ tags: 'java'
 {% post_link 01.Java/01.JavaSE/03.JVM/02.jvm垃圾回收 ' jvm垃圾回收' %} <br/>
 {% post_link 01.Java/01.JavaSE/03.JVM/03.jvm字节码 ' jvm字节码' %} <br/>
 {% post_link 01.Java/01.JavaSE/03.JVM/04.jvm类加载 ' jvm类加载' %} <br/>
-<!-- {% post_link 01.Java/01.JavaSE/03.JVM/99.jvm面试题 ' jvm面试题' %} <br/> -->
 
 4. 并发
 
