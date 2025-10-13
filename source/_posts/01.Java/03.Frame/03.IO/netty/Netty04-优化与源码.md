@@ -7,7 +7,7 @@ author:
 categories:
   - 1.Java
   - 3.Frame
-  - 2.IO
+  - 3.IO
   - netty
 tag:
   - netty
