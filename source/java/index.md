@@ -40,25 +40,25 @@ tags: 'java'
 
 ### IO
 1. commons-io
-- {% post_link 01.Java/03.Frame/13.IO/commons-io/commonsIO ' commons-io 基础' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/commons-io/commonsIO ' commons-io 基础' %}<br/>
 2. sftp
-- {% post_link 01.Java/03.Frame/13.IO/ftp/jsch入门 ' jsch入门' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/ftp/jsch入门 ' jsch入门' %}<br/>
 
 3. minio
-- {% post_link 01.Java/03.Frame/13.IO/minio/01.Minio入门 ' Minio入门' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/minio/02.Minio案例 ' Minio案例' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/minio/03.MinioClient基本使用 ' MinioClient基本使用' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/minio/01.Minio入门 ' Minio入门' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/minio/02.Minio案例 ' Minio案例' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/minio/03.MinioClient基本使用 ' MinioClient基本使用' %}<br/>
 
 4. modbus
-- {% post_link 01.Java/03.Frame/13.IO/modbus/01.modbus基础 ' modbus基础' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/modbus/02.modbus-java ' modbus整合java' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/modbus/01.modbus基础 ' modbus基础' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/modbus/02.modbus-java ' modbus整合java' %}<br/>
 
 5. netty
-- {% post_link 01.Java/03.Frame/13.IO/netty/Netty01-nio ' Netty01-nio' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/netty/Netty02-入门 ' Netty02-入门' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/netty/Netty03-进阶 ' Netty03-进阶' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/netty/Netty04-优化与源码 ' Netty04-优化与源码' %}<br/>
-- {% post_link 01.Java/03.Frame/13.IO/netty/Netty05-实战 ' Netty05-实战' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/netty/Netty01-nio ' Netty01-nio' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/netty/Netty02-入门 ' Netty02-入门' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/netty/Netty03-进阶 ' Netty03-进阶' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/netty/Netty04-优化与源码 ' Netty04-优化与源码' %}<br/>
+- {% post_link 01.Java/03.Frame/03.IO/netty/Netty05-实战 ' Netty05-实战' %}<br/>
 
 
 
