@@ -17,7 +17,7 @@ abbrlink: bfd15f47
 date: 2024-07-24 00:00:00
 ---
 
-# 源码可下载
+## 源码可下载
 
 源码路径：https://github.com/coder-xuyong/netty
 
@@ -27,11 +27,11 @@ date: 2024-07-24 00:00:00
 
 channel 有一点类似于 stream，它就是读写数据的**双向通道**，可以从 channel 将数据读入 buffer，也可以将 buffer 的数据写入 channel，而之前的 stream 要么是输入，要么是输出，channel 比 stream 更为底层
 
-```mermaid
+{% mermaid %}
 graph LR
 channel --> buffer
 buffer --> channel
-```
+{% endmermaid %}
 
 常见的 Channel 有
 
@@ -63,14 +63,14 @@ selector 单从字面意思不好理解，需要结合服务器的设计演化�
 
 #### 多线程版设计
 
-```mermaid
+{% mermaid %}
 graph TD
 subgraph 多线程版
 t1(thread) --> s1(socket1)
 t2(thread) --> s2(socket2)
 t3(thread) --> s3(socket3)
 end
-```
+{% endmermaid %}
 #### ⚠️ 多线程版缺点
 
 * 内存占用高
@@ -85,7 +85,7 @@ end
 
 #### 线程池版设计
 
-```mermaid
+{% mermaid %}
 graph TD
 subgraph 线程池版
 t4(thread) --> s4(socket1)
@@ -93,7 +93,7 @@ t5(thread) --> s5(socket2)
 t4(thread) -.-> s6(socket3)
 t5(thread) -.-> s7(socket4)
 end
-```
+{% endmermaid %}
 #### ⚠️ 线程池版缺点
 
 * 阻塞模式下，线程仅能处理一个 socket 连接
@@ -111,7 +111,7 @@ end
 
 selector 的作用就是配合一个线程来管理多个 channel，获取这些 channel 上发生的事件，这些 channel 工作在非阻塞模式下，不会让线程吊死在一个 channel 上。适合连接数特别多，但流量低的场景（low traffic）
 
-```mermaid
+{% mermaid %}
 graph TD
 subgraph selector 版
 thread --> selector
@@ -119,7 +119,7 @@ selector --> c1(channel)
 selector --> c2(channel)
 selector --> c3(channel)
 end
-```
+{% endmermaid %}
 
 
 
@@ -1173,7 +1173,7 @@ while (true) {
 
 ### 4.2 Selector
 
-```mermaid
+{% mermaid %}
 graph TD
 subgraph selector 版
 thread --> selector
@@ -1181,7 +1181,7 @@ selector --> c1(channel)
 selector --> c2(channel)
 selector --> c3(channel)
 end
-```
+{% endmermaid %}
 
 
 
