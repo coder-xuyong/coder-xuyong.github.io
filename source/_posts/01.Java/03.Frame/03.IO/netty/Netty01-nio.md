@@ -14,7 +14,7 @@ tag:
   - nio
 permalinkPattern: ':year/:month/:day/:slug.html'
 abbrlink: bfd15f47
-date: 2024-07-24 00:00:00
+date: 2024-07-23 00:00:00
 ---
 
 ## 源码可下载
@@ -1968,6 +1968,8 @@ public class UdpClient {
 
 
 ## 5. NIO vs BIO
+NIO：非阻塞IO（Non-blocking I/O）
+BIO：阻塞IO（bloking I/O）
 
 ### 5.1 stream vs channel
 
@@ -2115,7 +2117,7 @@ socket.getOutputStream().write(buf);
 
 ### 5.3 AIO
 
-AIO 用来解决数据复制阶段的阻塞问题
+AIO（Asynchronous I/O），即异步IO，用来解决数据复制阶段的阻塞问题
 
 * 同步意味着，在进行读写操作时，线程需要等待结果，还是相当于闲置
 * 异步意味着，在进行读写操作时，线程不必等待结果，而是将来由操作系统来通过回调方式由另外的线程来获得结果
