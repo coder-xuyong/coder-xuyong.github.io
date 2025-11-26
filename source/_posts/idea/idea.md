@@ -61,3 +61,13 @@ windows defender可能会影响性能
 
 解决方法：
 **下面两个选项都可以点击，点击之后一路默认即可，或者直接×掉**
+
+## IDEA启动项目报错Command line is too long. Shorten command line for XXXApplication
+
+打开项目所在位置，找到你的项目下面的.idea\workspace.xml
+
+搜索 <component name="PropertiesComponent"> 标签，在其内部末尾位置添加以下配置：
+```xml
+<property name="dynamic.classpath" value="true" /> 
+```
+然后重启idea即可
