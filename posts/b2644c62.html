@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Mysql 锁 | coder-xuyong</title><meta name="author" content="coder-xuyong"><meta name="copyright" content="coder-xuyong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Mysql 锁 不同存储引擎对于锁的支持粒度是不同的，由于 InnoDB 是 Mysql 的默认存储引擎，所以本文以 InnoDB 对于锁的支持进行阐述。  锁的分类为了解决并发一致性问题，Mysql 支持了很多种锁来实现不同程度的隔离性，以保证数据的安全性。 独享锁和共享锁InnoDB 实现标准行级锁定，根据是否独享资源，可以把锁分为两类：  独享锁（Exclusive），简写为 X 锁，又称为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql 锁">
+<meta property="og:url" content="https://coder-xuyong.github.io/posts/b2644c62">
+<meta property="og:site_name" content="coder-xuyong">
+<meta property="og:description" content="Mysql 锁 不同存储引擎对于锁的支持粒度是不同的，由于 InnoDB 是 Mysql 的默认存储引擎，所以本文以 InnoDB 对于锁的支持进行阐述。  锁的分类为了解决并发一致性问题，Mysql 支持了很多种锁来实现不同程度的隔离性，以保证数据的安全性。 独享锁和共享锁InnoDB 实现标准行级锁定，根据是否独享资源，可以把锁分为两类：  独享锁（Exclusive），简写为 X 锁，又称为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp">
+<meta property="article:published_time" content="2025-09-29T23:54:19.000Z">
+<meta property="article:modified_time" content="2025-11-27T06:52:00.710Z">
+<meta property="article:author" content="coder-xuyong">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="关系型数据库">
+<meta property="article:tag" content="Mysql">
+<meta property="article:tag" content="锁">
+<meta property="article:tag" content="读写锁">
+<meta property="article:tag" content="悲观锁">
+<meta property="article:tag" content="乐观锁">
+<meta property="article:tag" content="转债">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mysql 锁",
+  "url": "https://coder-xuyong.github.io/posts/b2644c62",
+  "image": "https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp",
+  "datePublished": "2025-09-29T23:54:19.000Z",
+  "dateModified": "2025-11-27T06:52:00.710Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "coder-xuyong",
+      "url": "https://coder-xuyong.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/medias/img/logo.png"><link rel="canonical" href="https://coder-xuyong.github.io/posts/b2644c62"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: coder-xuyong","link":"链接: ","source":"来源: coder-xuyong","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Mysql 锁',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/self/custom.css"><link rel="stylesheet" href="/self/progress_bar.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/self/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #fafafa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/medias/img/logo.png" alt="Logo"><span class="site-name">coder-xuyong</span></a><a class="nav-page-title" href="/"><span class="site-name">Mysql 锁</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Mysql 锁<a class="post-edit-link" href="https://github.com/coder-xuyong/coder-xuyong.github.io/edit/main/source/_posts/02.DataBase/03.关系型数据库/02.Mysql/05.Mysql锁.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-29T23:54:19.000Z" title="发表于 2025-09-30 07:54:19">2025-09-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T06:52:00.710Z" title="更新于 2025-11-27 14:52:00">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/2-database/">2.database</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/2-database/1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">1.关系型数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/2-database/1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/2-Mysql/">2.Mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">8.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-11-27 14:52:00&quot;}" hidden></div><h1 id="Mysql-锁"><a href="#Mysql-锁" class="headerlink" title="Mysql 锁"></a>Mysql 锁</h1><blockquote>
+<p>不同存储引擎对于锁的支持粒度是不同的，由于 InnoDB 是 Mysql 的默认存储引擎，所以本文以 InnoDB 对于锁的支持进行阐述。</p>
+</blockquote>
+<h2 id="锁的分类"><a href="#锁的分类" class="headerlink" title="锁的分类"></a>锁的分类</h2><p>为了解决并发一致性问题，Mysql 支持了很多种锁来实现不同程度的隔离性，以保证数据的安全性。</p>
+<h3 id="独享锁和共享锁"><a href="#独享锁和共享锁" class="headerlink" title="独享锁和共享锁"></a>独享锁和共享锁</h3><p>InnoDB 实现标准行级锁定，根据是否独享资源，可以把锁分为两类：</p>
+<ul>
+<li><strong>独享锁（Exclusive）</strong>，简写为 X 锁，又称为“<strong>写锁</strong>”、“<strong>排它锁</strong>”。<ul>
+<li>独享锁锁定的数据只允许进行锁定操作的事务使用，其他事务无法对已锁定的数据进行查询或修改。</li>
+<li>使用方式：<code>SELECT ... FOR UPDATE;</code></li>
+</ul>
+</li>
+<li><strong>共享锁（Shared）</strong>，简写为 S 锁，又称为“<strong>读锁</strong>”。<ul>
+<li>共享锁锁定的资源可以被其他用户读取，但不能修改。在进行 <code>SELECT</code> 的时候，会将对象进行共享锁锁定，当数据读取完毕之后，就会释放共享锁，这样就可以保证数据在读取时不被修改。</li>
+<li>使用方式：<code>SELECT ... LOCK IN SHARE MODE;</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>为什么要引入读写锁机制？</p>
+</blockquote>
+<p>实际上，读写锁是一种通用的锁机制，并非 Mysql 的专利。在很多软件领域，都存在读写锁机制。</p>
+<p>因为读操作本身是线程安全的，而一般业务往往又是读多写少的情况。因此，如果对读操作进行互斥，是不必要的，并且会大大降低并发访问效率。正式为了应对这种问题，产生了读写锁机制。</p>
+<p>读写锁的特点是：<strong>读读不互斥</strong>、<strong>读写互斥</strong>、<strong>写写互斥</strong>。简言之：<strong>只要存在写锁，其他事务就不能做任何操作</strong>。</p>
+<blockquote>
+<p>注：InnoDB 下的行锁、间隙锁、next-key 锁统统属于独享锁。</p>
+</blockquote>
+<h3 id="悲观锁和乐观锁"><a href="#悲观锁和乐观锁" class="headerlink" title="悲观锁和乐观锁"></a>悲观锁和乐观锁</h3><p>基于加锁方式分类，Mysql 可以分为悲观锁和乐观锁。</p>
+<ul>
+<li><strong>悲观锁</strong> - 假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作<ul>
+<li>在查询完数据的时候就把事务锁起来，直到提交事务（<code>COMMIT</code>）</li>
+<li>实现方式：<strong>使用数据库中的锁机制</strong>。</li>
+</ul>
+</li>
+<li><strong>乐观锁</strong> - 假设最好的情况——每次访问数据时，都假设数据不会被其他线程修改，不必加锁。只在更新的时候，判断一下在此期间是否有其他线程更新该数据。<ul>
+<li>实现方式：<strong>更新数据时，先使用版本号机制或 CAS 算法检查数据是否被修改</strong>。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>为什么要引入乐观锁？</p>
+</blockquote>
+<p>乐观锁也是一种通用的锁机制，在很多软件领域，都存在乐观锁机制。</p>
+<p><strong>锁，意味着互斥，意味着阻塞。在高并发场景下，锁越多，阻塞越多，势必会拉低并发性能</strong>。那么，为了提高并发度，能不能尽量不加锁呢？</p>
+<p>乐观锁，顾名思义，就是假设最好的情况——每次访问数据时，都假设数据不会被其他线程修改，不必加锁。虽然不加锁，但不意味着什么都不做，而是在更新的时候，判断一下在此期间是否有其他线程更新该数据。乐观锁最常见的实现方式，是使用版本号机制或 CAS 算法（Compare And Swap）去实现。</p>
+<ul>
+<li><p>乐观锁的<strong>优点</strong>是：减少锁竞争，提高并发度。</p>
+</li>
+<li><p>乐观锁的<strong>缺点</strong>是：</p>
+<ul>
+<li><strong>存在 ABA 问题</strong>。所谓的 ABA 问题是指在并发编程中，如果一个变量初次读取的时候是 A 值，它的值被改成了 B，然后又其他线程把 B 值改成了 A，而另一个早期线程在对比值时会误以为此值没有发生改变，但其实已经发生变化了</li>
+<li>如果乐观锁所检查的数据存在大量锁竞争，会由于<strong>不断循环重试，产生大量的 CPU 开销</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>【示例】Mysql 乐观锁示例</p>
+<p>假设，order 表中有一个字段 status，表示订单状态：status 为 1 代表订单未支付；status 为 2 代表订单已支付。现在，要将 id 为 1 的订单状态置为已支付，则操作如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> status, version <span class="keyword">from</span> <span class="keyword">order</span> <span class="keyword">where</span> id<span class="operator">=</span>#&#123;id&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">order</span></span><br><span class="line"><span class="keyword">set</span> status<span class="operator">=</span><span class="number">2</span>, version<span class="operator">=</span>version<span class="operator">+</span><span class="number">1</span></span><br><span class="line"><span class="keyword">where</span> id<span class="operator">=</span>#&#123;id&#125; <span class="keyword">and</span> version<span class="operator">=</span>#&#123;version&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>乐观锁更多详情可以参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/laoyeye/p/8097684.html">使用 mysql 乐观锁解决并发问题</a></p>
+</blockquote>
+<h3 id="全局锁、表级锁、行级锁"><a href="#全局锁、表级锁、行级锁" class="headerlink" title="全局锁、表级锁、行级锁"></a>全局锁、表级锁、行级锁</h3><p>前文提到了，<strong>锁，意味着互斥，意味着阻塞。在高并发场景下，锁越多，阻塞越多，势必会拉低并发性能</strong>。在不得不加锁的情况下，显然，加锁的范围越小，锁竞争的发生频率就越小，系统的并发程度就越高。但是，加锁也需要消耗资源，锁的各种操作（包括获取锁、释放锁、以及检查锁状态）都会增加系统开销，<strong>锁粒度越小，系统的锁操作开销就越大</strong>。因此，在选择锁粒度时，也需要在锁开销和并发程度之间做一个权衡。</p>
+<p>根据加锁的范围，MySQL 的锁大致可以分为：</p>
+<ul>
+<li><strong>全局锁</strong> - <strong>“全局锁”会锁定整个数据库</strong>。</li>
+<li><strong>表级锁（table lock）</strong> - <strong>“表级锁”锁定整张表</strong>。用户对表进行写操作前，需要先获得写锁，这会阻塞其他用户对该表的所有读写操作。只有没有写锁时，其他用户才能获得读锁，读锁之间不会相互阻塞。表级锁有：<ul>
+<li><strong>表锁</strong> - 表锁就是对数据表进行锁定，锁定粒度很大，同时发生锁冲突的概率也会较高，数据访问的并发度低。不过好处在于对锁的使用开销小，加锁会很快。表锁一般是在数据库引擎不支持行锁的时候才会被用到的。</li>
+<li><strong>元数据锁（MDL）</strong> - MDL 不需要显式使用，在访问一个表的时候会被自动加上。</li>
+<li><strong>意向锁（Intention Lock）</strong></li>
+<li><strong>自增锁（AUTO-INC）</strong></li>
+</ul>
+</li>
+<li><strong>行级锁（row lock）</strong> - <strong>“行级锁”锁定指定的行记录</strong>。这样其它线程还是可以对同一个表中的其它行记录进行操作。行级锁有：<ul>
+<li><strong>记录锁（Record Lock）</strong></li>
+<li><strong>间隙锁（Gap Lock）</strong></li>
+<li><strong>临键锁（Next-Key Lock）</strong></li>
+<li><strong>插入意向锁</strong></li>
+</ul>
+</li>
+</ul>
+<p>以上各种加锁粒度，在不同存储引擎中的支持情况并不相同。如：InnoDB 支持全局锁、表级锁、行级锁；而 MyISAM 只支持全局锁、表级锁。</p>
+<p>每个层级的锁数量是有限制的，因为锁会占用内存空间，锁空间的大小是有限的。当某个层级的锁数量超过了这个层级的阈值时，就会进行锁升级。锁升级就是用更大粒度的锁替代多个更小粒度的锁，比如 InnoDB 中行锁升级为表锁，这样做的好处是占用的锁空间降低了，但同时数据的并发度也下降了。</p>
+<h2 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h2><p><strong>“全局锁”会锁定整个数据库</strong>。</p>
+<p>要给整个数据库加全局锁，可以执行以下命令：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush tables <span class="keyword">with</span> read lock</span><br></pre></td></tr></table></figure>
+
+<p>执行命名后，整个库处于只读状态，之后其他线程的以下语句会被阻塞：数据更新语句（数据的增删改）、数据定义语句（包括建表、修改表结构等）和更新类事务的提交语句。</p>
+<p>如果要释放全局锁，可以执行以下命令：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables</span><br></pre></td></tr></table></figure>
+
+<p>此外，在客户端断开的时候会自动释放锁。</p>
+<p><strong>全局锁的典型使用场景是，做全库逻辑备份。</strong></p>
+<p>官方自带的逻辑备份工具是 mysqldump。当 mysqldump 使用参数 <code>–single-transaction</code> 的时候，导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。对于全部是 InnoDB 引擎的库，建议选择使用 <code>–single-transaction</code> 参数，对应用会更友好。如果有的表使用了不支持事务的引擎，那么备份就只能通过 FTWRL 方法。</p>
+<h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p><strong>“表级锁”会锁定整张表</strong>。用户对表进行写操作前，需要先获得写锁，这会阻塞其他用户对该表的所有读写操作。只有没有写锁时，其他用户才能获得读锁，读锁之间不会相互阻塞。</p>
+<h3 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h3><p>表锁就是对数据表进行锁定，锁定粒度很大，同时发生锁冲突的概率也会较高，数据访问的并发度低。不过好处在于对锁的使用开销小，加锁会很快。</p>
+<p><strong>表锁的语法是 <code>lock tables … read/write</code></strong>，示例如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> 为 xxx 表加 MDL 读锁</span><br><span class="line">lock tables xxx read;</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 为 xxx 表加 MDL 写锁</span><br><span class="line">lock tables xxx write;</span><br></pre></td></tr></table></figure>
+
+<p>与 FTWRL 类似，可以用 <code>unlock tables</code> 主动释放锁，也可以在客户端断开的时候自动释放。</p>
+<p>表锁一般是在数据库引擎不支持行锁的时候才会被用到的。如果你发现应用程序里有 <code>lock tables</code> 这样的语句，需要追查一下，比较可能的情况是：</p>
+<ul>
+<li>要么是你的系统现在还在用 MyISAM 这类不支持事务的引擎，那要安排升级换引擎；</li>
+<li>要么是你的引擎升级了，但是代码还没升级。我见过这样的情况，最后业务开发就是把 <code>lock tables</code> 和 <code>unlock tables</code> 改成 <code>begin</code> 和 <code>commit</code>，问题就解决了。</li>
+</ul>
+<h3 id="元数据锁（MDL）"><a href="#元数据锁（MDL）" class="headerlink" title="元数据锁（MDL）"></a>元数据锁（MDL）</h3><p>元数据锁，英文为 metadata lock，缩写为 MDL。MySQL 5.5 版本中引入了 MDL。MDL 的作用是，保证读写的正确性。<strong>MDL 不需要显式使用，在访问一个表的时候会被自动加上</strong>。</p>
+<ul>
+<li>对一个表做“<strong>增删改查</strong>”操作的时候，加 <strong>MDL 读锁</strong>。读锁之间不互斥，因此你可以有多个线程同时对一张表增删改查。</li>
+<li>对一个表做“<strong>结构变更</strong>”操作的时候，加 <strong>MDL 写锁</strong>。读写锁之间、写锁之间是互斥的，用来保证变更表结构操作的安全性。因此，如果有两个线程要同时给一个表加字段，其中一个要等另一个执行完才能开始执行。</li>
+</ul>
+<p><strong>MDL 会直到事务提交才释放</strong>。在做表结构变更的时候，一定要小心不要导致锁住线上查询和更新。</p>
+<p>如果数据库有一个长事务（所谓的长事务，就是开启了事务，但是一直还没提交），那么在对表结构做变更操作的时候，可能会发生意想不到的事情，比如下面这个顺序的场景：</p>
+<ol>
+<li>首先，线程 A 先启用了事务（但是一直不提交），然后执行一条 <code>SELECT</code> 语句，此时就先对该表加上 MDL 读锁；</li>
+<li>然后，线程 B 也执行了同样的 <code>SELECT</code> 语句，此时并不会阻塞，因为“读读”并不冲突；</li>
+<li>接着，线程 C 修改了表字段，此时由于线程 A 的事务并没有提交，也就是 MDL 读锁还在占用着，这时线程 C 就无法申请到 MDL 写锁，就会被阻塞，</li>
+</ol>
+<p>那么在线程 C 阻塞后，后续有对该表的 SELECT 语句，就都会被阻塞。如果此时有大量该表的 SELECT 语句的请求到来，就会有大量的线程被阻塞住，这时数据库的线程很快就会爆满了。</p>
+<blockquote>
+<p>为什么线程 C 因为申请不到 MDL 写锁，而导致后续的申请读锁的查询操作也会被阻塞？</p>
+</blockquote>
+<p>这是因为申请 MDL 锁的操作会形成一个队列，队列中<strong>写锁获取优先级高于读锁</strong>，一旦出现 MDL 写锁等待，会阻塞后续该表的所有 CRUD 操作。</p>
+<p>所以为了能安全的对表结构进行变更，在对表结构变更前，先要看看数据库中的长事务，是否有事务已经对表加上了 MDL 读锁，如果可以考虑 kill 掉这个长事务，然后再做表结构的变更。</p>
+<h3 id="意向锁（Intention-Lock）"><a href="#意向锁（Intention-Lock）" class="headerlink" title="意向锁（Intention Lock）"></a>意向锁（Intention Lock）</h3><p>InnoDB 支持不同粒度的锁定，允许行锁和表锁共存。当存在表级锁和行级锁的情况下，必须先申请意向锁，再获取行级锁。意向锁是表级锁，表示事务稍后需要对表中的行使用哪种类型的锁（共享或独享）。意向锁是 InnoDB 自动添加的，不需要用户干预。</p>
+<p>意向锁有两种类型：</p>
+<ul>
+<li><p><strong>意向共享锁（<code>IS</code>）</strong> - 表示事务有意向对表中的行设置共享锁（<code>S</code>）。</p>
+</li>
+<li><p><strong>意向独享锁（<code>IX</code>）</strong> - 表示事务有意向对表中的行设置独享锁（<code>X</code>）。</p>
+</li>
+</ul>
+<p>比如 <code>SELECT ... FOR SHARE</code> 设置 <code>IS</code> 锁， <code>SELECT ... FOR UPDATE</code> 设置 <code>IX</code> 锁。</p>
+<p>意向锁的规则如下：</p>
+<ul>
+<li>一个事务在获得某个数据行的共享锁（<code>S</code>）之前，必须先获得表的意向共享锁（<code>IS</code>）或者更强的锁；</li>
+<li>一个事务在获得某个数据行的独享锁（<code>X</code>）之前，必须先获得表的意向独享锁（<code>IX</code>）。</li>
+</ul>
+<p>也就是，当执行插入、更新、删除操作，需要先对表加上 <code>IX</code> 锁，然后对该记录加 <code>X</code> 锁。而快照读（普通的 <code>SELECT</code>）是不会加行级锁的，快照读是利用 MVCC 实现一致性读，是无锁的。</p>
+<p>不过，<code>SELECT</code> 也是可以对记录加共享锁和独享锁的，具体方式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> 先在表上加上 <span class="keyword">IS</span> 锁，然后对读取的记录加 S 锁</span><br><span class="line"><span class="keyword">select</span> ... lock <span class="keyword">in</span> share mode;</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 当前读：先在表上加上 IX 锁，然后对读取的记录加 X 锁</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>意向共享锁和意向独享锁是表级锁，不会和行级的共享锁和独享锁发生冲突，而且意向锁之间也不会发生冲突，只会和共享表锁（<code>lock tables ... read</code>）和独享表锁（<code>lock tables ... write</code>）发生冲突</strong>。</p>
+<p>如果申请的锁与现有锁兼容，则锁申请成功；反之，则锁申请失败。锁申请失败的情况下，申请锁的事务会一直等待，直到存在冲突的锁被释放。如果存在与申请的锁相冲突的锁，并且该锁迟迟得不到释放，就会导致死锁。</p>
+<blockquote>
+<p>为什么要引入意向锁？</p>
+</blockquote>
+<p>如果没有意向锁，那么加独享表锁时，就需要遍历表里所有记录，查看是否有记录存在独享锁，这样效率会很低。</p>
+<p>有了意向锁，在对记录加独享锁前，会先加上表级别的意向独享锁。此时，如果需要加独享表锁，可以直接查该表是否有意向独享锁：如果有，就意味着表里已经有记录被加了独享锁。这样一来，就不用去遍历表里的记录了。</p>
+<p>综上所述，<strong>意向锁的目的是为了快速判断表里是否有记录被加锁</strong>。</p>
+<h3 id="自增锁（AUTO-INC）"><a href="#自增锁（AUTO-INC）" class="headerlink" title="自增锁（AUTO-INC）"></a>自增锁（AUTO-INC）</h3><p>表里的主键通常都会设置成自增的，这是通过对主键字段声明 <code>AUTO_INCREMENT</code> 属性实现的。之后可以在插入数据时，可以不指定主键的值，数据库会自动给主键赋值递增的值，这主要是通过 <strong>AUTO-INC 锁</strong>实现的。</p>
+<p>AUTO-INC 锁是特殊的表级锁，锁<strong>不是在一个事务提交后才释放，而是在执行完插入语句后就会立即释放</strong>。</p>
+<p><strong>在插入数据时，会加一个表级别的 AUTO-INC 锁</strong>，然后为被 <code>AUTO_INCREMENT</code> 修饰的字段赋值递增的值，等插入语句执行完成后，才会把 AUTO-INC 锁释放掉。</p>
+<p>一个事务在持有 AUTO-INC 锁的过程中，其他事务的如果要向该表插入语句都会被阻塞，从而保证插入数据时，被 <code>AUTO_INCREMENT</code> 修饰的字段的值是连续递增的。但是，AUTO-INC 锁再对大量数据进行插入的时候，会影响插入性能，因为另一个事务中的插入会被阻塞。</p>
+<p>因此， 在 MySQL 5.1.22 版本开始，InnoDB 存储引擎提供了一种<strong>轻量级的锁</strong>来实现自增。一样也是在插入数据的时候，会为被 <code>AUTO_INCREMENT</code> 修饰的字段加上轻量级锁，<strong>然后给该字段赋值一个自增的值，就把这个轻量级锁释放了，而不需要等待整个插入语句执行完后才释放锁</strong>。</p>
+<p>InnoDB 存储引擎提供了个 <code>innodb_autoinc_lock_mode</code> 的系统变量，是用来控制选择用 AUTO-INC 锁，还是轻量级的锁。</p>
+<ul>
+<li>当 <code>innodb_autoinc_lock_mode = 0</code>，就采用 AUTO-INC 锁，语句执行结束后才释放锁；</li>
+<li>当 <code>innodb_autoinc_lock_mode = 2</code>，就采用轻量级锁，申请自增主键后就释放锁，并不需要等语句执行后才释放。</li>
+<li>当 <code>innodb_autoinc_lock_mode = 1</code>：<ul>
+<li>普通 <code>insert</code> 语句，自增锁在申请之后就马上释放；</li>
+<li>类似 <code>insert … select</code> 这样的批量插入数据的语句，自增锁还是要等语句结束后才被释放；</li>
+</ul>
+</li>
+</ul>
+<p>以上模式中，<code>innodb_autoinc_lock_mode = 2</code> 是性能最高的方式，但是当搭配 binlog 的日志格式是 statement 一起使用的时候，在“主从复制的场景”中会发生<strong>数据不一致的问题</strong>。</p>
+<h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><p>MySQL 的行锁是在引擎层由各个引擎自己实现的。但并不是所有的引擎都支持行锁，比如 MyISAM 引擎就不支持行锁。不支持行锁意味着并发控制只能使用表锁，对于这种引擎的表，同一张表上任何时刻只能有一个更新在执行，这就会影响到业务并发度。InnoDB 是支持行锁的，这也是 MyISAM 被 InnoDB 替代的重要原因之一。</p>
+<p>在 InnoDB 引擎中，<strong>行锁是通过给索引上的索引项加锁来实现的</strong>。<strong>如果没有索引，<code>InnoDB</code> 将会通过隐藏的聚簇索引来对记录加锁</strong>。此外，在 InnoDB 引擎中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。这个就是两阶段锁协议。因此，如果事务中需要锁多个行，要把最可能造成锁冲突、最可能影响并发度的锁尽量往后放。</p>
+<p>行锁的具体实现算法有三种：Record Lock、Gap Lock 以及 Next-Key Lock。</p>
+<h3 id="记录锁（Record-Lock）"><a href="#记录锁（Record-Lock）" class="headerlink" title="记录锁（Record Lock）"></a>记录锁（Record Lock）</h3><p><strong>记录锁（Record Lock）锁定一个记录上的索引，而不是记录本身</strong>。例如，执行 <code>SELECT value FROM t WHERE value BETWEEN 10 and 20 FOR UPDATE;</code> 后，会禁止任何其他事务插入、更新或删除 <code>t.value </code> 值在 10 到 20 范围之内的数据，因为该范围内的所有现有值之间的间隙已被锁定。</p>
+<p>记录锁始终锁定索引记录，即使表定义为没有索引。如果表没有设置索引，InnoDB 会自动创建一个隐藏的聚簇索引并使用该索引进行记录锁定。</p>
+<p>Record Lock 是有 S 锁和 X 锁之分的：</p>
+<ul>
+<li>当一个事务对一条记录加了 S 型记录锁后，其他事务也可以继续对该记录加 S 型记录锁（S 型与 S 锁兼容），但是不可以对该记录加 X 型记录锁（S 型与 X 锁不兼容）;</li>
+<li>当一个事务对一条记录加了 X 型记录锁后，其他事务既不可以对该记录加 S 型记录锁（S 型与 X 锁不兼容），也不可以对该记录加 X 型记录锁（X 型与 X 锁不兼容）。</li>
+</ul>
+<p>【示例】记录锁示例</p>
+<blockquote>
+<p>注：测试环境的事务隔离级别为可重复级别</p>
+</blockquote>
+<p>初始化数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `t`;</span><br><span class="line"><span class="keyword">CREATE TABLE</span> `t` (</span><br><span class="line">	`id` <span class="type">INT</span>(<span class="number">10</span>) <span class="keyword">NOT NULL</span> AUTO_INCREMENT,</span><br><span class="line">	`<span class="keyword">value</span>` <span class="type">INT</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">	<span class="keyword">PRIMARY KEY</span> (`id`)</span><br><span class="line">)</span><br><span class="line">	ENGINE <span class="operator">=</span> InnoDB</span><br><span class="line">	<span class="keyword">DEFAULT</span> CHARSET <span class="operator">=</span> `utf8`;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 分别插入 id 为 1、10、20 的数据</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">20</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<p>事务一、添加 X 型记录锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 开启事务</span></span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 对 id 为 1 的记录添加 X 型记录锁</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> `t` <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">1</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 延迟 20 秒执行后续语句，保持锁定状态</span></span><br><span class="line"><span class="keyword">SELECT</span> SLEEP(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 释放锁</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p>事务二、被锁定的行记录无法修改</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改 id = 10 的行记录，正常执行</span></span><br><span class="line"><span class="keyword">UPDATE</span> `t` <span class="keyword">SET</span> `<span class="keyword">value</span>` <span class="operator">=</span> <span class="number">0</span> <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 修改 id = 1 的行记录，由于 id = 1 被 X 型记录锁锁定，直到事务一释放锁，方能执行</span></span><br><span class="line"><span class="keyword">UPDATE</span> `t` <span class="keyword">SET</span> `<span class="keyword">value</span>` <span class="operator">=</span> <span class="number">0</span> <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="间隙锁（Gap-Lock）"><a href="#间隙锁（Gap-Lock）" class="headerlink" title="间隙锁（Gap Lock）"></a>间隙锁（Gap Lock）</h3><p><strong>间隙锁（Gap Lock）锁定索引之间的间隙，但是不包含索引本身</strong>。</p>
+<p>间隙锁虽然存在 X 型间隙锁和 S 型间隙锁，但是并没有什么区别，它们彼此不冲突，不同事务可以在间隙上持有冲突锁，并不存在互斥关系。例如，事务 A 可以在某个间隙上持有 S 型间隙锁，而事务 B 在同一间隙上持有 X 型间隙锁。允许存在冲突间隙锁的原因是：如果从索引中清除记录，则必须合并不同事务在该记录上持有的间隙锁。</p>
+<p>间隙锁只存在于可重复读隔离级别，目的是为了解决可重复读隔离级别下幻读的现象。如果将事务隔离级别更改为 读已提交，则间隙锁定对搜索和索引扫描禁用，并且仅用于外键约束检查和重复键检查。</p>
+<p>在 MySQL 中，间隙锁默认是开启的，即 <code>innodb_locks_unsafe_for_binlog</code> 参数值是 <code>disable</code> 的，且 MySQL 中默认的是 RR 事务隔离级别。</p>
+<p>【示例】间隙锁示例</p>
+<blockquote>
+<p>注：测试环境的事务隔离级别为可重复级别</p>
+</blockquote>
+<p>初始化数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `t`;</span><br><span class="line"><span class="keyword">CREATE TABLE</span> `t` (</span><br><span class="line">	`id` <span class="type">INT</span>(<span class="number">10</span>) <span class="keyword">NOT NULL</span> AUTO_INCREMENT,</span><br><span class="line">	`<span class="keyword">value</span>` <span class="type">INT</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">	<span class="keyword">PRIMARY KEY</span> (`id`)</span><br><span class="line">)</span><br><span class="line">	ENGINE <span class="operator">=</span> InnoDB</span><br><span class="line">	<span class="keyword">DEFAULT</span> CHARSET <span class="operator">=</span> `utf8`;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 分别插入 id 为 1、10、20 的数据</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">20</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<p>事务一、添加间隙锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 开启事务</span></span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 对 id 为 1 的记录添加间隙锁</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> `t` <span class="keyword">WHERE</span> `id` <span class="keyword">BETWEEN</span> <span class="number">1</span> <span class="keyword">AND</span> <span class="number">10</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 延迟 20 秒执行后续语句，保持锁定状态</span></span><br><span class="line"><span class="keyword">SELECT</span> SLEEP(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 释放锁</span></span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure>
+
+<p>事务二、被锁定范围内的行记录无法修改</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 插入 id 为 1 到 10 范围之外的数据，正常执行</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">15</span>, <span class="number">15</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更新 id 为 1 到 10 范围之外的数据，正常执行</span></span><br><span class="line"><span class="keyword">UPDATE</span> `t` <span class="keyword">SET</span> `<span class="keyword">value</span>` <span class="operator">=</span> <span class="number">0</span> <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入 id 为 1 到 10 范围之内的数据，被阻塞</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `t`(`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更新 id 为 1 到 10 范围之内的数据，被阻塞</span></span><br><span class="line"><span class="keyword">UPDATE</span> `t` <span class="keyword">SET</span> `<span class="keyword">value</span>` <span class="operator">=</span> <span class="number">0</span> <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> `t` <span class="keyword">SET</span> `<span class="keyword">value</span>` <span class="operator">=</span> <span class="number">0</span> <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="临键锁（Next-Key-Lock）"><a href="#临键锁（Next-Key-Lock）" class="headerlink" title="临键锁（Next-Key Lock）"></a>临键锁（Next-Key Lock）</h3><p><strong>临键锁（Next-Key Lock）是记录锁和间隙锁的结合</strong>，不仅锁定一个记录上的索引，也锁定索引之间的间隙（它锁定一个前开后闭区间）。</p>
+<p>假设索引包含值 10、11、13 和 20，那么该索引可能的 Next-Key Lock 涵盖以下区间：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(-∞, 10]</span><br><span class="line">(10, 11]</span><br><span class="line">(11, 13]</span><br><span class="line">(13, 20]</span><br><span class="line">(20, +∞)</span><br></pre></td></tr></table></figure>
+
+<p>所以，Next-Key Lock 即能保护该记录，又能阻止其他事务将新纪录插入到被保护记录前面的间隙中。MVCC 不能解决幻读问题，<strong>Next-Key 锁就是为了解决幻读问题而提出的</strong>。在可重复读（<code>REPEATABLE READ</code>）隔离级别下，使用<strong>MVCC + Next-Key 锁</strong>可以解决幻读问题。</p>
+<p>只有可重复读、串行化隔离级别下的特定操作才会取得间隙锁或 Next-Key Lock。在 <code>Select</code>、<code>Update</code> 和 <code>Delete</code> 时，除了基于唯一索引的查询之外，其它索引查询时都会获取间隙锁或 Next-Key Lock，即锁住其扫描的范围。主键索引也属于唯一索引，所以主键索引是不会使用间隙锁或 Next-Key Lock。</p>
+<p>索引分为主键索引和非主键索引两种，如果一条 SQL 语句操作了主键索引，MySQL 就会锁定这条主键索引；如果一条语句操作了非主键索引，MySQL 会先锁定该非主键索引，再锁定相关的主键索引。在 <code>UPDATE</code>、<code>DELETE</code> 操作时，MySQL 不仅锁定 <code>WHERE</code> 条件扫描过的所有索引记录，而且会锁定相邻的键值，即所谓的 Next-Key Lock。</p>
+<h3 id="插入意向锁"><a href="#插入意向锁" class="headerlink" title="插入意向锁"></a>插入意向锁</h3><p>插入意向锁不是意向锁，而是一种特殊的间隙锁。当一个事务试图插入一条记录时，需要判断插入位置是否已被其他事务加了间隙锁（临键锁（Next-Key Lock 也包含间隙锁）。如果有的话，插入操作就会发生<strong>阻塞</strong>，直到拥有间隙锁的那个事务提交为止（释放间隙锁的时刻）；在此期间，会生成一个<strong>插入意向锁</strong>，表明有事务想在某个区间插入新记录，但是现在处于等待状态。</p>
+<p>假设存在值为 4 和 7 的索引记录。分别尝试插入值 5 和 6 的单独事务在获得插入行上的排他锁之前，每个事务都使用插入意向锁锁定 4 和 7 之间的间隙，但不要互相阻塞，因为行不冲突。</p>
+<p>【示例】获取插入意向锁</p>
+<p>初始化数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">CREATE TABLE</span> child (id <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT NULL</span>, <span class="keyword">PRIMARY KEY</span>(id)) ENGINE<span class="operator">=</span>InnoDB;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">INSERT INTO</span> child (id) <span class="keyword">values</span> (<span class="number">90</span>),(<span class="number">102</span>);</span><br></pre></td></tr></table></figure>
+
+<p>事务 A 对 id 大于 100 的索引记录设置独享锁。独享锁包括了 id&#x3D;102 之前的间隙锁：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">BEGIN</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> child <span class="keyword">WHERE</span> id <span class="operator">&gt;</span> <span class="number">100</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-----+</span></span><br><span class="line"><span class="operator">|</span> id  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">102</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----+</span></span><br></pre></td></tr></table></figure>
+
+<p>事务 B 将记录插入到间隙中。事务在等待获取独享锁时获取插入意向锁。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">BEGIN</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">INSERT INTO</span> child (id) <span class="keyword">VALUES</span> (<span class="number">101</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p><strong>“死锁”是指两个或多个事务竞争同一资源，并请求锁定对方占用的资源，从而导致恶性循环的现象</strong>。</p>
+<p>产生死锁的场景：</p>
+<ul>
+<li><p>当多个事务试图以不同的顺序锁定资源时，就可能会产生死锁。</p>
+</li>
+<li><p>多个事务同时锁定同一个资源时，也会产生死锁。</p>
+</li>
+</ul>
+<h3 id="死锁示例"><a href="#死锁示例" class="headerlink" title="死锁示例"></a>死锁示例</h3><p>（1）数据初始化</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表 test</span></span><br><span class="line"><span class="keyword">CREATE TABLE</span> `test` (</span><br><span class="line">	`id` <span class="type">INT</span>(<span class="number">10</span>) UNSIGNED <span class="keyword">PRIMARY KEY</span> AUTO_INCREMENT,</span><br><span class="line">	`<span class="keyword">value</span>` <span class="type">INT</span>(<span class="number">10</span>) <span class="keyword">NOT NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 数据初始化</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `test` (`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> `test` (`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT INTO</span> `test` (`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>（2）两个事务严格按下表顺序执行，产生死锁</p>
+<table>
+<thead>
+<tr>
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>BEGIN;</code></td>
+<td><code>BEGIN;</code></td>
+</tr>
+<tr>
+<td>– 查询 value &#x3D; 4 的记录<br/><code>SELECT * FROM test WHERE value = 4 FOR UPDATE;</code><br/>– 结果为空</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>– 查询 value &#x3D; 5 的记录<br/><code>SELECT * FROM test WHERE value = 5 FOR UPDATE;</code><br/>– 结果为空</td>
+</tr>
+<tr>
+<td><code>INSERT INTO test (id, value) VALUES (4, 4);</code><br/>– 锁等待中</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>INSERT INTO test (id, value) VALUES (5, 5);</code><br/>– 锁等待中</td>
+</tr>
+<tr>
+<td>– 由于死锁无法执行到此步骤<br/><code>COMMIT;</code></td>
+<td>– 由于死锁无法执行到此步骤<br/><code>COMMIT;</code></td>
+</tr>
+</tbody></table>
+<h3 id="死锁是如何产生的"><a href="#死锁是如何产生的" class="headerlink" title="死锁是如何产生的"></a>死锁是如何产生的</h3><p>行锁的具体实现算法有三种：Record Lock、Gap Lock 以及 Next-Key Lock。Record Lock 是专门对索引项加锁；Gap Lock 是对索引项之间的间隙加锁；Next-Key Lock 则是前面两种的组合，对索引项以其之间的间隙加锁。</p>
+<p>只有在可重复读或以上隔离级别下的特定操作才会取得 Gap Lock 或 Next-Key Lock，在 Select、Update 和 Delete 时，除了基于唯一索引的查询之外，其它索引查询时都会获取 Gap Lock 或 Next-Key Lock，即锁住其扫描的范围。主键索引也属于唯一索引，所以主键索引是不会使用 Gap Lock 或 Next-Key Lock。</p>
+<p>在 MySQL 中，Gap Lock 默认是开启的，即 <code>innodb_locks_unsafe_for_binlog</code> 参数值是 <code>disable</code> 的，且 MySQL 中默认的是可重复读事务隔离级别。</p>
+<p>当我们执行以下查询 SQL 时，由于 <code>value</code> 列为非唯一索引，此时又是 RR 事务隔离级别，所以 SELECT 的加锁类型为 Gap Lock，这里的 gap 范围是 (4,+∞）。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> test <span class="keyword">where</span> <span class="keyword">value</span> <span class="operator">=</span> <span class="number">4</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+
+<p>执行查询 SQL 语句获取的 Gap Lock 并不会导致阻塞，而当我们执行以下插入 SQL 时，会在插入间隙上再次获取插入意向锁。插入意向锁其实也是一种 gap 锁，它与 Gap Lock 是冲突的，所以当其它事务持有该间隙的 Gap Lock 时，需要等待其它事务释放 Gap Lock 之后，才能获取到插入意向锁。</p>
+<p>以上事务 A 和事务 B 都持有间隙 (4,+∞）的 gap 锁，而接下来的插入操作为了获取到插入意向锁，都在等待对方事务的 gap 锁释放，于是就造成了循环等待，导致死锁。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT INTO</span> `test` (`id`, `<span class="keyword">value</span>`) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200630153139.png" alt="img"></p>
+<p><strong>另一个死锁场景</strong></p>
+<p>InnoDB 存储引擎的主键索引为聚簇索引，其它索引为辅助索引。如果使用辅助索引来更新数据库，就需要使用聚簇索引来更新数据库字段。如果两个更新事务使用了不同的辅助索引，或一个使用了辅助索引，一个使用了聚簇索引，就都有可能导致锁资源的循环等待。由于本身两个事务是互斥，也就构成了以上死锁的四个必要条件了。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200630154606.png" alt="img"></p>
+<p>出现死锁的步骤：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200630154619.png" alt="img"></p>
+<p>综上可知，在更新操作时，我们应该尽量使用主键来更新表字段，这样可以有效避免一些不必要的死锁发生。</p>
+<h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3><p>死锁的四个必要条件：<strong>互斥、占有且等待、不可强占用、循环等待</strong>。只要系统发生死锁，这些条件必然成立，但是只要破坏任意一个条件就死锁就不会成立。由此可知，要想避免死锁，就要从这几个必要条件上去着手：</p>
+<ul>
+<li>更新表时，<strong>尽量使用主键更新</strong>，减少冲突；</li>
+<li><strong>避免长事务</strong>，尽量将长事务拆解，可以降低与其它事务发生冲突的概率；</li>
+<li><strong>设置合理的锁等待超时参数</strong>，我们可以通过 <code>innodb_lock_wait_timeout</code> 设置合理的等待超时阈值，特别是在一些高并发的业务中，我们可以尽量将该值设置得小一些，避免大量事务等待，占用系统资源，造成严重的性能开销。</li>
+<li>在编程中<strong>尽量按照固定的顺序来处理数据库记录</strong>，假设有两个更新操作，分别更新两条相同的记录，但更新顺序不一样，有可能导致死锁；</li>
+<li>在允许幻读和不可重复读的情况下，尽量使用读已提交事务隔离级别，可以避免 Gap Lock 导致的死锁问题；</li>
+<li>还可以使用其它的方式来代替数据库实现幂等性校验。例如，使用 Redis 以及 ZooKeeper 来实现，运行效率比数据库更佳。</li>
+</ul>
+<h3 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h3><p>当出现死锁以后，有两种策略：</p>
+<ul>
+<li><strong>设置事务等待锁的超时时间</strong>。这个超时时间可以通过参数 <code>innodb_lock_wait_timeout</code> 来设置。</li>
+<li><strong>开启死锁检测</strong>，发现死锁后，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数 <code>innodb_deadlock_detect</code> 设置为 <code>on</code>，表示开启这个逻辑。</li>
+</ul>
+<p>在 InnoDB 中，<code>innodb_lock_wait_timeout</code> 的默认值是 50s，意味着如果采用第一个策略，当出现死锁以后，第一个被锁住的线程要过 50s 才会超时退出，然后其他线程才有可能继续执行。对于在线服务来说，这个等待时间往往是无法接受的。但是，我直接把这个时间设置成一个很小的值，比如 1s，也是不可取的。当出现死锁的时候，确实很快就可以解开，但如果不是死锁，而是简单的锁等待呢？所以，超时时间设置太短的话，会出现很多误伤。</p>
+<p>所以，正常情况下我们还是要采用第二种策略，即：主动死锁检测，而且 <code>innodb_deadlock_detect</code> 的默认值本身就是 on。为了解决死锁问题，不同数据库实现了各自的死锁检测和超时机制。InnoDB 的处理策略是：<strong>将持有最少行级排它锁的事务进行回滚</strong>。主动死锁检测在发生死锁的时候，是能够快速发现并进行处理的，但是它也是有额外负担的：每当一个事务被锁的时候，就要看看它所依赖的线程有没有被别人锁住，如此循环，最后判断是否出现了循环等待，也就是死锁。因此，死锁检测可能会耗费大量的 CPU。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/23008813/">《高性能 MySQL》</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/139">MySQL 实战 45 讲</a></li>
+<li><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100028001">《Java 性能调优实战》</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html">Mysql 官方文档之 InnoDB Locking</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CyC2018/Interview-Notebook/blob/master/notes/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.md">数据库系统原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5b55b842f265da0f9e589e79">数据库两大神器【索引和锁】</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/laoyeye/p/8097684.html">使用 mysql 乐观锁解决并发问题</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io">coder-xuyong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io/posts/b2644c62">https://coder-xuyong.github.io/posts/b2644c62</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://coder-xuyong.github.io" target="_blank">coder-xuyong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a><a class="post-meta__tags" href="/tags/Mysql/">Mysql</a><a class="post-meta__tags" href="/tags/%E9%94%81/">锁</a><a class="post-meta__tags" href="/tags/%E8%AF%BB%E5%86%99%E9%94%81/">读写锁</a><a class="post-meta__tags" href="/tags/%E6%82%B2%E8%A7%82%E9%94%81/">悲观锁</a><a class="post-meta__tags" href="/tags/%E4%B9%90%E8%A7%82%E9%94%81/">乐观锁</a><a class="post-meta__tags" href="/tags/%E8%BD%AC%E5%80%BA/">转债</a></div><div class="post-share"><div class="social-share" data-image="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/b4726e9c" title="Mysql 高可用"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dddd5d37f41343ac9c0b9500f111fbae20250423.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Mysql 高可用</div></div><div class="info-2"><div class="info-item-1">高可用高可用 指的是通过技术手段，确保数据库服务在出现各种故障时，能够快速、自动地恢复服务，从而保证业务的连续可用性。 复制复制是解决系统高可用的常见手段。其思路就是：不要把鸡蛋都放在一个篮子里。 复制解决的基本问题是让一台服务器的数据与其他服务器保持同步。一台主库的数据可以同步到多台备库上，备库本身也可以被配置成另外一台服务器的主库。主库和备库之 间可以有多种不同的组合方式。 MySQL 支持两种复制方式：基于行的复制和基于语句的复制。这两种方式都是通过在主库上记录 bin log、在备库重放日志的方式来实现异步的数据复制。这意味着：复制过程存在时延，这段时间内，主从数据可能不一致。 复制如何工作在 Mysql 中，复制分为三个步骤，分别由三个线程完成：  binlog dump 线程 - 主库上有一个特殊的 binlog dump 线程，负责将主服务器上的数据更改写入 binlog 中。 I&#x2F;O 线程 - 备库上有一个 I&#x2F;O 线程，负责从主库上读取 binlog，并写入备库的中继日志（relay log）中。 SQL 线程 - 备库上有一个 SQL 线程...</div></div></div></a><a class="pagination-related" href="/posts/c047f08d" title="Mysql 事务"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Mysql 事务</div></div><div class="info-2"><div class="info-item-1">Mysql 事务 不是所有的 Mysql 存储引擎都实现了事务处理。支持事务的存储引擎有：InnoDB 和 NDB Cluster。不支持事务的存储引擎，代表有：MyISAM。 用户可以根据业务是否需要事务处理（事务处理可以保证数据安全，但会增加系统开销），选择合适的存储引擎。  事务简介事务概念“事务”指的是满足 ACID 特性的一组操作。事务内的 SQL 语句，要么全执行成功，要么全执行失败。可以通过 Commit 提交一个事务，也可以使用 Rollback 进行回滚。 ACIDACID 是数据库事务正确执行的四个基本要素。  原子性（Atomicity） 事务被视为不可分割的最小单元，事务中的所有操作要么全部提交成功，要么全部失败回滚。 回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。   一致性（Consistency） 数据库在事务执行前后都保持一致性状态。 在一致性状态下，所有事务对一个数据的读取结果都是相同的。   隔离性（Isolation） 一个事务所做的修改在最终提交以前，对其它事务是不可见的。   持久性（Durabi...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/dc634575" title="Mysql 架构"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-28</div><div class="info-item-2">Mysql 架构</div></div><div class="info-2"><div class="info-item-1">概述总的来说，MySQL 可以大体分为 Server 层和存储引擎层两部分。 Server 层包括连接器、查询缓存、解析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。 存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL 5.5.5 版本开始成为了默认存储引擎。 Mysql 查询流程SQL 语句在 MySQL 中是如何执行的？ 大概流程可以参考下图：      flowchart TD     A[“客户端连接”] --&gt; B[“连接器&lt;br&gt;管理连接, 认证”]     B --&gt; C{“查询缓存&lt;br&gt;（仅MySQL &lt; 8.0）”}     C -- 缓存命中 --&gt; D[直接返回结果]     C -- 缓存未命中&#x2F;无缓存 --&gt; E[“解析器&lt;br&...</div></div></div></a><a class="pagination-related" href="/posts/be1b5cc8" title="Mysql 存储引擎"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dbc6de3bf3ec4db59f8ca4288cfa3e3c20250507.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-29</div><div class="info-item-2">Mysql 存储引擎</div></div><div class="info-2"><div class="info-item-1">概述在文件系统中，Mysql 将每个数据库（也可以称为 schema）保存为数据目录下的一个子目录。创建表示，Mysql 会在数据库子目录下创建一个和表同名的 .frm 文件保存表的定义。因为 Mysql 使用文件系统的目录和文件来保存数据库和表的定义，大小写敏感性和具体平台密切相关。Windows 中大小写不敏感；类 Unix 中大小写敏感。不同的存储引擎保存数据和索引的方式是不同的，但表的定义则是在 Mysql 服务层统一处理的。 MySQL 的存储引擎采用了插件的形式，每个存储引擎都面向一种特定的数据库应用环境。同时开源的 MySQL 还允许开发人员设置自己的存储引擎。 存储引擎相关操作查看存储引擎命令123456789101112# 查看支持的存储引擎SHOW ENGINES;# 查看默认的存储引擎SHOW VARIABLES LIKE &#x27;storage_engine&#x27;;# 查看某表所使用的存储引擎SHOW CREATE TABLE `table_name`;# 查看某数据库中的某表所使用的存储引擎SHOW TABLE STATUS LIKE &#x2...</div></div></div></a><a class="pagination-related" href="/posts/8c71b936" title="Mysql 索引"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-29</div><div class="info-item-2">Mysql 索引</div></div><div class="info-2"><div class="info-item-1">索引简介MySQL 索引是一种数据结构，用于加快数据库查询的速度和性能 索引的优缺点B 树是最常见的索引，按照顺序存储数据，所以 Mysql 可以用来做 ORDER BY 和 GROUP BY 操作。因为数据是有序的，所以 B 树也就会将相关的列值都存储在一起。最后，因为索引中存储了实际的列值，所以某些查询只使用索引就能够完成全部查询。 ✔️️️️ 索引的优点：  索引大大减少了服务器需要扫描的数据量，从而加快检索速度。 索引可以帮助服务器避免排序和临时表。 索引可以将随机 I&#x2F;O 变为顺序 I&#x2F;O。 支持行级锁的数据库，如 InnoDB 会在访问行的时候加锁。使用索引可以减少访问的行数，从而减少锁的竞争，提高并发。 唯一索引可以确保每一行数据的唯一性，通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统的性能。  ❌ 索引的缺点：  创建和维护索引要耗费时间，这会随着数据量的增加而增加。 索引需要占用额外的物理空间，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立组合索引那么需要的空间就会更大。 写操作（INSERT&#x2F;UPD...</div></div></div></a><a class="pagination-related" href="/posts/c047f08d" title="Mysql 事务"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-29</div><div class="info-item-2">Mysql 事务</div></div><div class="info-2"><div class="info-item-1">Mysql 事务 不是所有的 Mysql 存储引擎都实现了事务处理。支持事务的存储引擎有：InnoDB 和 NDB Cluster。不支持事务的存储引擎，代表有：MyISAM。 用户可以根据业务是否需要事务处理（事务处理可以保证数据安全，但会增加系统开销），选择合适的存储引擎。  事务简介事务概念“事务”指的是满足 ACID 特性的一组操作。事务内的 SQL 语句，要么全执行成功，要么全执行失败。可以通过 Commit 提交一个事务，也可以使用 Rollback 进行回滚。 ACIDACID 是数据库事务正确执行的四个基本要素。  原子性（Atomicity） 事务被视为不可分割的最小单元，事务中的所有操作要么全部提交成功，要么全部失败回滚。 回滚可以用日志来实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。   一致性（Consistency） 数据库在事务执行前后都保持一致性状态。 在一致性状态下，所有事务对一个数据的读取结果都是相同的。   隔离性（Isolation） 一个事务所做的修改在最终提交以前，对其它事务是不可见的。   持久性（Durabi...</div></div></div></a><a class="pagination-related" href="/posts/b4726e9c" title="Mysql 高可用"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dddd5d37f41343ac9c0b9500f111fbae20250423.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-30</div><div class="info-item-2">Mysql 高可用</div></div><div class="info-2"><div class="info-item-1">高可用高可用 指的是通过技术手段，确保数据库服务在出现各种故障时，能够快速、自动地恢复服务，从而保证业务的连续可用性。 复制复制是解决系统高可用的常见手段。其思路就是：不要把鸡蛋都放在一个篮子里。 复制解决的基本问题是让一台服务器的数据与其他服务器保持同步。一台主库的数据可以同步到多台备库上，备库本身也可以被配置成另外一台服务器的主库。主库和备库之 间可以有多种不同的组合方式。 MySQL 支持两种复制方式：基于行的复制和基于语句的复制。这两种方式都是通过在主库上记录 bin log、在备库重放日志的方式来实现异步的数据复制。这意味着：复制过程存在时延，这段时间内，主从数据可能不一致。 复制如何工作在 Mysql 中，复制分为三个步骤，分别由三个线程完成：  binlog dump 线程 - 主库上有一个特殊的 binlog dump 线程，负责将主服务器上的数据更改写入 binlog 中。 I&#x2F;O 线程 - 备库上有一个 I&#x2F;O 线程，负责从主库上读取 binlog，并写入备库的中继日志（relay log）中。 SQL 线程 - 备库上有一个 SQL 线程...</div></div></div></a><a class="pagination-related" href="/posts/e34cffd5" title="Mysql 优化"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-30</div><div class="info-item-2">Mysql 优化</div></div><div class="info-2"><div class="info-item-1">慢查询慢查询日志可以帮我们找到执行慢的 SQL。 可以通过以下命令查看慢查询日志是否开启： 1234567mysql&gt; show variables like &#x27;%slow_query_log&#x27;;+----------------+-------+| Variable_name  | Value |+----------------+-------+| slow_query_log | ON    |+----------------+-------+1 row in set (0.02 sec)  启停慢查询日志开关： 12345# 开启慢查询日志mysql &gt; set global slow_query_log=&#x27;ON&#x27;;# 关闭慢查询日志mysql &gt; set global slow_query_log=&#x27;OFF&#x27;;  查看慢查询的时间阈值： 1234567mysql&gt; show variables like &#x27;%long_query_time%&#x27;;+----------...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">coder-xuyong</div><div class="author-info-description">生如牛马不得闲</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/coder-xuyong"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://coder-xuyong.github.io/resume/?user=coder-xuyong&amp;template=template2" target="_blank" title="resume"><i class="fa-solid fa-address-card" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/coder-xuyong" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mysql-%E9%94%81"><span class="toc-number">1.</span> <span class="toc-text">Mysql 锁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text">锁的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%AC%E4%BA%AB%E9%94%81%E5%92%8C%E5%85%B1%E4%BA%AB%E9%94%81"><span class="toc-number">1.1.1.</span> <span class="toc-text">独享锁和共享锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81"><span class="toc-number">1.1.2.</span> <span class="toc-text">悲观锁和乐观锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%94%81%E3%80%81%E8%A1%A8%E7%BA%A7%E9%94%81%E3%80%81%E8%A1%8C%E7%BA%A7%E9%94%81"><span class="toc-number">1.1.3.</span> <span class="toc-text">全局锁、表级锁、行级锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%94%81"><span class="toc-number">1.2.</span> <span class="toc-text">全局锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E7%BA%A7%E9%94%81"><span class="toc-number">1.3.</span> <span class="toc-text">表级锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E9%94%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">表锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E9%94%81%EF%BC%88MDL%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">元数据锁（MDL）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%8F%E5%90%91%E9%94%81%EF%BC%88Intention-Lock%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">意向锁（Intention Lock）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%A2%9E%E9%94%81%EF%BC%88AUTO-INC%EF%BC%89"><span class="toc-number">1.3.4.</span> <span class="toc-text">自增锁（AUTO-INC）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E9%94%81"><span class="toc-number">1.4.</span> <span class="toc-text">行锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E9%94%81%EF%BC%88Record-Lock%EF%BC%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">记录锁（Record Lock）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%B4%E9%9A%99%E9%94%81%EF%BC%88Gap-Lock%EF%BC%89"><span class="toc-number">1.4.2.</span> <span class="toc-text">间隙锁（Gap Lock）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B4%E9%94%AE%E9%94%81%EF%BC%88Next-Key-Lock%EF%BC%89"><span class="toc-number">1.4.3.</span> <span class="toc-text">临键锁（Next-Key Lock）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%84%8F%E5%90%91%E9%94%81"><span class="toc-number">1.4.4.</span> <span class="toc-text">插入意向锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-number">1.5.</span> <span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">死锁示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%A7%E7%94%9F%E7%9A%84"><span class="toc-number">1.5.2.</span> <span class="toc-text">死锁是如何产生的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="toc-number">1.5.3.</span> <span class="toc-text">避免死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81"><span class="toc-number">1.5.4.</span> <span class="toc-text">解决死锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.6.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/4592b2fd" title="shell"><img src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell"/></a><div class="content"><a class="title" href="/posts/4592b2fd" title="shell">shell</a><time datetime="2025-11-16T06:52:35.000Z" title="发表于 2025-11-16 14:52:35">2025-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7ebb9be2" title="分布式基础"><img src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式基础"/></a><div class="content"><a class="title" href="/posts/7ebb9be2" title="分布式基础">分布式基础</a><time datetime="2025-11-04T00:15:33.000Z" title="发表于 2025-11-04 08:15:33">2025-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c16f2ba9" title="ForkJoin框架"><img src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ForkJoin框架"/></a><div class="content"><a class="title" href="/posts/c16f2ba9" title="ForkJoin框架">ForkJoin框架</a><time datetime="2025-10-18T07:27:46.000Z" title="发表于 2025-10-18 15:27:46">2025-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By coder-xuyong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div><div class="footer_custom_text">Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><!-- butterfly右下角悬浮菜单栏 百分比--><span id="percent">0</span></button><!-- butterfly右下角悬浮菜单栏 直达底部--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23li4gzANXxmx9072g',
+      clientSecret: 'b4da9f4490b2864bfdee5df73655329a642c6112',
+      repo: 'coder-xuyong.github.io',
+      owner: 'coder-xuyong',
+      admin: ['coder-xuyong'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '14b6dc378c242d8a7f59d94a2e29775b'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="/self/custom.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="https://cn.vercount.one/js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search key word" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

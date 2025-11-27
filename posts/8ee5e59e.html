@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Windows 使用笔记 | coder-xuyong</title><meta name="author" content="coder-xuyong"><meta name="copyright" content="coder-xuyong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Windows 常用快捷键 截图：win + shift + s  修改注册表显卡型号目的：开启鸣潮pc端极致画质，官方只对4090以上的显卡开放。因此，我们需要修改注册表中的显卡型号，重启电脑后，就可以开启极致画质。 步骤：  在设备管理器中找到 显示适配器&#x2F;显卡型号&#x2F;详细信息，在属性中找到设备实例路径，复制他的值：PCI\VEN_10DE&amp;DEV_1C81&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 使用笔记">
+<meta property="og:url" content="https://coder-xuyong.github.io/posts/8ee5e59e">
+<meta property="og:site_name" content="coder-xuyong">
+<meta property="og:description" content="Windows 常用快捷键 截图：win + shift + s  修改注册表显卡型号目的：开启鸣潮pc端极致画质，官方只对4090以上的显卡开放。因此，我们需要修改注册表中的显卡型号，重启电脑后，就可以开启极致画质。 步骤：  在设备管理器中找到 显示适配器&#x2F;显卡型号&#x2F;详细信息，在属性中找到设备实例路径，复制他的值：PCI\VEN_10DE&amp;DEV_1C81&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp">
+<meta property="article:published_time" content="2025-06-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-27T06:52:00.719Z">
+<meta property="article:author" content="coder-xuyong">
+<meta property="article:tag" content="windows">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Windows 使用笔记",
+  "url": "https://coder-xuyong.github.io/posts/8ee5e59e",
+  "image": "https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp",
+  "datePublished": "2025-06-15T16:00:00.000Z",
+  "dateModified": "2025-11-27T06:52:00.719Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "coder-xuyong",
+      "url": "https://coder-xuyong.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/medias/img/logo.png"><link rel="canonical" href="https://coder-xuyong.github.io/posts/8ee5e59e"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: coder-xuyong","link":"链接: ","source":"来源: coder-xuyong","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows 使用笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/self/custom.css"><link rel="stylesheet" href="/self/progress_bar.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/self/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #fafafa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/medias/img/logo.png" alt="Logo"><span class="site-name">coder-xuyong</span></a><a class="nav-page-title" href="/"><span class="site-name">Windows 使用笔记</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Windows 使用笔记<a class="post-edit-link" href="https://github.com/coder-xuyong/coder-xuyong.github.io/edit/main/source/_posts/03.OS/02.windows/Windows使用笔记.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-15T16:00:00.000Z" title="发表于 2025-06-16 00:00:00">2025-06-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T06:52:00.719Z" title="更新于 2025-11-27 14:52:00">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/3-OS/">3.OS</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/3-OS/2-windows/">2.windows</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-11-27 14:52:00&quot;}" hidden></div><h2 id="Windows-常用快捷键"><a href="#Windows-常用快捷键" class="headerlink" title="Windows 常用快捷键"></a>Windows 常用快捷键</h2><ul>
+<li>截图：win + shift + s</li>
+</ul>
+<h2 id="修改注册表显卡型号"><a href="#修改注册表显卡型号" class="headerlink" title="修改注册表显卡型号"></a>修改注册表显卡型号</h2><p>目的：开启鸣潮pc端极致画质，官方只对4090以上的显卡开放。因此，我们需要修改注册表中的显卡型号，重启电脑后，就可以开启极致画质。</p>
+<p>步骤：</p>
+<ul>
+<li>在设备管理器中找到 显示适配器&#x2F;显卡型号&#x2F;详细信息，在属性中找到设备实例路径，复制他的值：<code>PCI\VEN_10DE&amp;DEV_1C81&amp;SUBSYS_11C01028&amp;REV_A1\4&amp;E482FF8&amp;0&amp;0008</code></li>
+<li>win+r 输入 regedit，打开注册表。找到这个路径<code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\PCI</code>，在后面加上步骤一，复制的值，注意PCI有时候会重复，注意取消，或者依次找寻。</li>
+<li>找到 DeviceDesc ，将其值的最后的 GPU 型号修改为 4090，保存重启电脑，即完成。</li>
+</ul>
+<h2 id="N卡滤镜开启"><a href="#N卡滤镜开启" class="headerlink" title="N卡滤镜开启"></a>N卡滤镜开启</h2><p>目的：解决N卡有时候失效的问题。<br>方式：打开任务管理器，找到服务，打开服务界面（一定要打开服务界面，这个任务没有显示在任务管理器的服务中，必须去服务界面）。找到 <code>NVIDIA FrameView SDK service</code>,右键打开属性界面，将启动方式改为自启即可。</p>
+<h2 id="禁止windows自动更新的最有效方法"><a href="#禁止windows自动更新的最有效方法" class="headerlink" title="禁止windows自动更新的最有效方法"></a>禁止windows自动更新的最有效方法</h2><p>将本地时间跳到 N 多年以后，再点击暂停 7 天更新，最后将时间恢复正常，看到暂停更新到 N 多年以后，即大功告成！</p>
+<h2 id="Ping-与-Telnet"><a href="#Ping-与-Telnet" class="headerlink" title="Ping 与 Telnet"></a>Ping 与 Telnet</h2><p>telnet和ping结合很好查看监控服务器状态的，很多工具就是依靠这些基本命令来实现监控的 。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>ping 可以测试到目标机器的连通性。Ping域名还可以得出解析IP。评估网络质量。</p>
+<p>1、ping只互相传输协议数据，不传送用户数据</p>
+<p>2、ping是第一步，如果ping不通，十有八九是防火墙问题（当然，物理连接要通）</p>
+<p>3、ping无法检查系统端口是否开放。</p>
+<p>telnet 用于远程管理连接主机。同时也是测试目标机器的TCP端口是否开放。命令格式：telnet IP Port</p>
+<p>如果telnet连接失败，</p>
+<p>1、可能是防火墙屏蔽了</p>
+<p>#ubuntu里查看<br>sudo ufw status<br>2、可能是目标机器没有启用相关服务</p>
+<p>ps -ef | grep xxx<br>3、可能是目标机器的TCP端口被占用了</p>
+<p>netstat -anlp | grep 8888</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>ping命令工作在OSI参考模型的第三层-网络层。<br>ping命令会发送一个数据包到目的主机，然后等待从目的主机接收回复数据包，当目的主机接收到这个数据包时，为源主机发送回复数据包，这个测试命令可以帮助网络管理者测试到达目的主机的网络是否连接。</p>
+<p>Telnet是位于OSI模型的第7层—应用层上的一种协议，是一个通过创建虚拟终端提供连接到远程主机终端仿真的TCP&#x2F;IP协议。这一协议需要通过用户名和口令进行认证，是Internet远程登陆服务的标准协议。应用Telnet协议能够把本地用户所使用的计算机变成远程主机系统的一个终端。它提供了三种基本服务：　<br>1）Telnet定义一个网络虚拟终端为远程系统提供一个标准接口。客户机程序不必详细了解远程系统，他们只需构造使用标准接口的程序；　<br>2）Telnet包括一个允许客户机和服务器协商选项的机制，而且它还提供一组标准选项；　.　<br>3）Telnet对称处理连接的两端，即Telnet不强迫客户机从键盘输入，也不强迫客户机在屏幕上显示输出。</p>
+<h2 id="windows-压缩图片"><a href="#windows-压缩图片" class="headerlink" title="windows 压缩图片"></a>windows 压缩图片</h2><p>将图片用 windows 自带的 照片 打开，选择调整图像大小，即可压缩图片和设置分辨率。</p>
+<p>参考：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mbd.baidu.com/newspage/data/dtlandingsuper?nid=dt_5369255230329836401">https://mbd.baidu.com/newspage/data/dtlandingsuper?nid=dt_5369255230329836401</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io">coder-xuyong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io/posts/8ee5e59e">https://coder-xuyong.github.io/posts/8ee5e59e</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://coder-xuyong.github.io" target="_blank">coder-xuyong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/windows/">windows</a><a class="post-meta__tags" href="/tags/shell/">shell</a></div><div class="post-share"><div class="social-share" data-image="https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/4c00edc" title="windows安装sftp"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">windows安装sftp</div></div><div class="info-2"><div class="info-item-1">参考链接https://blog.csdn.net/qinhuaifeng/article/details/134422259 </div></div></div></a><a class="pagination-related" href="/posts/cdd7d3fd" title="设计模式之工厂方法模式"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/0b28c3fd7f1e433d9327dd08ae7943ef20250905.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">设计模式之工厂方法模式</div></div><div class="info-2"><div class="info-item-1">设计模式之工厂方法模式意图工厂方法模式 (Factory Method)是一种创建型设计模式， 其在父类中提供一个创建对象的方法， 让子类决定实例化对象的类型。  工厂模式中，增加一种产品类，就要增加一个工厂类：因为每个工厂类只能创建一种产品的实例。 工厂模式遵循“开放-封闭原则”：工厂模式中，新增一种产品并不需要修改原有类，仅仅是扩展。  简单工厂模式相比于工厂方法模式 优点：工厂类中包含必要的逻辑判断，可根据客户端的选择条件动态实例化需要的类。对于客户端来说，去除了对具体产品的依赖。 缺点：违背了开放封闭原则。 每添加一个新的产品，都需要对原有类进行修改。增加维护成本，且不易于维护。  开放封闭原则：一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。  适用场景 当你在编写代码的过程中， 如果无法预知对象确切类别及其依赖关系时， 可使用工厂方法。 如果你希望用户能扩展你软件库或框架的内部组件， 可使用工厂方法。 如果你希望复用现有对象来节省系统资源， 而不是每次都重新创建对象， 可使用工厂方法。  结构 结构说明 产品 （Product） 将会对接口进行声明。 对于所有...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4c00edc" title="windows安装sftp"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-22</div><div class="info-item-2">windows安装sftp</div></div><div class="info-2"><div class="info-item-1">参考链接https://blog.csdn.net/qinhuaifeng/article/details/134422259 </div></div></div></a><a class="pagination-related" href="/posts/17ff3a6c" title="遇到的网络相关的问题"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dbc6de3bf3ec4db59f8ca4288cfa3e3c20250507.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-01</div><div class="info-item-2">遇到的网络相关的问题</div></div><div class="info-2"><div class="info-item-1">远程桌面能ping通，但是连不上原因：  远程桌面连接未开启端口被占用  查看电脑mac地址windows1.可以是用命令getmac获取2.也可以在 控制面板\所有控制面板项\网络连接  中，双击一个网络，点击详细信息，就可以看到其中的物理地址 linuxifconfig 命令可以查看，其中 “HWaddr” 或 “ether” 一般为物理地址 </div></div></div></a><a class="pagination-related" href="/posts/e45d4ff5" title="linux 上常用操作"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/f59dff6fb93d4904b442d315738e6a6420250507.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-01</div><div class="info-item-2">linux 上常用操作</div></div><div class="info-2"><div class="info-item-1">在工作中遇到的有关Linux的问题   ifconfig 个字段的含义此linux服务器为：kylin    接口名称 类型 用途    enp180s0f2 物理以太网接口 物理网络连接   enp25s0f0 物理以太网接口 物理网络连接   vethd989592 虚拟以太网接口对 容器&#x2F;虚拟机网络通信   vethdc1bcea 虚拟以太网接口对 容器&#x2F;虚拟机网络通信   virbr0 虚拟网桥 虚拟机NAT网络    关闭防火墙以下是图片内容转换成的可复制Markdown格式：  命令行界面输入命令 systemctl status firewalld.service 并按下回车键。  在下方查看输出结果，若显示 active (running)，说明防火墙已开启。  输入关闭防火墙命令：   1systemctl stop firewalld.service  再次检查防火墙状态：   1234567   systemctl status firewalld.service   ```     若出现 `inactive (dead)`，说明防火墙...</div></div></div></a><a class="pagination-related" href="/posts/4592b2fd" title="shell"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-16</div><div class="info-item-2">shell</div></div><div class="info-2"><div class="info-item-1">Shell 环境Shell 编程跟 JavaScript、php 编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。Linux 的 Shell 种类众多，常见的有：  Bourne Shell（&#x2F;usr&#x2F;bin&#x2F;sh或&#x2F;bin&#x2F;sh） Bourne Again Shell（&#x2F;bin&#x2F;bash） C Shell（&#x2F;usr&#x2F;bin&#x2F;csh） K Shell（&#x2F;usr&#x2F;bin&#x2F;ksh） Shell for Root（&#x2F;sbin&#x2F;sh）……本文关注的是 Bash，也就是 Bourne Again Shell，由于易用和免费，Bash 在日常工作中被广泛使用。同时，Bash 也是大多数Linux 系统默认的 Shell。  在一般情况下，人们并不区分 Bourne Shell 和 Bourne Again Shell，所以，像 #!&#x2F;bin&#x2F;sh，它同样也可以改为 #!&#x2F;bin&#x...</div></div></div></a><a class="pagination-related" href="/posts/9b39892f" title="shell 基础知识"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-05</div><div class="info-item-2">shell 基础知识</div></div><div class="info-2"><div class="info-item-1">入门 shell 脚本的基础知识   1、@echo off 回显：这条命令后的内容显示到控制台上。  新建一个文件：test_echooff.bat,输入如下内容   12345678@echo offecho 这是测试内容的第1行echo 这是测试内容的第2行echo 这是测试内容的第3行echo endpause 如果乱码，另存为，设置ANSI编码，重新运行。  修改文件内容，将其中的@ 符号去掉，内容如下：  12345678echo offecho 这是测试内容的第1行echo 这是测试内容的第2行echo 这是测试内容的第3行echo endpause echo off执行以后，后面所有的命令均不显示，但本条命令是显示的。  继续修改文件内容，将第一条命令注释掉，内容如下：  12345678::echo offecho 这是测试内容的第1行echo 这是测试内容的第2行echo 这是测试内容的第3行echo endpause 结果就是在cmd 回显了echo off后面的命令。 总结：@echo off表示执行了这条命令后关闭所有命令(包括本身这条命令)的回显。而e...</div></div></div></a><a class="pagination-related" href="/posts/768317a5" title="工作中遇到的 shell"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/f59dff6fb93d4904b442d315738e6a6420250507.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-13</div><div class="info-item-2">工作中遇到的 shell</div></div><div class="info-2"><div class="info-item-1">工作中遇到有关 shell 脚本的情景和处理记录   1、脚本启动停止jar包，并生成日志文件start.bat 1234@echo off%1 mshta vbscript:CreateObject(&quot;WScript.Shell&quot;).Run(&quot;%~s0 ::&quot;,0,FALSE)(window.close)&amp;&amp;exitjava -jar 包名.jar &gt;StartupLog.log  2&gt;&amp;1 &amp;exit 其中，StartupLog.log 是日志文件 stop.bat 123@echo offset port=程序端口号for /f &quot;tokens=1-5&quot; %%i in (&#x27;netstat -ano^|findstr &quot;:%port%&quot;&#x27;) do taskkill /f /pid %%m  原文链接：https://blog.csdn.net/weixin_47148475/article/details/126747188 2、上面...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">coder-xuyong</div><div class="author-info-description">生如牛马不得闲</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/coder-xuyong"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://coder-xuyong.github.io/resume/?user=coder-xuyong&amp;template=template2" target="_blank" title="resume"><i class="fa-solid fa-address-card" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/coder-xuyong" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.</span> <span class="toc-text">Windows 常用快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%98%BE%E5%8D%A1%E5%9E%8B%E5%8F%B7"><span class="toc-number">2.</span> <span class="toc-text">修改注册表显卡型号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#N%E5%8D%A1%E6%BB%A4%E9%95%9C%E5%BC%80%E5%90%AF"><span class="toc-number">3.</span> <span class="toc-text">N卡滤镜开启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2windows%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E7%9A%84%E6%9C%80%E6%9C%89%E6%95%88%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">禁止windows自动更新的最有效方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ping-%E4%B8%8E-Telnet"><span class="toc-number">5.</span> <span class="toc-text">Ping 与 Telnet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">5.1.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">5.2.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#windows-%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87"><span class="toc-number">6.</span> <span class="toc-text">windows 压缩图片</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/4592b2fd" title="shell"><img src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell"/></a><div class="content"><a class="title" href="/posts/4592b2fd" title="shell">shell</a><time datetime="2025-11-16T06:52:35.000Z" title="发表于 2025-11-16 14:52:35">2025-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7ebb9be2" title="分布式基础"><img src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式基础"/></a><div class="content"><a class="title" href="/posts/7ebb9be2" title="分布式基础">分布式基础</a><time datetime="2025-11-04T00:15:33.000Z" title="发表于 2025-11-04 08:15:33">2025-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c16f2ba9" title="ForkJoin框架"><img src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ForkJoin框架"/></a><div class="content"><a class="title" href="/posts/c16f2ba9" title="ForkJoin框架">ForkJoin框架</a><time datetime="2025-10-18T07:27:46.000Z" title="发表于 2025-10-18 15:27:46">2025-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By coder-xuyong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div><div class="footer_custom_text">Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><!-- butterfly右下角悬浮菜单栏 百分比--><span id="percent">0</span></button><!-- butterfly右下角悬浮菜单栏 直达底部--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23li4gzANXxmx9072g',
+      clientSecret: 'b4da9f4490b2864bfdee5df73655329a642c6112',
+      repo: 'coder-xuyong.github.io',
+      owner: 'coder-xuyong',
+      admin: ['coder-xuyong'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '8d9c5c61e0ec707f2bc1d0982b60a812'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="/self/custom.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="https://cn.vercount.one/js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search key word" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>coder-xuyong - blog</title><meta name="author" content="coder-xuyong"><meta name="copyright" content="coder-xuyong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="桃花仙人种桃树，又折花枝当酒钱">
+<meta property="og:type" content="website">
+<meta property="og:title" content="coder-xuyong">
+<meta property="og:url" content="https://coder-xuyong.github.io/page/6/">
+<meta property="og:site_name" content="coder-xuyong">
+<meta property="og:description" content="桃花仙人种桃树，又折花枝当酒钱">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://coder-xuyong.github.io/medias/img/logo.png">
+<meta property="article:author" content="coder-xuyong">
+<meta property="article:tag" content="网站的关键词。 支持多个关键词">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://coder-xuyong.github.io/medias/img/logo.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/medias/img/logo.png"><link rel="canonical" href="https://coder-xuyong.github.io/page/6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: coder-xuyong","link":"链接: ","source":"来源: coder-xuyong","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'coder-xuyong',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/self/custom.css"><link rel="stylesheet" href="/self/progress_bar.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/self/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #fafafa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/4331cb9499664e9b9c6b18c3457f3a3c20250515.jpg?x-oss-process=image%2Fformat%2Cwebp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/medias/img/logo.png" alt="Logo"><span class="site-name">coder-xuyong</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">coder-xuyong</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://coder-xuyong.github.io/resume/?user=coder-xuyong&amp;template=template2" target="_blank" title="resume"><i class="fa-solid fa-address-card" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/coder-xuyong" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/48b2453f" title="java 面向对象"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 面向对象"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/48b2453f" title="java 面向对象">java 面向对象</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-30T06:38:56.000Z" title="发表于 2025-08-30 14:38:56">2025-08-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/1-JavaSE/">1.JavaSE</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/1-JavaSE/1-%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/">1.基础特性</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">面向对象 五大基本原则:单一职责原则(Single-Responsibility Principle)、开放封闭原则(Open-Closedprinciple)、Liskov替换原则(Liskov-Substituion Principle)、依较倒置原则(Dependency-lnversionPrinciple)和接口隔离原则(Interface-Segregation Principle)。  单一职责原则: 一个类最好只做一件事开放封闭原则: 对扩展开放、对修改封闭里氏替换原则: 子类必须能够替换其基类依赖倒置原则: 程序要依赖于抽象接口，而不是具体的实现接口隔离原则: 使用多个小的专门的接口，而不要使用一个大的总接口 Java继承继承的概念继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 继承的特性 子类拥有父类非 private 的属性、方法 子类可以拥有自己的属性和方法，即子类可以对父类进行扩展。 子类可以用自己的方式实现父类的方法。 Java 的继承是单继承，但是可以多重继承，单继承就...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/b19cbd58" title="js 问题记录"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js 问题记录"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/b19cbd58" title="js 问题记录">js 问题记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-06T21:52:38.000Z" title="发表于 2025-08-07 05:52:38">2025-08-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Js/">Js</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/js/">js</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/UTC/">UTC</a></span></div><div class="content">时区问题处理问题描述：程序时间全局使用的 new Date(),在国内一切正常，但是在国外，就出问题了。最后追踪其根本原因为 new Date(‘xxxx&#x2F;x&#x2F;x’).getTime() 在不同时区返回的时间戳不一致，导致查询数据失败。 如：new Date(&quot;2025/8/1&quot;).getTime() 的解析依赖于客户端时区  北京 (UTC+8)：解析为 2025-08-01 00:00:00 GMT+0800 纽约 (UTC-4)：解析为 2025-08-01 00:00:00 GMT-0400。  结论：相同字符串在不同时区返回不同时间戳（相差时区偏移） 解决方法： 123456function toUTCTimestamp(dateString) &#123;  const [year, month, day] = dateString.split(&#x27;/&#x27;).map(Number);    // 使用 Date.UTC 创建 UTC 时间戳,month - 1是因为 UTC 方法是从 0 开始计算。 减去 8 小...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/6444acd9" title="Spring 面试"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring 面试"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/6444acd9" title="Spring 面试">Spring 面试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-02T09:33:32.000Z" title="发表于 2025-08-02 17:33:32">2025-08-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/">3.Frame</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/1-Spring/">1.Spring</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/1-Spring/0-Spring%E7%BB%BC%E5%90%88/">0.Spring综合</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%A1%86%E6%9E%B6/">框架</a></span></div><div class="content">Spring 面试综合篇不同版本的 Spring Framework 有哪些主要功能？   Version Feature    Spring 2.5 发布于 2007 年。这是第一个支持注解的版本。   Spring 3.0 发布于 2009 年。它完全利用了 Java5 中的改进，并为 JEE6 提供了支持。   Spring 4.0 发布于 2013 年。这是第一个完全支持 JAVA8 的版本。   什么是 Spring Framework？ Spring 是一个开源应用框架，旨在降低应用程序开发的复杂度。 它是轻量级、松散耦合的。 它具有分层体系结构，允许用户选择组件，同时还为 J2EE 应用程序开发提供了一个有凝聚力的框架。 它可以集成其他框架，如 Structs、Hibernate、EJB 等，所以又称为框架的框架。  列举 Spring Framework 的优点。 由于 Spring Frameworks 的分层架构，用户可以自由选择自己需要的组件。 Spring Framework 支持 POJO(Plain Old Java Object) 编程，从而具备持续...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/b8b0eacd" title="java 基础"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 基础"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/b8b0eacd" title="java 基础">java 基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-30T02:40:30.000Z" title="发表于 2025-07-30 10:40:30">2025-07-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/1-JavaSE/">1.JavaSE</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/1-JavaSE/1-%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/">1.基础特性</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a></span></div><div class="content">简介详细api方法可以查看：官方API文档更多教程可以查看：官方教程文档 语法与 C、C++接近，且丢弃了 C++中很少使用的特性。此外，java 还不使用指针，而是引用，并提供了自动分配和回收内存空间，使得我们不用为内存管理而担忧。  运行环境，最好保证操作系统内存 1G 以上  环境配置oracle jdk 下载：https://www.oracle.com/java/technologies/downloads/  需要有 Oracle 账户现在压缩包，解压放置在E:\development下，在 “系统变量” 中设置 3 项属性，JAVA_HOME、PATH、CLASSPATH(大小写无所谓),若已存在则点击”编辑-新建”，不存在则点击”新建”。  变量设置参数如下：  变量名：JAVA_HOME 变量值：C:\Program Files (x86)\Java\jdk1.8.0_91        &#x2F;&#x2F; 要根据自己的实际路径配置 变量名：CLASSPATH 变量值：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\too...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/d702cb34" title="Spring 之 JDBC"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring 之 JDBC"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/d702cb34" title="Spring 之 JDBC">Spring 之 JDBC</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-29T06:33:55.000Z" title="发表于 2025-07-29 14:33:55">2025-07-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/">3.Frame</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/1-Spring/">1.Spring</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/1-Spring/2-Spring%E6%95%B0%E6%8D%AE/">2.Spring数据</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JDBC/">JDBC</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/SpringBoot/">SpringBoot</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Frame/">Frame</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JdbcTemplate/">JdbcTemplate</a></span></div><div class="content">Spring 之 JDBCJDBC 是 Java 语言中用来规范客户端程序如何访问数据库的应用程序接口，提供了增、删、改、查数据库的方法。 JDBC 入门示例JDBC 的工作步骤大致如下：  创建实体类。 声明数据库读写接口的 DAO 接口。定义 DAO 的好处在于对于数据层上层的业务，调用 DAO 时仅关注对外暴露的读写方法，而不考虑底层的具体持久化方式。这样，便于替换持久化方式。 创建一个 DAO 接口的实现类，使用 Spring 的 JDBC 模板去实现接口。 最后，定义一个 DAO 接口的实现类的 JavaBean，并将数据源注入进去。  假设，我们要通过 Spring + JDBC 访问一张 Mysql 数据表 user，user 表的数据结构如下： 123456789101112131415-- 创建用户表CREATE TABLE `user` (    `id`      BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT &#x27;ID&#x27;,    `name`    VARCHAR(255)     ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/57f1fe16" title="Spring 之数据源"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring 之数据源"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/57f1fe16" title="Spring 之数据源">Spring 之数据源</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-29T01:27:55.000Z" title="发表于 2025-07-29 09:27:55">2025-07-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/">3.Frame</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/1-Spring/">1.Spring</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/1-Spring/2-Spring%E6%95%B0%E6%8D%AE/">2.Spring数据</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Spring/">Spring</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/SpringBoot/">SpringBoot</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Frame/">Frame</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DataSource/">DataSource</a></span></div><div class="content">Spring 之数据源 本文基于 Spring Boot 2.7.3 版本。  Spring Boot 数据源基本配置Spring Boot 提供了一系列 spring.datasource.* 配置来控制 DataSource 的配置。用户可以在 application.properties 或 application.yml 文件中指定数据源配置。这些配置项维护在 DataSourceProperties 。 下面是一个最基本的 mysql 数据源配置示例（都是必填项）： 12345678# 数据库访问地址spring.datasource.url = jdbc:mysql://localhost:3306/spring_tutorial?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8# 数据库驱动类，必须保证驱动类是可加载的spring.datasource.driver-class-name = com.mysql.cj.jdbc.Driver# 数据库账号spring.datasourc...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/ad82df0b" title="hexo + butterfly 的 md 常用语法记录"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo + butterfly 的 md 常用语法记录"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/ad82df0b" title="hexo + butterfly 的 md 常用语法记录">hexo + butterfly 的 md 常用语法记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-28T16:00:00.000Z" title="发表于 2025-07-29 00:00:00">2025-07-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/hexo/">hexo</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/hexo/">hexo</a></span></div><div class="content">折叠块   隐藏内容的标题  隐藏文字隐藏文字隐藏文字。   支持 markdown 语法 支持标题  mermaid 教程     flowchart LR     markdown[&quot;&#96;This **is** _Markdown_&#96;&quot;]     newLines[&quot;&#96;Line1     Line 2     Line 3&#96;&quot;]     markdown --&gt; newLines      https://mermaid.nodejs.cn/ecosystem/tutorials.html  md 中引入其他md🚀 java基础可以查看  🚀 java基础#Nubmer小标题</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/ebd55e42" title="Java查漏补缺"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java查漏补缺"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/ebd55e42" title="Java查漏补缺">Java查漏补缺</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-06-22T05:51:00.000Z" title="发表于 2025-06-22 13:51:00">2025-06-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/1-JavaSE/">1.JavaSE</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/1-JavaSE/99-%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/">99.查漏补缺</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Java/">Java</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/JavaSE/">JavaSE</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></span></div><div class="content">基础工具类String String 类能被继承吗？ String，StringBuffer，StringBuilder 的区别。  String 类不能被继承。因为其被 final 修饰，所以无法被继承。 StringBuffer，StringBuilder 拼接字符串，使用 append 比 String 效率高。因为 String 会隐式 new String 对象。 StringBuffer 主要方法都用 synchronized 修饰，是线程安全的；而 StringBuilder 不是。 面向对象 抽象类和接口的区别？ 类可以继承多个类么？接口可以继承多个接口么？类可以实现多个接口么？  类只能继承一个类，但是可以实现多个接口。接口可以继承多个接口。  继承和聚合的区别在哪？  一般，能用聚合就别用继承。聚合是“has-a”，类似 school 类存在 teachers 的变量。 反射⭐ 创建实例 反射创建实例有几种方式？  通过反射来创建实例对象主要有两种方式：  用 Class 对象的 newInstance 方法。 用 Constructor 对象的 newIns...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/4c00edc" title="windows安装sftp"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="windows安装sftp"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/4c00edc" title="windows安装sftp">windows安装sftp</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-06-21T16:00:00.000Z" title="发表于 2025-06-22 00:00:00">2025-06-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/3-OS/">3.OS</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/3-OS/2-windows/">2.windows</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/windows/">windows</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/shell/">shell</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/sftp/">sftp</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/ftp/">ftp</a></span></div><div class="content">参考链接https://blog.csdn.net/qinhuaifeng/article/details/134422259 </div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/5674b7a7" title="java 整合 modbus"><img class="post-bg" src="https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 整合 modbus"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5674b7a7" title="java 整合 modbus">java 整合 modbus</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-06-21T16:00:00.000Z" title="发表于 2025-06-22 00:00:00">2025-06-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/">3.Frame</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/3-IO/">3.IO</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/1-Java/3-Frame/3-IO/modbus/">modbus</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/modbus/">modbus</a></span></div><div class="content">整合 modbus 小 demo配置 maven 依赖123456789&lt;dependency&gt;    &lt;groupId&gt;com.infiniteautomation&lt;/groupId&gt;    &lt;artifactId&gt;modbus4j&lt;/artifactId&gt;    &lt;version&gt;3.1.0&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;    &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;&lt;/dependency&gt;  ModbusServer123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051@Slf4jpublic class ModbusSe...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#content-inner">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#content-inner">11</a><a class="extend next" rel="next" href="/page/7/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">coder-xuyong</div><div class="author-info-description">生如牛马不得闲</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/coder-xuyong"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://coder-xuyong.github.io/resume/?user=coder-xuyong&amp;template=template2" target="_blank" title="resume"><i class="fa-solid fa-address-card" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/coder-xuyong" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/4592b2fd" title="shell"><img src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell"/></a><div class="content"><a class="title" href="/posts/4592b2fd" title="shell">shell</a><time datetime="2025-11-16T06:52:35.000Z" title="发表于 2025-11-16 14:52:35">2025-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7ebb9be2" title="分布式基础"><img src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式基础"/></a><div class="content"><a class="title" href="/posts/7ebb9be2" title="分布式基础">分布式基础</a><time datetime="2025-11-04T00:15:33.000Z" title="发表于 2025-11-04 08:15:33">2025-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c16f2ba9" title="ForkJoin框架"><img src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ForkJoin框架"/></a><div class="content"><a class="title" href="/posts/c16f2ba9" title="ForkJoin框架">ForkJoin框架</a><time datetime="2025-10-18T07:27:46.000Z" title="发表于 2025-10-18 15:27:46">2025-10-18</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list expandBtn" id="aside-cat-list">
+            <li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/"><span class="card-category-list-name">1.Java</span><span class="card-category-list-count">56</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/1-JavaSE/"><span class="card-category-list-name">1.JavaSE</span><span class="card-category-list-count">17</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/1-JavaSE/1-%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/"><span class="card-category-list-name">1.基础特性</span><span class="card-category-list-count">3</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b8b0eacd">
+                    <span class="card-article-list-name">java 基础</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/48b2453f">
+                    <span class="card-article-list-name">java 面向对象</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/9dd42db4">
+                    <span class="card-article-list-name">java 高级</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/1-JavaSE/2-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/"><span class="card-category-list-name">2.高级特性</span><span class="card-category-list-count">2</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/3082f8d4">
+                    <span class="card-article-list-name">Java 编码和加密</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/29e7dc52">
+                    <span class="card-article-list-name">理解 Java 类加载器</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/1-JavaSE/3-JVM/"><span class="card-category-list-name">3.JVM</span><span class="card-category-list-count">4</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/f0675471">
+                    <span class="card-article-list-name">jvm简介与内存架构</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/a0b1cb9c">
+                    <span class="card-article-list-name">jvm垃圾回收</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/d9362458">
+                    <span class="card-article-list-name">jvm字节码</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/5eb9d1ec">
+                    <span class="card-article-list-name">jvm类加载</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/1-JavaSE/4-%E5%B9%B6%E5%8F%91/"><span class="card-category-list-name">4.并发</span><span class="card-category-list-count">7</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/32d96a2b">
+                    <span class="card-article-list-name">Java并发简介</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b9e487ed">
+                    <span class="card-article-list-name">Java并发核心机制</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/6216bb38">
+                    <span class="card-article-list-name">Java锁</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/7ea96e03">
+                    <span class="card-article-list-name">Java并发和容器</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/19b32c42">
+                    <span class="card-article-list-name">Java并发工具类</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/91e798bc">
+                    <span class="card-article-list-name">Java内存模型</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/c16f2ba9">
+                    <span class="card-article-list-name">ForkJoin框架</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/1-JavaSE/99-%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/"><span class="card-category-list-name">99.查漏补缺</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/ebd55e42">
+                    <span class="card-article-list-name">Java查漏补缺</span>
+                  </a>
+                </li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/2-JavaEE/"><span class="card-category-list-name">2.JavaEE</span><span class="card-category-list-count">5</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/2-JavaEE/JavaWeb/"><span class="card-category-list-name">JavaWeb</span><span class="card-category-list-count">4</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/2ce8dedd">
+                    <span class="card-article-list-name">JavaWeb 之 Servlet 指南</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/339b3115">
+                    <span class="card-article-list-name">JavaWeb 之 Jsp 指南</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/9eb5517a">
+                    <span class="card-article-list-name">JavaWeb 之 Filter 和 Listener</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/bb93a37b">
+                    <span class="card-article-list-name">JavaWeb 之 Cookie 和 Session</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/2-JavaEE/Tomcat/"><span class="card-category-list-name">Tomcat</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/4a4c02/">
+                    <span class="card-article-list-name">Tomcat 快速入门</span>
+                  </a>
+                </li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/"><span class="card-category-list-name">3.Frame</span><span class="card-category-list-count">32</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/1-Spring/"><span class="card-category-list-name">1.Spring</span><span class="card-category-list-count">18</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/1-Spring/0-Spring%E7%BB%BC%E5%90%88/"><span class="card-category-list-name">0.Spring综合</span><span class="card-category-list-count">2</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/da3ef66a">
+                    <span class="card-article-list-name">SpringBoot 知识清单</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/6444acd9">
+                    <span class="card-article-list-name">Spring 面试</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/1-Spring/1-Spring%E6%A0%B8%E5%BF%83/"><span class="card-category-list-name">1.Spring核心</span><span class="card-category-list-count">12</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/43b74d60">
+                    <span class="card-article-list-name">Spring Framework 综述</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/cb377708">
+                    <span class="card-article-list-name">Spring Bean</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/7a74b277">
+                    <span class="card-article-list-name">Spring IoC</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/2c3f8444">
+                    <span class="card-article-list-name">Spring 依赖查找</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/fef2a625">
+                    <span class="card-article-list-name">Spring 依赖注入</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/7d67d9e0">
+                    <span class="card-article-list-name">Spring IoC 依赖来源</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/655d86b3">
+                    <span class="card-article-list-name">Spring AOP</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/c922b6d2">
+                    <span class="card-article-list-name">Spring 资源管理</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/c6c8fb67">
+                    <span class="card-article-list-name">Spring 校验</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/1465b468">
+                    <span class="card-article-list-name">SpringBoot 之快速入门</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/32907b42">
+                    <span class="card-article-list-name">SpringBoot 之属性加载详解</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/ebd5b707">
+                    <span class="card-article-list-name">SpringBoot 之 Profile</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/1-Spring/2-Spring%E6%95%B0%E6%8D%AE/"><span class="card-category-list-name">2.Spring数据</span><span class="card-category-list-count">4</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/57f1fe16">
+                    <span class="card-article-list-name">Spring 之数据源</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/d702cb34">
+                    <span class="card-article-list-name">Spring 之 JDBC</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/128c54/">
+                    <span class="card-article-list-name">Spring 之事务</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b7d42c6b">
+                    <span class="card-article-list-name">Spring 之 JPA</span>
+                  </a>
+                </li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/2-ORM/"><span class="card-category-list-name">2.ORM</span><span class="card-category-list-count">2</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/9cf20606">
+                    <span class="card-article-list-name">Mybatis快速入门</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b18bb060">
+                    <span class="card-article-list-name">Mybatis原理</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/3-IO/"><span class="card-category-list-name">3.IO</span><span class="card-category-list-count">12</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/3-IO/commons-io/"><span class="card-category-list-name">commons-io</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/fdded5ed">
+                    <span class="card-article-list-name">commons-io 框架</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/3-IO/ftp/"><span class="card-category-list-name">ftp</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/ebb1c9bd">
+                    <span class="card-article-list-name">从零到一的 sftp 和 ftp 发送文件</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/3-IO/minio/"><span class="card-category-list-name">minio</span><span class="card-category-list-count">3</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/1a2d0b4f">
+                    <span class="card-article-list-name">minio 入门</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/a26e76c7">
+                    <span class="card-article-list-name">MinioClient基本使用</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/c1ece4e3">
+                    <span class="card-article-list-name">minio 上传、下载和删除案例</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/3-IO/modbus/"><span class="card-category-list-name">modbus</span><span class="card-category-list-count">2</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/ef3d4bfa">
+                    <span class="card-article-list-name">modbus 基础</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/5674b7a7">
+                    <span class="card-article-list-name">java 整合 modbus</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/3-Frame/3-IO/netty/"><span class="card-category-list-name">netty</span><span class="card-category-list-count">5</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/bfd15f47">
+                    <span class="card-article-list-name">NIO 基础</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/a84f1c2b">
+                    <span class="card-article-list-name">Netty 入门</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/922301ec">
+                    <span class="card-article-list-name">Netty 进阶</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/798fdea7">
+                    <span class="card-article-list-name">优化与源码</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/1238dab2">
+                    <span class="card-article-list-name">Netty05-实战</span>
+                  </a>
+                </li></ul></li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/4-%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="card-category-list-name">4.分布式</span><span class="card-category-list-count">2</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/4-%E5%88%86%E5%B8%83%E5%BC%8F/0-%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">0.分布式基础</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/7ebb9be2">
+                    <span class="card-article-list-name">分布式基础</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/1-Java/4-%E5%88%86%E5%B8%83%E5%BC%8F/99-%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/"><span class="card-category-list-name">99.查漏补缺</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/f9209d/">
+                    <span class="card-article-list-name">分布式面试总结</span>
+                  </a>
+                </li></ul></li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/"><span class="card-category-list-name">2.database</span><span class="card-category-list-count">20</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="card-category-list-name">1.关系型数据库</span><span class="card-category-list-count">15</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/1-%E7%BB%BC%E5%90%88/"><span class="card-category-list-name">1.综合</span><span class="card-category-list-count">3</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/85be90d7">
+                    <span class="card-article-list-name">数据库系统概论</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/f5d1c948">
+                    <span class="card-article-list-name">SQL 语法速成</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/2d68e08a">
+                    <span class="card-article-list-name">扩展 SQL</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/2-Mysql/"><span class="card-category-list-name">2.Mysql</span><span class="card-category-list-count">11</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/dc634575">
+                    <span class="card-article-list-name">Mysql 架构</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/be1b5cc8">
+                    <span class="card-article-list-name">Mysql 存储引擎</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/8c71b936">
+                    <span class="card-article-list-name">Mysql 索引</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/c047f08d">
+                    <span class="card-article-list-name">Mysql 事务</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b2644c62">
+                    <span class="card-article-list-name">Mysql 锁</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b4726e9c">
+                    <span class="card-article-list-name">Mysql 高可用</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/e34cffd5">
+                    <span class="card-article-list-name">Mysql 优化</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/5079582f">
+                    <span class="card-article-list-name">Mysql 运维</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/f4a951d">
+                    <span class="card-article-list-name">mysqldump 基本使用</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/751eac97">
+                    <span class="card-article-list-name">mysql 常见错误</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/139d47f2">
+                    <span class="card-article-list-name">Mysql 面试</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/1-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/3-%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">3.其他</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b8bb8682">
+                    <span class="card-article-list-name">sqlite</span>
+                  </a>
+                </li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/2-KV%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="card-category-list-name">2.KV数据库</span><span class="card-category-list-count">5</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/2-database/2-KV%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/"><span class="card-category-list-name">Redis</span><span class="card-category-list-count">5</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/d8264bc5">
+                    <span class="card-article-list-name">redis基础</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/76cddc41">
+                    <span class="card-article-list-name">redis高级数据类型</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/e83368f1">
+                    <span class="card-article-list-name">Redis发布订阅案例</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/80debe96">
+                    <span class="card-article-list-name">redis常见错误</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/9657a236">
+                    <span class="card-article-list-name">redis 面试题</span>
+                  </a>
+                </li></ul></li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/3-OS/"><span class="card-category-list-name">3.OS</span><span class="card-category-list-count">8</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/3-OS/1-linux/"><span class="card-category-list-name">1.linux</span><span class="card-category-list-count">3</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/7b6c2166">
+                    <span class="card-article-list-name">linux 命令集</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/e45d4ff5">
+                    <span class="card-article-list-name">linux 上常用操作</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/4592b2fd">
+                    <span class="card-article-list-name">shell</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/3-OS/2-windows/"><span class="card-category-list-name">2.windows</span><span class="card-category-list-count">5</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/71b4baf7">
+                    <span class="card-article-list-name">Windows 工作常用操作</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/8ee5e59e">
+                    <span class="card-article-list-name">Windows 使用笔记</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/4c00edc">
+                    <span class="card-article-list-name">windows安装sftp</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/9b39892f">
+                    <span class="card-article-list-name">shell 基础知识</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/768317a5">
+                    <span class="card-article-list-name">工作中遇到的 shell</span>
+                  </a>
+                </li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/4-Design/"><span class="card-category-list-name">4.Design</span><span class="card-category-list-count">6</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/4-Design/1-Design-Pattern/"><span class="card-category-list-name">1.Design Pattern</span><span class="card-category-list-count">6</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/eeb5bd44">
+                    <span class="card-article-list-name">设计模式之简单工厂模式</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/cdd7d3fd">
+                    <span class="card-article-list-name">设计模式之工厂方法模式</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/cf046f/">
+                    <span class="card-article-list-name">设计模式之单例模式</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/2115cf/">
+                    <span class="card-article-list-name">设计模式之适配器模式</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/5a865c/">
+                    <span class="card-article-list-name">设计模式之代理模式</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/dc8ecd/">
+                    <span class="card-article-list-name">设计模式之策略模式</span>
+                  </a>
+                </li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">2</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/d38b637c">
+                    <span class="card-article-list-name">AI 入门</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/1facef69">
+                    <span class="card-article-list-name">deepseek 本地搭建</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/Java/%E6%A1%86%E6%9E%B6/"><span class="card-category-list-name">框架</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/"><span class="card-category-list-name">Spring</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/Java/%E6%A1%86%E6%9E%B6/Spring/Spring%E6%95%B0%E6%8D%AE/"><span class="card-category-list-name">Spring数据</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/pages/88219e/">
+                    <span class="card-article-list-name">Spring 集成 Mybatis</span>
+                  </a>
+                </li></ul></li></ul></li></ul></li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/Js/"><span class="card-category-list-name">Js</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/b19cbd58">
+                    <span class="card-article-list-name">js 问题记录</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/hexo/"><span class="card-category-list-name">hexo</span><span class="card-category-list-count">4</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/c81d9ccd">
+                    <span class="card-article-list-name">hexo + butterfly 搭建记录</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/ad82df0b">
+                    <span class="card-article-list-name">hexo + butterfly 的 md 常用语法记录</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/6974d2b3">
+                    <span class="card-article-list-name">vscode更新代码异常记录</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/1bd17139">
+                    <span class="card-article-list-name">使用cdn提升网站的访问速度</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/idea/"><span class="card-category-list-name">idea</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/60fa03a6">
+                    <span class="card-article-list-name">idea 使用方便记录</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/network/"><span class="card-category-list-name">network</span><span class="card-category-list-count">3</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/e255a10a">
+                    <span class="card-article-list-name">计算机网络</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/17ff3a6c">
+                    <span class="card-article-list-name">遇到的网络相关的问题</span>
+                  </a>
+                </li><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/4695f93d">
+                    <span class="card-article-list-name">DNS 工作原理</span>
+                  </a>
+                </li></ul></li><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/python/"><span class="card-category-list-name">python</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/python/django/"><span class="card-category-list-name">django</span><span class="card-category-list-count">1</span><i class="fas fa-caret-left "></i></a><ul class="card-article-list child"><li class="card-article-list-item">
+                  <a class="card-article-list-link" href="/posts/3389d225">
+                    <span class="card-article-list-name">django 使用过程中发生的问题</span>
+                  </a>
+                </li></ul></li></ul></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/js/" style="font-size: 1.15em; color: rgb(177, 54, 145);">js</a><a href="/tags/UTC/" style="font-size: 1.15em; color: rgb(134, 59, 141);">UTC</a><a href="/tags/DNS/" style="font-size: 1.15em; color: rgb(78, 51, 116);">DNS</a><a href="/tags/internet/" style="font-size: 1.15em; color: rgb(50, 50, 71);">internet</a><a href="/tags/windows/" style="font-size: 1.27em; color: rgb(155, 61, 198);">windows</a><a href="/tags/AI/" style="font-size: 1.21em; color: rgb(50, 131, 169);">AI</a><a href="/tags/deepseek/" style="font-size: 1.21em; color: rgb(129, 50, 89);">deepseek</a><a href="/tags/hexo/" style="font-size: 1.27em; color: rgb(175, 50, 50);">hexo</a><a href="/tags/CDN/" style="font-size: 1.15em; color: rgb(101, 141, 60);">CDN</a><a href="/tags/cloudflare/" style="font-size: 1.15em; color: rgb(142, 162, 99);">cloudflare</a><a href="/tags/vscode/" style="font-size: 1.15em; color: rgb(55, 100, 190);">vscode</a><a href="/tags/github/" style="font-size: 1.15em; color: rgb(50, 148, 177);">github</a><a href="/tags/github-pages/" style="font-size: 1.15em; color: rgb(165, 50, 127);">github pages</a><a href="/tags/idea/" style="font-size: 1.15em; color: rgb(107, 176, 139);">idea</a><a href="/tags/linux/" style="font-size: 1.27em; color: rgb(67, 50, 82);">linux</a><a href="/tags/tomcat/" style="font-size: 1.15em; color: rgb(192, 183, 166);">tomcat</a><a href="/tags/shell/" style="font-size: 1.33em; color: rgb(50, 129, 164);">shell</a><a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 1.39em; color: rgb(113, 56, 167);">转载</a><a href="/tags/script/" style="font-size: 1.21em; color: rgb(139, 50, 151);">script</a><a href="/tags/Java/" style="font-size: 1.45em; color: rgb(188, 166, 89);">Java</a></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">103</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-06-30T00:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">386.4k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-11-27T06:52:13.807Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/4331cb9499664e9b9c6b18c3457f3a3c20250515.jpg?x-oss-process=image%2Fformat%2Cwebp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By coder-xuyong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div><div class="footer_custom_text">Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><!-- butterfly右下角悬浮菜单栏 百分比--><span id="percent">0</span></button><!-- butterfly右下角悬浮菜单栏 直达底部--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["心有所向，日复一日，必有精进。","无论是冒险还是做生意，机会都稍纵即逝。"].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  typedJSFn.processSubtitle(["心有所向，日复一日，必有精进。","无论是冒险还是做生意，机会都稍纵即逝。"])
+}
+typedJSFn.run(subtitleType)</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script>window.newestComments = {
+  changeContent: content => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<code>.*?<\/code>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g, "") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0, 150) + '...'
+    }
+    return content
+  },
+
+  generateHtml: (array, ele) => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class="aside-list-item">'
+
+        if (true && array[i].avatar) {
+          const imgAttr = 'src'
+          const lazyloadNative = ''
+          result += `<a href="${array[i].url}" class="thumbnail"><img ${imgAttr}="${array[i].avatar}" alt="${array[i].nick}" ${lazyloadNative}></a>`
+        }
+
+        result += `<div class="content">
+        <a class="comment" href="${array[i].url}" title="${array[i].content}">${array[i].content}</a>
+        <div class="name"><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '暂无评论'
+    }
+
+    ele.innerHTML = result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh(ele)
+  },
+
+  newestCommentInit: (name, getComment) => {
+    const $dom = document.querySelector('#card-newest-comments .aside-list')
+    if ($dom) {
+      const data = btf.saveToLocal.get(name)
+      if (data) {
+        newestComments.generateHtml(JSON.parse(data), $dom)
+      } else {
+        getComment($dom)
+      }
+    }
+  },
+
+  run: (name, getComment) => {
+    newestComments.newestCommentInit(name, getComment)
+    btf.addGlobalFn('pjaxComplete', () => newestComments.newestCommentInit(name, getComment), name)
+  }
+}</script><script>window.addEventListener('load', () => {
+  const keyName = 'github-newest-comments'
+  const { changeContent, generateHtml, run } = window.newestComments
+
+  const findTrueUrl = (array, ele) => {
+    Promise.all(array.map(item =>
+      fetch(item.url).then(resp => resp.json()).then(data => {
+        let urlArray = data.body ? data.body.match(/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig) : []
+        if (!Array.isArray(urlArray) || urlArray.length === 0) {
+          urlArray = [`${data.html_url}`]
+        }
+        if (data.user.login === 'utterances-bot') {
+          return urlArray.pop()
+        } else {
+          return urlArray.shift()
+        }
+      })
+    )).then(res => {
+        array = array.map((i,index)=> {
+          return {
+            ...i,
+            url: res[index]
+          }
+        })
+
+        btf.saveToLocal.set(keyName, JSON.stringify(array), 10/(60*24))
+        generateHtml(array, ele)
+    });
+  }
+
+  const getComment = ele => {
+    fetch('https://api.github.com/repos/coder-xuyong/coder-xuyong.github.io/issues/comments?sort=updated&direction=desc&per_page=3&page=1',{
+      "headers": {
+        Accept: 'application/vnd.github.v3.html+json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const githubArray = data.map(item => {
+          return {
+            'avatar': item.user.avatar_url,
+            'content': changeContent(item.body_html || item.body),
+            'nick': item.user.login,
+            'url': item.issue_url,
+            'date': item.updated_at
+          }
+        })
+        findTrueUrl(githubArray, ele)
+      }).catch(e => {
+        console.error(e)
+        ele.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+  }
+  run(keyName, getComment)
+})</script><script src="/self/custom.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="https://cn.vercount.one/js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search key word" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,1365 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>java 基础 | coder-xuyong</title><meta name="author" content="coder-xuyong"><meta name="copyright" content="coder-xuyong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="简介详细api方法可以查看：官方API文档更多教程可以查看：官方教程文档 语法与 C、C++接近，且丢弃了 C++中很少使用的特性。此外，java 还不使用指针，而是引用，并提供了自动分配和回收内存空间，使得我们不用为内存管理而担忧。  运行环境，最好保证操作系统内存 1G 以上  环境配置oracle jdk 下载：https:&#x2F;&#x2F;www.oracle.com&#x2F;java&#x2F;technologies">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 基础">
+<meta property="og:url" content="https://coder-xuyong.github.io/posts/b8b0eacd">
+<meta property="og:site_name" content="coder-xuyong">
+<meta property="og:description" content="简介详细api方法可以查看：官方API文档更多教程可以查看：官方教程文档 语法与 C、C++接近，且丢弃了 C++中很少使用的特性。此外，java 还不使用指针，而是引用，并提供了自动分配和回收内存空间，使得我们不用为内存管理而担忧。  运行环境，最好保证操作系统内存 1G 以上  环境配置oracle jdk 下载：https:&#x2F;&#x2F;www.oracle.com&#x2F;java&#x2F;technologies">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp">
+<meta property="article:published_time" content="2025-07-30T02:40:30.000Z">
+<meta property="article:modified_time" content="2025-11-27T06:52:00.669Z">
+<meta property="article:author" content="coder-xuyong">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "java 基础",
+  "url": "https://coder-xuyong.github.io/posts/b8b0eacd",
+  "image": "https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp",
+  "datePublished": "2025-07-30T02:40:30.000Z",
+  "dateModified": "2025-11-27T06:52:00.669Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "coder-xuyong",
+      "url": "https://coder-xuyong.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/medias/img/logo.png"><link rel="canonical" href="https://coder-xuyong.github.io/posts/b8b0eacd"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: coder-xuyong","link":"链接: ","source":"来源: coder-xuyong","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'java 基础',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/self/custom.css"><link rel="stylesheet" href="/self/progress_bar.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/self/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #fafafa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/medias/img/logo.png" alt="Logo"><span class="site-name">coder-xuyong</span></a><a class="nav-page-title" href="/"><span class="site-name">java 基础</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">java 基础<a class="post-edit-link" href="https://github.com/coder-xuyong/coder-xuyong.github.io/edit/main/source/_posts/01.Java/01.JavaSE/01.基础特性/01.java基础.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-30T02:40:30.000Z" title="发表于 2025-07-30 10:40:30">2025-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T06:52:00.669Z" title="更新于 2025-11-27 14:52:00">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/1-JavaSE/">1.JavaSE</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/1-JavaSE/1-%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7/">1.基础特性</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">6.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>24分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-11-27 14:52:00&quot;}" hidden></div><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>详细api方法可以查看：<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/index.html">官方API文档</a><br>更多教程可以查看：<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/index.html">官方教程文档</a></p>
+<p>语法与 C、C++接近，且丢弃了 C++中很少使用的特性。此外，java 还不使用指针，而是引用，并提供了自动分配和回收内存空间，使得我们不用为内存管理而担忧。</p>
+<blockquote>
+<p>运行环境，最好保证操作系统内存 1G 以上</p>
+</blockquote>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>oracle jdk 下载：<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/">https://www.oracle.com/java/technologies/downloads/</a></p>
+<blockquote>
+<p>需要有 Oracle 账户<br>现在压缩包，解压放置在<code>E:\development</code>下，在 “系统变量” 中设置 3 项属性，JAVA_HOME、PATH、CLASSPATH(大小写无所谓),若已存在则点击”编辑-新建”，不存在则点击”新建”。</p>
+</blockquote>
+<p>变量设置参数如下：</p>
+<ul>
+<li>变量名：JAVA_HOME</li>
+<li>变量值：C:\Program Files (x86)\Java\jdk1.8.0_91        &#x2F;&#x2F; 要根据自己的实际路径配置</li>
+<li>变量名：CLASSPATH</li>
+<li>变量值：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;         &#x2F;&#x2F;记得前- 面有个”.”</li>
+<li>变量名：Path</li>
+<li>变量值：<ul>
+<li>%JAVA_HOME%\bin</li>
+<li>%JAVA_HOME%\jre\bin</li>
+</ul>
+</li>
+</ul>
+<p>cmd 中输入<code>java -vsersion</code> 有版本号输出即完成。</p>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>变量就是申请内存来存储值。</p>
+<p>Java 的两大数据类型:</p>
+<ul>
+<li>内置数据类型</li>
+<li>引用数据类型</li>
+</ul>
+<h3 id="内置数据类型"><a href="#内置数据类型" class="headerlink" title="内置数据类型"></a>内置数据类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>字节大小</th>
+<th>大小(位)</th>
+<th>最小值</th>
+<th>最大值</th>
+<th>默认值</th>
+<th>包装类</th>
+<th>备注说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>1</td>
+<td>8</td>
+<td>-2^7</td>
+<td>2^7 - 1</td>
+<td>0</td>
+<td>Byte</td>
+<td>有符号整数</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>16</td>
+<td>-2^15</td>
+<td>2^15 - 1</td>
+<td>0</td>
+<td>Short</td>
+<td>有符号整数</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>32</td>
+<td>-2^31</td>
+<td>2^31 - 1</td>
+<td>0</td>
+<td>Integer</td>
+<td>有符号整数，最常用</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8</td>
+<td>64</td>
+<td>-2^63</td>
+<td>2^63 - 1</td>
+<td>0L</td>
+<td>Long</td>
+<td>需加 L 后缀（如 1000L）</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+<td>32</td>
+<td>≈1.4E-45</td>
+<td>≈3.4E38</td>
+<td>0.0f</td>
+<td>Float</td>
+<td>单精度浮点，需加 f 后缀</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>64</td>
+<td>≈4.9E-324</td>
+<td>≈1.8E308</td>
+<td>0.0d</td>
+<td>Double</td>
+<td>双精度浮点（默认浮点类型）</td>
+</tr>
+<tr>
+<td>char</td>
+<td>2</td>
+<td>16</td>
+<td>0</td>
+<td>2^16 - 1</td>
+<td>‘\u0000’</td>
+<td>Character</td>
+<td>无符号 Unicode 字符</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>1&#x2F;8</td>
+<td>1</td>
+<td>false</td>
+<td>true</td>
+<td>false</td>
+<td>Boolean</td>
+<td>大小取决于 JVM 实现</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>浮点数设计与整型不同，遵循<strong>IEEE 754 浮点数标准 ​​</strong>，不能用 2 的幂函数表示</p>
+</blockquote>
+<h3 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h3><p>所有引用类型的默认值都是 null，如 String、array。</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>在程序运行时，是不能被修改的。使用<code>final</code>进行修饰。</p>
+<h3 id="自动类型转换"><a href="#自动类型转换" class="headerlink" title="自动类型转换"></a>自动类型转换</h3><p><strong>在混合运算中，不同的类型是先转为同一类型，再进行计算</strong>，转换从低级到高级。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">低  ------------------------------------&gt;  高</span><br><span class="line">byte,short,char—&gt; int —&gt; long—&gt; float —&gt; double</span><br></pre></td></tr></table></figure>
+
+<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><p>如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">123</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> (<span class="type">byte</span>)i1;<span class="comment">//强制类型转换为byte</span></span><br><span class="line">System.out.println(<span class="string">&quot;int强制类型转换为byte后的值等于&quot;</span>+b);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要注意的是，强转是由高–&gt;低，会出现溢出或者精度损失的情况。如上述代码，其中 i1，因为 byte 类型是八位，最大值是 127，当 i1&#x3D;128 时，就会导致溢出。</p>
+</blockquote>
+<h3 id="隐含强制类型转换"><a href="#隐含强制类型转换" class="headerlink" title="隐含强制类型转换"></a>隐含强制类型转换</h3><p>只需要记住两点：</p>
+<ul>
+<li>整数的默认类型是 int。</li>
+<li>小数默认是 double 类型浮点型，在定义 float 类型时必须在数字后面跟上 F 或者 f。</li>
+</ul>
+<p>怎么理解呢？就比如：<code>float aa = 12.9;</code>,这个赋值后面没有加 F&#x2F;f，其实它完整的写法是：<code>float aa = (float) 12.9;</code>，中间有一个隐形的转换过程，因为小数 12.9 默认是 double 类型的。</p>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><table>
+<thead>
+<tr>
+<th>变量类型</th>
+<th>声明位置</th>
+<th>作用域</th>
+<th>生命周期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>局部变量</td>
+<td>方法&#x2F;构造块&#x2F;代码块内部</td>
+<td>仅在声明它的代码块内有效</td>
+<td>从声明开始到代码块结束</td>
+</tr>
+<tr>
+<td>实例变量</td>
+<td>类内部（方法外部）</td>
+<td>类实例内部有效</td>
+<td>对象创建 → 对象被垃圾回收</td>
+</tr>
+<tr>
+<td>静态变量</td>
+<td>类内部 + <code>static</code>修饰</td>
+<td>整个类范围（所有实例共享）</td>
+<td>类加载时存在 → 程序结束</td>
+</tr>
+<tr>
+<td>参数变量</td>
+<td>方法&#x2F;构造函数参数列表</td>
+<td>整个方法&#x2F;构造函数内部有效</td>
+<td>方法调用开始 → 方法执行结束</td>
+</tr>
+</tbody></table>
+<h3 id="参数变量"><a href="#参数变量" class="headerlink" title="参数变量"></a>参数变量</h3><p>方法参数来那个量的值传递方式有两种：<strong>值传递</strong>和<strong>引用传递</strong></p>
+<ul>
+<li>值传递：基本类型都是采用值传递，它传递的是实际参数变量值的副本，不会对原本的参数变量造成影响。</li>
+<li>引用传递：对象类型采用引用传递方式传递值，它传递的是实际参数变量的引用（内存地址），当变量参数被赋予新的值时，会修改原始值。</li>
+</ul>
+<h2 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h2><p>修饰符分为<strong>访问修饰符</strong>和<strong>非访问修饰符</strong>。</p>
+<h3 id="访问修饰符-1"><a href="#访问修饰符-1" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><table>
+<thead>
+<tr>
+<th>访问修饰符</th>
+<th>同类</th>
+<th>同包子类</th>
+<th>同包非子类</th>
+<th>不同包子类</th>
+<th>不同包非子类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>全局可见</td>
+</tr>
+<tr>
+<td><code>protected</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>子类可见（即使跨包）</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>包内可见（默认修饰符）</td>
+</tr>
+<tr>
+<td><code>private</code></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>仅类内可见</td>
+</tr>
+</tbody></table>
+<h3 id="非访问修饰符"><a href="#非访问修饰符" class="headerlink" title="非访问修饰符"></a>非访问修饰符</h3><table>
+<thead>
+<tr>
+<th>非访问修饰符</th>
+<th>适用位置</th>
+<th>用途说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>static</code></td>
+<td>变量&#x2F;方法&#x2F;代码块</td>
+<td>声明类级别成员（无需实例化即可访问）</td>
+</tr>
+<tr>
+<td><code>final</code></td>
+<td>类&#x2F;方法&#x2F;变量</td>
+<td>禁止继承&#x2F;重写&#x2F;修改</td>
+</tr>
+<tr>
+<td><code>abstract</code></td>
+<td>类&#x2F;方法</td>
+<td>定义抽象类或抽象方法（要求子类实现）</td>
+</tr>
+<tr>
+<td><code>synchronized</code></td>
+<td>方法&#x2F;代码块</td>
+<td>线程同步（一次只允许一个线程访问）</td>
+</tr>
+<tr>
+<td><code>volatile</code></td>
+<td>变量</td>
+<td>线程间可见性（变量直接读写主内存）</td>
+</tr>
+<tr>
+<td><code>transient</code></td>
+<td>变量</td>
+<td>序列化时排除字段</td>
+</tr>
+<tr>
+<td><code>native</code></td>
+<td>方法</td>
+<td>声明本地方法（用非Java语言实现）</td>
+</tr>
+</tbody></table>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>名称</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+</code></td>
+<td>加法</td>
+<td><code>a + b</code></td>
+<td>也用于字符串连接</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>减法</td>
+<td><code>a - b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>乘法</td>
+<td><code>a * b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>除法</td>
+<td><code>a / b</code></td>
+<td>整数除法会截断小数</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>取模</td>
+<td><code>10 % 3</code> → <code>1</code></td>
+<td>计算余数</td>
+</tr>
+<tr>
+<td><code>++</code></td>
+<td>自增</td>
+<td><code>a++</code> 或 <code>++a</code></td>
+<td>前缀&#x2F;后缀影响计算顺序</td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>自减</td>
+<td><code>b--</code> 或 <code>--b</code></td>
+<td>前缀&#x2F;后缀影响计算顺序</td>
+</tr>
+</tbody></table>
+<h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>名称</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>==</code></td>
+<td>等于</td>
+<td><code>a == b</code></td>
+<td>比较基本类型值或对象引用</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>不等于</td>
+<td><code>a != b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>大于</td>
+<td><code>a &gt; b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>小于</td>
+<td><code>a &lt; b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>大于等于</td>
+<td><code>a &gt;= b</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>小于等于</td>
+<td><code>a &lt;= b</code></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>名称</th>
+<th>示例</th>
+<th>说明</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑与</td>
+<td><code>a &gt; 0 &amp;&amp; b &lt; 10</code></td>
+<td>短路运算（前false则跳过计算）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&#96;\</td>
+<td>\</td>
+<td>&#96;</td>
+<td>逻辑或</td>
+<td>&#96;a &lt; 0 \</td>
+<td>\</td>
+<td>b &gt; 5&#96;</td>
+<td>短路运算（前true则跳过计算）</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>逻辑非</td>
+<td><code>!valid</code></td>
+<td>取反操作</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>名称</th>
+<th>示例</th>
+<th>说明</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&amp;</code></td>
+<td>按位与</td>
+<td><code>mask &amp; options</code></td>
+<td>二进制位运算</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&#96;\</td>
+<td>&#96;</td>
+<td>按位或</td>
+<td>&#96;mask \</td>
+<td>flags&#96;</td>
+<td></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>按位异或</td>
+<td><code>a ^ b</code></td>
+<td>相同为0，不同为1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>按位取反</td>
+<td><code>~value</code></td>
+<td>0变1，1变0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>左移</td>
+<td><code>num &lt;&lt; 2</code></td>
+<td>相当于*4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>带符号右移</td>
+<td><code>num &gt;&gt; 1</code></td>
+<td>最高位补符号位</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;&gt;</code></td>
+<td>无符号右移</td>
+<td><code>num &gt;&gt;&gt; 3</code></td>
+<td>最高位补0</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="其他运算符"><a href="#其他运算符" class="headerlink" title="其他运算符"></a>其他运算符</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>运算符</th>
+<th>名称&#x2F;作用</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>赋值运算符</td>
+<td><code>=</code></td>
+<td>赋值</td>
+<td><code>int x = 5;</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>+= -=</code> 等</td>
+<td>复合赋值</td>
+<td><code>a += 3;</code></td>
+<td>等价于 <code>a = a + 3</code></td>
+</tr>
+<tr>
+<td>三元运算符</td>
+<td><code>? :</code></td>
+<td>条件运算符</td>
+<td><code>max = (a&gt;b) ? a : b;</code></td>
+<td>简化if-else</td>
+</tr>
+<tr>
+<td>类型检查</td>
+<td><code>instanceof</code></td>
+<td>实例检查</td>
+<td><code>obj instanceof String</code></td>
+<td>检查对象类型</td>
+</tr>
+<tr>
+<td>成员访问</td>
+<td><code>.</code></td>
+<td>点运算符</td>
+<td><code>obj.method()</code></td>
+<td>访问对象成员</td>
+</tr>
+<tr>
+<td>优先级控制</td>
+<td><code>()</code></td>
+<td>括号</td>
+<td><code>(a+b)*c</code></td>
+<td>改变运算顺序</td>
+</tr>
+</tbody></table>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组是一块儿连续区域，分割为大小相同的元素块儿，查询速度快。<br>其中查询快是根据索引查询数据快：通过地址值和索引值定位，查询任意数据耗时相同<br>1.声明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataType[] arrayRefVar;   <span class="comment">// 首选的方法</span></span><br><span class="line">或 </span><br><span class="line">dataType arrayRefVar[];  <span class="comment">// 效果相同，但不是首选方法</span></span><br></pre></td></tr></table></figure>
+<p>2.创建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrayRefVar = <span class="keyword">new</span> <span class="title class_">dataType</span>[arraySize];</span><br></pre></td></tr></table></figure>
+
+<p>1&amp;2合起来就是:<code>dataType[] arrayRefVar = new dataType[arraySize];</code>；<br>此外，还可以像这样：<code>dataType[] arrayRefVar = &#123;value0, value1, ..., valuek&#125;;</code></p>
+<blockquote>
+<p>可以使用 java.util.Arrays 工具类，方便操作数组，其中最常用的就是，Arrays.sort(array)，排序数组。</p>
+</blockquote>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>Java 提供了 java.util.regex 包，它包含了 Pattern 和 Matcher 类，用于处理正则表达式的匹配操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="string">&quot;This order was placed for QT3000! OK?&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">pattern</span> <span class="operator">=</span> <span class="string">&quot;(\\D*)(\\d+)(.*)&quot;</span>;</span><br><span class="line"><span class="comment">// 创建 Pattern 对象</span></span><br><span class="line"><span class="type">Pattern</span> <span class="variable">r</span> <span class="operator">=</span> Pattern.compile(pattern);</span><br><span class="line"><span class="comment">// 现在创建 matcher 对象</span></span><br><span class="line"><span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> r.matcher(line);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>正则表达式语法可以查看：<a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-regular-expressions.html">菜鸟教程&#x2F;正则表达式&#x2F;正则表达式语法</a></p>
+</blockquote>
+<h2 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h2><p>成员变量是定义在类内部、方法外部的变量</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="方法重载-Overloading"><a href="#方法重载-Overloading" class="headerlink" title="方法重载 (Overloading)"></a>方法重载 (Overloading)</h3><p><strong>核心概念</strong>：<br>同一个类中，允许存在<strong>多个同名方法</strong>，但要求它们的<strong>参数列表不同</strong>（类型、数量或顺序不同）。</p>
+<p><strong>规则</strong>：</p>
+<ol>
+<li>方法名必须相同  </li>
+<li>参数列表必须不同（以下至少满足一项）：  <ul>
+<li>参数类型不同  </li>
+<li>参数数量不同  </li>
+<li>参数顺序不同</li>
+</ul>
+</li>
+<li><strong>与返回值类型无关</strong>（返回值可相同也可不同）</li>
+</ol>
+<h3 id="可变参数-Varargs"><a href="#可变参数-Varargs" class="headerlink" title="可变参数 (Varargs)"></a>可变参数 (Varargs)</h3><p><strong>核心概念</strong>：<br>允许方法接受<strong>任意数量</strong>的同类型参数（本质是数组的语法糖）。</p>
+<p><strong>语法</strong>：<br>在参数类型后加 <code>...</code><br><code>void methodName(Type... varName)</code></p>
+<p><strong>规则</strong>：</p>
+<ol>
+<li>一个方法只能有一个可变参数  </li>
+<li>必须是方法的<strong>最后一个参数</strong>  </li>
+<li>可以接受 0 到多个参数</li>
+</ol>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>用来创建类的实例对象的方法。<br>特点 ：</p>
+<ol>
+<li>与类名相同；</li>
+<li>没有返回类型；</li>
+<li>默认构造方法，在没有定义任何构造方法的时候，java会自动提供一个无参构造方法；</li>
+<li>this关键字使用，在调用其他构造方法时，必须放在构造方法的第一行；</li>
+<li>不能被继承，但是可以被调用，子类使用 super()；</li>
+</ol>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><h3 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h3><p>声明方式：<code>static&#123;&#125;</code><br>特点：类加载的时候优先执行（比 mian 方法快），只执行一次；一般用于初始化。</p>
+<h3 id="实例代码块"><a href="#实例代码块" class="headerlink" title="实例代码块"></a>实例代码块</h3><p>声明方式：<code>&#123;&#125;</code><br>特点：类每次实例化的时候执行一次，多个实例代码块按顺序执行；初始化对象的实例资源。</p>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>在类A里面定义一个类B，这个类B就是内部类。</p>
+<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>声明如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Outer</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Inner</span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用：new Outer().new Inner()<br>特点：</p>
+<ul>
+<li>内部类可以直接访问外部类的成员变量和方法</li>
+<li>内部类看直接拿到外部类的对象，如：Outer.this</li>
+</ul>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>声明如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Outer</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Inner</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用：new Outer().Inner()</p>
+<blockquote>
+<p>静态内部类不能直接访问外部实例成员，</p>
+</blockquote>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>定义：<code>new className&#123;类体，一般为方法&#125;</code>，className 可以是接口和类<br>如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Animal</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">cry</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="comment">//成员内部类</span></span><br><span class="line"> <span class="keyword">class</span> <span class="title class_">Cat</span> <span class="keyword">extends</span> <span class="title class_">Animal</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">cry</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 匿名内部类，Animal 也可以是接口</span></span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Animal</span>()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">cry</span><span class="params">()</span>&#123;<span class="comment">/* 重写方法 */</span>&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>特点：</p>
+<ul>
+<li>编译之后，会出现 类名字$+阿拉伯数字 的class文件，其实就是匿名内部类；如：Test$1.class</li>
+<li>使用更加方便</li>
+</ul>
+<h4 id="常见形式"><a href="#常见形式" class="headerlink" title="常见形式"></a>常见形式</h4><ol>
+<li>作为一个对象参数传送给方法。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(Animal an)</span>&#123;</span><br><span class="line">  an.cry();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// start 方法可以按照多态调用，如：Animal an = new Cat();</span></span><br><span class="line"><span class="comment">// 使用匿名内部类的方式，则如下：</span></span><br><span class="line"><span class="type">Animal</span> <span class="variable">an</span> <span class="operator">=</span>   <span class="keyword">new</span> <span class="title class_">Animal</span>()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">cry</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  &#125;;</span><br><span class="line">start(an);<span class="comment">// an 可以把等号右边的直接带进来。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 匿名内部类可以进一步简化，这里用的式 lambda 表达式</span></span><br><span class="line">start(an -&gt; System.out.println(<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>某些方法会需要手动传入 匿名内部类的参数，如：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JButton</span> <span class="variable">btn</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JButton</span>(<span class="string">&quot;login&quot;</span>);</span><br><span class="line">btn.addActionListener(<span class="keyword">new</span> <span class="title class_">ActionListener</span>()&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span>&#123;</span><br><span class="line">    <span class="comment">//……</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>主要分为三种异常：</p>
+<ol>
+<li>检查性异常，可以使用try-catch或者throws来处理。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (resource declaration) &#123;</span><br><span class="line">  <span class="comment">// 使用的资源</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (ExceptionType e1) &#123;</span><br><span class="line">  <span class="comment">// 异常块</span></span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ===========or========</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">// 可能会抛出IOException的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>运行时异常，最常见的就是 NullPointerException</p>
+</li>
+<li><p>错误：不是异常，容易忽略的地方，比如栈溢出。</p>
+</li>
+</ol>
+<blockquote>
+<p>throw 用于手动抛异常，如：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">checkNumber</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (num &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;Number must be positive&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></blockquote>
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><ol>
+<li>自定义编译时异常</li>
+</ol>
+<ul>
+<li>继承 Exception </li>
+<li>重写 Exception 的构造器,一般 super(message) 就足够了，message是参数</li>
+</ul>
+<ol start="2">
+<li>自定义运行时异常</li>
+</ol>
+<ul>
+<li>继承 RuntimeException </li>
+<li>重写 RuntimeException 的构造器，同上</li>
+</ul>
+<h3 id="异常处理方案"><a href="#异常处理方案" class="headerlink" title="异常处理方案"></a>异常处理方案</h3><ol>
+<li>最底层抛到最外层</li>
+<li>最外层捕获（try-catch）异常后，尝试重新修复。</li>
+</ol>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><ol>
+<li>标准 ACSII 码，美国信息交换编码，一个字节（首位是0）存储一个字符，只包括了英文、符号；总工128个。</li>
+<li>GBK，汉字编码字符集，一个中文字符两个字节（首位是1），包括两万多个字符。且兼容了 ACSII 字符集。</li>
+<li>Unicode字符集（统一码，也叫万国码），是国际组织制定的，可以容纳世界上所有文字、符号的字符集；</li>
+</ol>
+<ul>
+<li>Unicode-32（2^32个字符），四个字节一个字符，存储空间占用大，少用使用</li>
+<li><strong>Unicode-8，现在快全球统一的编码</strong>，英文字符、数字等只占1个字节(兼容标准ASCII编码)，汉字字符占用3个字节（首位111）；其他还有2字节（首位11）和4字节（首位1111）的</li>
+</ul>
+<blockquote>
+<p>编码和解码必须使用统一字符集<br>数字和英文一般不会乱码，因为很多字符集都兼容了ASCII码。</p>
+</blockquote>
+<h3 id="编码和解码"><a href="#编码和解码" class="headerlink" title="编码和解码"></a>编码和解码</h3><ol>
+<li><p>对字符的编码，String提供了如下方法</p>
+<table>
+<thead>
+<tr>
+<th>方法签名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:—</td>
+<td>:—</td>
+</tr>
+<tr>
+<td><code>byte[] getBytes()</code></td>
+<td>使用平台的默认字符集将该 String 编码为一系列字节，将结果存储到新的字节数组中</td>
+</tr>
+<tr>
+<td><code>byte[] getBytes(String charsetName)</code></td>
+<td>使用指定的字符集将该 String 编码为一系列字节，将结果存储到新的字节数组中</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>对字符的解码，String提供了如下构造方法</p>
+<table>
+<thead>
+<tr>
+<th>构造方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:—</td>
+<td>:—</td>
+</tr>
+<tr>
+<td><code>String(byte[] bytes)</code></td>
+<td>通过使用平台的默认字符集解码指定的字节数组来构造新的 String</td>
+</tr>
+<tr>
+<td><code>String(byte[] bytes, String charsetName)</code></td>
+<td>通过指定的字符集解码指定的字节数组来构造新的 String</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h2 id="常用类"><a href="#常用类" class="headerlink" title="常用类"></a>常用类</h2><h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><p>Number 是除开 boolean 和 Character 之外的所有基本数字类型的包装类的抽象父类，提供各种数值类型的转换。</p>
+<p>主要子类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">num1</span> <span class="operator">=</span> Integer.valueOf(<span class="string">&quot;100&quot;</span>);</span><br><span class="line"><span class="type">Double</span> <span class="variable">num2</span> <span class="operator">=</span> Double.parseDouble(<span class="string">&quot;3.14&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+<ol>
+<li>基本类型转换</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Number</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">1234.56</span>; <span class="comment">// 实际是Double类型</span></span><br><span class="line"></span><br><span class="line">System.out.println(num.intValue());    <span class="comment">// 1234 (截断小数)</span></span><br><span class="line">System.out.println(num.longValue());   <span class="comment">// 1234</span></span><br><span class="line">System.out.println(num.floatValue());  <span class="comment">// 1234.56</span></span><br><span class="line">System.out.println(num.doubleValue()); <span class="comment">// 1234.56</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>数值比较</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"><span class="type">Double</span> <span class="variable">y</span> <span class="operator">=</span> <span class="number">10.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确比较方式：转换为同一类型后比较</span></span><br><span class="line">System.out.println(x.doubleValue() == y.doubleValue()); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>处理大数</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BigInteger</span> <span class="variable">bigInt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;12345678901234567890&quot;</span>);</span><br><span class="line"><span class="type">BigDecimal</span> <span class="variable">bigDec</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigDecimal</span>(<span class="string">&quot;1234567890.1234567890&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 大数运算</span></span><br><span class="line"><span class="type">BigInteger</span> <span class="variable">sum</span> <span class="operator">=</span> bigInt.add(<span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;1&quot;</span>));</span><br><span class="line"><span class="type">BigDecimal</span> <span class="variable">product</span> <span class="operator">=</span> bigDec.multiply(<span class="keyword">new</span> <span class="title class_">BigDecimal</span>(<span class="string">&quot;2&quot;</span>));</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>数值格式化</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NumberFormat</span> <span class="variable">nf</span> <span class="operator">=</span> NumberFormat.getInstance();</span><br><span class="line">nf.setMaximumFractionDigits(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(nf.format(<span class="number">1234.5678</span>)); <span class="comment">// &quot;1,234.57&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>装箱和拆箱</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自动装箱 (Auto Boxing)</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">autoBoxed</span> <span class="operator">=</span> <span class="number">10</span>;      <span class="comment">// 基本类型 int → 包装类 Integer</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 手动装箱 (Manual Boxing)</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">manualBoxed</span> <span class="operator">=</span> Integer.valueOf(<span class="number">10</span>); <span class="comment">// 使用 valueOf 方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自动拆箱 (Auto Unboxing)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">autoUnboxed</span> <span class="operator">=</span> autoBoxed; <span class="comment">// 包装类 Integer → 基本类型 int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 手动拆箱 (Manual Unboxing)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">manualUnboxed</span> <span class="operator">=</span> manualBoxed.intValue(); <span class="comment">// 使用 xxxValue 方法</span></span><br></pre></td></tr></table></figure>
+<h3 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h3><p>常用的数学函数、公式和特征值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成[0.0, 1.0)之间的随机数</span></span><br><span class="line"><span class="type">double</span> <span class="variable">random</span> <span class="operator">=</span> Math.random(); </span><br><span class="line"><span class="comment">// 生成[1, 100]的随机整数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">randomInt</span> <span class="operator">=</span> (<span class="type">int</span>)(Math.random() * <span class="number">100</span>) + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h3><p>Character 类用于对单个字符进行操作。</p>
+<p>Character 类在对象中包装一个基本类型 char 的值，用于处理需要对象，而不是内置数据的情况。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Unicode 字符表示形式</span></span><br><span class="line"><span class="type">char</span> <span class="variable">uniChar</span> <span class="operator">=</span> <span class="string">&#x27;\u039A&#x27;</span>; </span><br><span class="line"> </span><br><span class="line"><span class="comment">// 字符数组</span></span><br><span class="line"><span class="type">char</span>[] charArray =&#123; <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象</span></span><br><span class="line"><span class="type">Character</span> <span class="variable">ch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Character</span>(<span class="string">&#x27;a&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明方式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">String str2=<span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="type">byte</span>数组，偏移量，数组长度);</span><br><span class="line"><span class="comment">//连接字符串</span></span><br><span class="line">str.concat(str2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建格式化字符串</span></span><br><span class="line">System.out.printf(<span class="string">&quot;浮点型变量的值为 &quot;</span> +</span><br><span class="line">                  <span class="string">&quot;%f, 整型变量的值为 &quot;</span> +</span><br><span class="line">                  <span class="string">&quot; %d, 字符串变量的值为 &quot;</span> +</span><br><span class="line">                  <span class="string">&quot; %s&quot;</span>, floatVar, intVar, stringVar);</span><br><span class="line"></span><br><span class="line">String fs;</span><br><span class="line">fs = String.format(<span class="string">&quot;浮点型变量的值为 &quot;</span> +</span><br><span class="line">                   <span class="string">&quot;%f, 整型变量的值为 &quot;</span> +</span><br><span class="line">                   <span class="string">&quot; %d, 字符串变量的值为 &quot;</span> +</span><br><span class="line">                   <span class="string">&quot; %s&quot;</span>, floatVar, intVar, stringVar);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><p>对字符串修改时候会用到，与 String 不同的是，这两个被多次修改也不会产生新的对象。<br>StringBuilder 线程不安全速度快，多线程使用 StringBuffer</p>
+<table>
+<thead>
+<tr>
+<th align="center">特性</th>
+<th align="center">String</th>
+<th align="center">StringBuffer</th>
+<th align="center">StringBuilder</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">可变性</td>
+<td align="center">❌</td>
+<td align="center">✔️</td>
+<td align="center">✔️</td>
+</tr>
+<tr>
+<td align="center">线程安全</td>
+<td align="center">❌</td>
+<td align="center">✔️</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td align="center">性能</td>
+<td align="center">低</td>
+<td align="center">中</td>
+<td align="center">高</td>
+</tr>
+</tbody></table>
+<h3 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h3><p>获取用户的输入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"> <span class="comment">// 从键盘接收数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// next方式接收字符串</span></span><br><span class="line">System.out.println(<span class="string">&quot;next方式接收：&quot;</span>);</span><br><span class="line"><span class="comment">// 判断是否还有输入</span></span><br><span class="line"><span class="keyword">if</span> (scan.hasNext()) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> scan.next();</span><br><span class="line">    System.out.println(<span class="string">&quot;输入的数据为：&quot;</span> + str1);</span><br><span class="line">&#125;</span><br><span class="line">scan.close();</span><br></pre></td></tr></table></figure>
+
+<p>其他不过多记录，用得少</p>
+<h3 id="Stream、File、IO"><a href="#Stream、File、IO" class="headerlink" title="Stream、File、IO"></a>Stream、File、IO</h3><p><img src="https://www.runoob.com/wp-content/uploads/2013/12/iostream2xx.png"></p>
+<h4 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h4><p>字节流用于处理二进制数据，例如文件、图像、视频等。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>InputStream</td>
+<td>抽象类（输入流）</td>
+<td>所有字节输入流的超类，处理字节的输入操作。</td>
+</tr>
+<tr>
+<td>OutputStream</td>
+<td>抽象类（输出流）</td>
+<td>所有字节输出流的超类，处理字节的输出操作。</td>
+</tr>
+<tr>
+<td>FileInputStream</td>
+<td>输入流</td>
+<td>从文件中读取字节数据。</td>
+</tr>
+<tr>
+<td>FileOutputStream</td>
+<td>输出流</td>
+<td>将字节数据写入文件。</td>
+</tr>
+<tr>
+<td>BufferedInputStream</td>
+<td>输入流</td>
+<td>为字节输入流提供缓冲功能，提高读取效率。</td>
+</tr>
+<tr>
+<td>BufferedOutputStream</td>
+<td>输出流</td>
+<td>为字节输出流提供缓冲功能，提高写入效率。</td>
+</tr>
+<tr>
+<td>ByteArrayInputStream</td>
+<td>输入流</td>
+<td>将内存中的字节数组作为输入源。</td>
+</tr>
+<tr>
+<td>ByteArrayOutputStream</td>
+<td>输出流</td>
+<td>将数据写入到内存中的字节数组。</td>
+</tr>
+<tr>
+<td>DataInputStream</td>
+<td>输入流</td>
+<td>允许从输入流中读取 Java 原生数据类型（如 int, float, boolean）。</td>
+</tr>
+<tr>
+<td>DataOutputStream</td>
+<td>输出流</td>
+<td>允许向输出流中写入 Java 原生数据类型。</td>
+</tr>
+<tr>
+<td>ObjectInputStream</td>
+<td>输入流</td>
+<td>从输入流中读取序列化对象。</td>
+</tr>
+<tr>
+<td>ObjectOutputStream</td>
+<td>输出流</td>
+<td>将对象序列化并写入输出流中。</td>
+</tr>
+<tr>
+<td>PipedInputStream</td>
+<td>输入流</td>
+<td>用于在管道中读取字节数据，通常与 PipedOutputStream 配合使用。</td>
+</tr>
+<tr>
+<td>PipedOutputStream</td>
+<td>输出流</td>
+<td>用于在管道中写入字节数据，通常与 PipedInputStream 配合使用。</td>
+</tr>
+<tr>
+<td>FilterInputStream</td>
+<td>输入流</td>
+<td>字节输入流的包装类，用于对其他输入流进行过滤处理。</td>
+</tr>
+<tr>
+<td>FilterOutputStream</td>
+<td>输出流</td>
+<td>字节输出流的包装类，用于对其他输出流进行过滤处理。</td>
+</tr>
+<tr>
+<td>SequenceInputStream</td>
+<td>输入流</td>
+<td>将多个输入流串联为一个输入流进行处理。</td>
+</tr>
+</tbody></table>
+<h4 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h4><p>字符流用于处理文本数据，例如读取和写入字符串或文件。</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reader</td>
+<td>抽象类 (输入流)</td>
+<td>所有字符输入流的超类，处理字符的输入操作。</td>
+</tr>
+<tr>
+<td>Writer</td>
+<td>抽象类 (输出流)</td>
+<td>所有字符输出流的超类，处理字符的输出操作。</td>
+</tr>
+<tr>
+<td>FileReader</td>
+<td>输入流</td>
+<td>从文件中读取字符数据。父类是 InputStreamReader</td>
+</tr>
+<tr>
+<td>FileWriter</td>
+<td>输出流</td>
+<td>将字符数据写入文件。父类是 OutputStreamWriter</td>
+</tr>
+<tr>
+<td>BufferedReader</td>
+<td>输入流</td>
+<td>为字符输入流提供缓冲功能，支持按行读取，提高读取效率。</td>
+</tr>
+<tr>
+<td>BufferedWriter</td>
+<td>输出流</td>
+<td>为字符输出流提供缓冲功能，支持按行写入，提高写入效率。</td>
+</tr>
+<tr>
+<td>CharArrayReader</td>
+<td>输入流</td>
+<td>将字符数组作为输入源。</td>
+</tr>
+<tr>
+<td>CharArrayWriter</td>
+<td>输出流</td>
+<td>将数据写入到字符数组。</td>
+</tr>
+<tr>
+<td>StringReader</td>
+<td>输入流</td>
+<td>将字符串作为输入源。</td>
+</tr>
+<tr>
+<td>StringWriter</td>
+<td>输出流</td>
+<td>将数据写入到字符串缓冲区。</td>
+</tr>
+<tr>
+<td>PrintWriter</td>
+<td>输出流</td>
+<td>便捷的字符输出流，支持自动刷新和格式化输出。</td>
+</tr>
+<tr>
+<td>PipedReader</td>
+<td>输入流</td>
+<td>用于在管道中读取字符数据，通常与PipedWriter配合使用。</td>
+</tr>
+<tr>
+<td>PipedWriter</td>
+<td>输出流</td>
+<td>用于在管道中写入字符数据，通常与PipedReader配合使用。</td>
+</tr>
+<tr>
+<td>LineNumberReader</td>
+<td>输入流</td>
+<td>带行号的缓冲字符输入流，允许跟踪读取的行号。</td>
+</tr>
+<tr>
+<td>PushbackReader</td>
+<td>输入流</td>
+<td>允许在读取字符后将字符推回流中，以便再次读取。</td>
+</tr>
+<tr>
+<td>PrintStream</td>
+<td>输出流</td>
+<td>将各种数据格式化为字符文本并输出，System.out 就是一个 PrintStream 对象</td>
+</tr>
+</tbody></table>
+<h4 id="辅助类（File类等）"><a href="#辅助类（File类等）" class="headerlink" title="辅助类（File类等）"></a>辅助类（File类等）</h4><p>辅助类提供对文件、目录以及随机文件访问的支持。</p>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>File</td>
+<td>文件和目录操作</td>
+<td>用于表示文件或目录，并提供文件操作，如创建、删除、重命名等。 不能读写里面存储的数据</td>
+</tr>
+<tr>
+<td>RandomAccessFile</td>
+<td>随机访问文件</td>
+<td>支持文件的随机访问，可以从文件的任意位置读写数据。</td>
+</tr>
+<tr>
+<td>Console</td>
+<td>控制台输入输出</td>
+<td>提供对系统控制台的输入和输出支持。</td>
+</tr>
+</tbody></table>
+<p><strong>File特点：</strong></p>
+<ul>
+<li>new File(“a.txt”),文件不存在时会自动创建</li>
+<li>file.delete(),文件夹为空才能删。</li>
+</ul>
+<h4 id="基本例子"><a href="#基本例子" class="headerlink" title="基本例子"></a>基本例子</h4><h5 id="字节流-1"><a href="#字节流-1" class="headerlink" title="字节流"></a>字节流</h5><ol>
+<li>FileInputStream，输入流对象来读取文件</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStream</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;C:/java/hello&quot;</span>);</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;C:/java/hello&quot;</span>);</span><br><span class="line"><span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(f);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>FileOutputStream，该类用来创建一个文件并向文件中写数据。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">OutputStream</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;C:/java/hello&quot;</span>)</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;C:/java/hello&quot;</span>);</span><br><span class="line"><span class="type">OutputStream</span> <span class="variable">os</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(f,<span class="literal">true</span>);<span class="comment">//第二个参数是是否追加写入</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>流用完记得关，eg:os.close();</p>
+</blockquote>
+<ol start="3">
+<li>字节流复制<br>JDK1.7 开始，Java提供了Files用于简化IO操作，气质的copy(Path src,Path des)方法，可以复制。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">copyFile</span><span class="params">(String srcPath，String desPath)</span>&#123;</span><br><span class="line">  <span class="comment">//JDK7开始（父类流实现了 AutoCloseable），在try括号里面，会自动关闭，不用手动关闭。</span></span><br><span class="line">  <span class="keyword">try</span>(<span class="type">InputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(srcPath);</span><br><span class="line">  <span class="type">OutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(desPath))&#123;</span><br><span class="line">    <span class="type">byte</span>[] buffer = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line">    <span class="keyword">while</span>(len = fis.read(buffer) != -<span class="number">1</span>)&#123;</span><br><span class="line">      fos.write(buffer,<span class="number">0</span>,len);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;复制成功&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="字符流-1"><a href="#字符流-1" class="headerlink" title="字符流"></a>字符流</h5><ol>
+<li>输入流</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(<span class="type">Reader</span> <span class="variable">fr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;D:/a.txt&quot;</span>))&#123;</span><br><span class="line">  <span class="type">char</span>[] chs = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">1024</span>];</span><br><span class="line">  <span class="type">int</span> len;</span><br><span class="line">  <span class="keyword">while</span>(len = fr.read(chs) ！= -<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(chs,<span class="number">0</span>,len);</span><br><span class="line">  &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>输出流</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(<span class="type">Writer</span> <span class="variable">fw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;D:/a.txt&quot;</span>，<span class="literal">true</span>))&#123;<span class="comment">//true 是内容追加</span></span><br><span class="line">  fw.write(<span class="string">&quot;XXX&quot;</span>);</span><br><span class="line">  fw.flush(); <span class="comment">//刷新写入的内容生效，流可以继续使用。</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">  e.printStackTrance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>字符输出流写出数据后必须刷新流或者关闭流，写出去的数据才能生效。</strong></p>
+<h5 id="指定编码IO"><a href="#指定编码IO" class="headerlink" title="指定编码IO"></a>指定编码IO</h5><p>解决不同编码时，字符流读取文本内容乱码的问题。<br>解决思路:先获取文件的原始字节流，再将其按真实的字符集编码转成字符输入流，这样字符输入流中的字符就不乱码了,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;a.txt&quot;</span>);</span><br><span class="line"><span class="comment">// 构建FileOutputStream对象,文件不存在会自动新建</span></span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">fop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(f);<span class="comment">//原始字节流</span></span><br><span class="line"><span class="comment">// 构建OutputStreamWriter对象,参数可以指定编码,默认为操作系统默认编码,windows上是gbk</span></span><br><span class="line"><span class="type">OutputStreamWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(fop, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"><span class="comment">// 写入到缓冲区</span></span><br><span class="line">writer.append(<span class="string">&quot;中文输入&quot;</span>);</span><br><span class="line"><span class="comment">// 换行</span></span><br><span class="line">writer.append(<span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line"><span class="comment">// 刷新缓存冲,写入到文件,如果下面已经没有写入的内容了,直接close也会写入</span></span><br><span class="line">writer.append(<span class="string">&quot;English&quot;</span>);</span><br><span class="line"><span class="comment">// 关闭写入流,同时会把缓冲区内容写入文件,所以上面的注释掉</span></span><br><span class="line">writer.close();</span><br><span class="line"><span class="comment">// 关闭输出流,释放系统资源</span></span><br><span class="line">fop.close();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构建FileInputStream对象</span></span><br><span class="line"><span class="type">FileInputStream</span> <span class="variable">fip</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(f);</span><br><span class="line"><span class="comment">// 构建InputStreamReader对象,编码与写入相同</span></span><br><span class="line"><span class="type">InputStreamReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(fip, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"><span class="type">StringBuffer</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line"><span class="keyword">while</span> (reader.ready()) &#123;</span><br><span class="line">    <span class="comment">// 转成char加到StringBuffer对象中</span></span><br><span class="line">    sb.append((<span class="type">char</span>) reader.read());</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(sb.toString());</span><br><span class="line"><span class="comment">// 关闭读取流</span></span><br><span class="line">reader.close();</span><br><span class="line"><span class="comment">// 关闭输入流,释放系统资源</span></span><br><span class="line">fip.close();</span><br></pre></td></tr></table></figure>
+
+<h4 id="缓冲流buffer"><a href="#缓冲流buffer" class="headerlink" title="缓冲流buffer"></a>缓冲流buffer</h4><p>管道概率：在 Java I&#x2F;O 中，管道是一种用于在不同线程之间进行数据通信的特殊流。它提供了一种让一个线程发送数据而另一个线程接收数据的机制，类似于实际生活中的管道概念。<br>作用：用于提高性能。<strong>低级管道决定特性，高级管道决定性能</strong><br>原理：缓冲字节输入流自带了8KB缓冲池;缓冲字节输出流也自带了8KB（桶大小）缓冲池</p>
+<ol>
+<li>BufferInputStream<br>直接将InputStream作为构造参数new一个BufferInputStream，其他一样。</li>
+<li>BufferedReader，同上。不同的是有个有 readLine()方法，按行读。<blockquote>
+<p>作为子类的bufferxxx，有些自己定义的方法，实际使用的时候自行选择。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="日期时间相关类"><a href="#日期时间相关类" class="headerlink" title="日期时间相关类"></a>日期时间相关类</h3><h4 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h4><p>（已过时，建议使用 <code>java.time</code> 包）</p>
+<h5 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Date</span> <span class="variable">now</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(); <span class="comment">// 当前时间</span></span><br><span class="line"><span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> now.getTime(); <span class="comment">// 时间戳</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="SimpleDateFormat"><a href="#SimpleDateFormat" class="headerlink" title="SimpleDateFormat"></a>SimpleDateFormat</h4><p>日期格式化类<br>(可以使用 java.time 中的 DateTimeFormatter 替代)</p>
+<blockquote>
+<p>🔔注意：SimpleDateFormat 不是线程安全的。<br>DateTimeFormatter 是线程安全的。</p>
+</blockquote>
+<h5 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SimpleDateFormat</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 日期转字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sdf.format(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串转日期</span></span><br><span class="line"><span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> sdf.parse(<span class="string">&quot;2023-01-01 12:00:00&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li><strong>非线程安全</strong>，多线程环境需配合 ThreadLocal 使用</li>
+<li>格式符号：<code>yyyy</code>-年，<code>MM</code>-月，<code>dd</code>-日，<code>HH</code>-小时（24h 制）</li>
+</ul>
+<h4 id="Calendar"><a href="#Calendar" class="headerlink" title="Calendar"></a>Calendar</h4><p>日期操作类</p>
+<h5 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Calendar</span> <span class="variable">cal</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取字段</span></span><br><span class="line"><span class="type">int</span> <span class="variable">year</span> <span class="operator">=</span> cal.get(Calendar.YEAR);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置时间</span></span><br><span class="line">cal.set(<span class="number">2023</span>, Calendar.JANUARY, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 日期计算</span></span><br><span class="line">cal.add(Calendar.DAY_OF_MONTH, <span class="number">5</span>); <span class="comment">// 加5天</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h5><ul>
+<li>月份从 0 开始（0&#x3D;January）</li>
+<li>推荐使用 <code>Calendar.getInstance()</code> 获取实例</li>
+</ul>
+<h4 id="java-time"><a href="#java-time" class="headerlink" title="java.time"></a>java.time</h4><p>参考：<a target="_blank" rel="noopener" href="https://javaguidepro.com/blog/datetime-java/">https://javaguidepro.com/blog/datetime-java/</a></p>
+<h5 id="基本使用-1"><a href="#基本使用-1" class="headerlink" title="基本使用"></a>基本使用</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前日期</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">currentDate</span> <span class="operator">=</span> LocalDate.now();</span><br><span class="line"><span class="comment">// 创建指定日期</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">specificDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2024</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 获取当前时间</span></span><br><span class="line"><span class="type">LocalTime</span> <span class="variable">currentTime</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line"><span class="comment">// 创建指定时间</span></span><br><span class="line"><span class="type">LocalTime</span> <span class="variable">specificTime</span> <span class="operator">=</span> LocalTime.of(<span class="number">12</span>, <span class="number">30</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当前日期时间</span></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">currentDateTime</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line"><span class="comment">// 创建指定日期时间</span></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">specificDateTime</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2024</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">12</span>, <span class="number">30</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取当前带时区的日期时间</span></span><br><span class="line"><span class="type">ZonedDateTime</span> <span class="variable">currentZonedDateTime</span> <span class="operator">=</span> ZonedDateTime.now();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定时区创建日期时间</span></span><br><span class="line"><span class="type">ZoneId</span> <span class="variable">zoneId</span> <span class="operator">=</span> ZoneId.of(<span class="string">&quot;Asia/Shanghai&quot;</span>);</span><br><span class="line"><span class="type">ZonedDateTime</span> <span class="variable">specificZonedDateTime</span> <span class="operator">=</span> ZonedDateTime.of(<span class="number">2024</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">12</span>, <span class="number">30</span>, <span class="number">0</span>, <span class="number">0</span>, zoneId);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义格式化模式</span></span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"><span class="comment">// 格式化日期时间</span></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">dateTime</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line"><span class="type">String</span> <span class="variable">formattedDateTime</span> <span class="operator">=</span> dateTime.format(formatter);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较日期</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">startDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2024</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">endDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2024</span>, <span class="number">12</span>, <span class="number">31</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">isBefore</span> <span class="operator">=</span> startDate.isBefore(endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算日期差值</span></span><br><span class="line"><span class="type">Period</span> <span class="variable">period</span> <span class="operator">=</span> Period.between(startDate, endDate);</span><br><span class="line">System.out.println(<span class="string">&quot;两个日期之间的差值: &quot;</span> + period.getYears() + <span class="string">&quot; 年 &quot;</span> + period.getMonths() + <span class="string">&quot; 月 &quot;</span> + period.getDays() + <span class="string">&quot; 天&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">dateStr</span> <span class="operator">=</span> <span class="string">&quot;2024-01-01&quot;</span>;</span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析日期字符串</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">parsedDate</span> <span class="operator">=</span> LocalDate.parse(dateStr, formatter);</span><br><span class="line">System.out.println(<span class="string">&quot;解析后的日期: &quot;</span> + parsedDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定一个日期（例如：2023-10-01）</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">specifiedDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2023</span>, <span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 获取该日期后5天的日期</span></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">resultDate</span> <span class="operator">=</span> specifiedDate.plusDays(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/java">https://www.runoob.com/java</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io">coder-xuyong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io/posts/b8b0eacd">https://coder-xuyong.github.io/posts/b8b0eacd</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://coder-xuyong.github.io" target="_blank">coder-xuyong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post-share"><div class="social-share" data-image="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/6444acd9" title="Spring 面试"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Spring 面试</div></div><div class="info-2"><div class="info-item-1">Spring 面试综合篇不同版本的 Spring Framework 有哪些主要功能？   Version Feature    Spring 2.5 发布于 2007 年。这是第一个支持注解的版本。   Spring 3.0 发布于 2009 年。它完全利用了 Java5 中的改进，并为 JEE6 提供了支持。   Spring 4.0 发布于 2013 年。这是第一个完全支持 JAVA8 的版本。   什么是 Spring Framework？ Spring 是一个开源应用框架，旨在降低应用程序开发的复杂度。 它是轻量级、松散耦合的。 它具有分层体系结构，允许用户选择组件，同时还为 J2EE 应用程序开发提供了一个有凝聚力的框架。 它可以集成其他框架，如 Structs、Hibernate、EJB 等，所以又称为框架的框架。  列举 Spring Framework 的优点。 由于 Spring Frameworks 的分层架构，用户可以自由选择自己需要的组件。 Spring Framework 支持 POJO(Plain Old Java Object) 编程，从而具备持续...</div></div></div></a><a class="pagination-related" href="/posts/d702cb34" title="Spring 之 JDBC"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Spring 之 JDBC</div></div><div class="info-2"><div class="info-item-1">Spring 之 JDBCJDBC 是 Java 语言中用来规范客户端程序如何访问数据库的应用程序接口，提供了增、删、改、查数据库的方法。 JDBC 入门示例JDBC 的工作步骤大致如下：  创建实体类。 声明数据库读写接口的 DAO 接口。定义 DAO 的好处在于对于数据层上层的业务，调用 DAO 时仅关注对外暴露的读写方法，而不考虑底层的具体持久化方式。这样，便于替换持久化方式。 创建一个 DAO 接口的实现类，使用 Spring 的 JDBC 模板去实现接口。 最后，定义一个 DAO 接口的实现类的 JavaBean，并将数据源注入进去。  假设，我们要通过 Spring + JDBC 访问一张 Mysql 数据表 user，user 表的数据结构如下： 123456789101112131415-- 创建用户表CREATE TABLE `user` (    `id`      BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT &#x27;ID&#x27;,    `name`    VARCHAR(255)     ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/71b4baf7" title="Windows 工作常用操作"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dbc6de3bf3ec4db59f8ca4288cfa3e3c20250507.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-01</div><div class="info-item-2">Windows 工作常用操作</div></div><div class="info-2"><div class="info-item-1">Windows 工作中遇到的问题  work condition标签（空格分隔）： Windows  windows 端口占用12345678# 查找端口号，监听的程序idnetstat -aon|findstr &quot;9011&quot;# 通过程序id，找到程序tasklist|findstr &quot;24548&quot;# 通过程序id，杀死这个程序taskkill -pid 24548 -f# 查找这个端口的线程的数量netstat -ano | findstr 9002 | find /c /v &quot;&quot;  windows 启动 jar包案例一： 1234567891011121314@echo offsetlocalREM 改变当前工作目录到 JAR 文件所在目录, /d 参数允许同时更改驱动器和目录cd /d D:\transferData\REM 指定Java应用程序和参数set &quot;JAVA_PATH=D:\transferData\jdk1.8.0_351\jre\bin\java&quot;set &quot;JAR_FI...</div></div></div></a><a class="pagination-related" href="/posts/48b2453f" title="java 面向对象"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-30</div><div class="info-item-2">java 面向对象</div></div><div class="info-2"><div class="info-item-1">面向对象 五大基本原则:单一职责原则(Single-Responsibility Principle)、开放封闭原则(Open-Closedprinciple)、Liskov替换原则(Liskov-Substituion Principle)、依较倒置原则(Dependency-lnversionPrinciple)和接口隔离原则(Interface-Segregation Principle)。  单一职责原则: 一个类最好只做一件事开放封闭原则: 对扩展开放、对修改封闭里氏替换原则: 子类必须能够替换其基类依赖倒置原则: 程序要依赖于抽象接口，而不是具体的实现接口隔离原则: 使用多个小的专门的接口，而不要使用一个大的总接口 Java继承继承的概念继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。 继承的特性 子类拥有父类非 private 的属性、方法 子类可以拥有自己的属性和方法，即子类可以对父类进行扩展。 子类可以用自己的方式实现父类的方法。 Java 的继承是单继承，但是可以多重继承，单继承就...</div></div></div></a><a class="pagination-related" href="/posts/9dd42db4" title="java 高级"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-30</div><div class="info-item-2">java 高级</div></div><div class="info-2"><div class="info-item-1">Java 高级数据结构数组、列表、集合、映射、栈、队列、堆、树。 Java 集合框架 点击查看UML图    类型 描述 特点 常用实现类    Collection 单列数据集合的根接口 存储一组对象的容器 (它下面有List和Set)   List 有序、可重复的集合 有索引，允许重复，元素有顺序 ArrayList, LinkedList, Vector   Set 唯一、无序的集合 无索引，不允许重复元素，不保证顺序 HashSet（无序）, LinkedHashSet(有序), TreeSet(升序)   Map 双列数据的集合 存储键值对(Key-Value)，Key唯一，排序由key决定 HashMap（无序）, LinkedHashMap（有序）, TreeMap（升序）, Hashtable   Collections 操作集合的工具类 提供了一系列静态方法，用于对集合进行排序、搜索、线程安全化等操作 (这是一个工具类，不是接口)   单列集合遍历 iterator  12345678List&lt;Integer&gt; list = new ArrayLis...</div></div></div></a><a class="pagination-related" href="/posts/3082f8d4" title="Java 编码和加密"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dddd5d37f41343ac9c0b9500f111fbae20250423.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">Java 编码和加密</div></div><div class="info-2"><div class="info-item-1">Java 编码和加密Base64 编码Base64 原理Base64 内容传送编码是一种以任意 8 位字节序列组合的描述形式，这种形式不易被人直接识别。 Base64 是一种很常见的编码规范，其作用是将二进制序列转换为人类可读的 ASCII 字符序列，常用在需用通过文本协议（比如 HTTP 和 SMTP）来传输二进制数据的情况下。Base64 并不是加密解密算法，尽管我们有时也听到使用 Base64 来加密解密的说法，但这里所说的加密与解密实际是指编码（encode） 和 解码（decode）的过程，其变换是非常简单的，仅仅能够避免信息被直接识别。 Base64 算法主要是将给定的字符以字符编码(如 ASCII 码，UTF-8 码)对应的十进制数为基准，做编码操作：  将给定的字符串以字符为单位，转换为对应的字符编码。 将获得字符编码转换为二进制 对二进制码做分组转换，每 3 个字节为一组，转换为每 4 个 6 位二进制位一组（不足 6 位时低位补 0）。这是一个分组变化的过程，3 个 8 位二进制码和 4 个 6 位二进制码的长度都是 24 位（3*8 = 4*6 = 24）。...</div></div></div></a><a class="pagination-related" href="/posts/29e7dc52" title="理解 Java 类加载器"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-16</div><div class="info-item-2">理解 Java 类加载器</div></div><div class="info-2"><div class="info-item-1">深度理解 Java SPISPI 简介SPI 全称 Service Provider Interface，是 Java 提供的，旨在由第三方实现或扩展的 API，它是一种用于动态加载服务的机制。它的作用是让程序能够自动发现、加载和使用第三方提供的实现，从而实现基于接口的解耦和可插拔的扩展架构。 Java SPI 有四个要素：  SPI 接口：为服务提供者实现类约定的接口或抽象类。 SPI 实现类：实际提供服务的实现类。 SPI 配置：Java SPI 机制约定的配置文件，提供查找服务实现类的逻辑。配置文件必须置于 META-INF/services 目录中，并且，文件名应与服务提供者接口的完全限定名保持一致。文件中的每一行都有一个实现服务类的详细信息，同样是服务提供者类的完全限定名称。 ServiceLoader：Java SPI 的核心类，用于加载 SPI 实现类。 ServiceLoader 中有各种实用方法来获取特定实现、迭代它们或重新加载服务。  SPI 示例 定义接口需要定义一个 SPI 接口，和普通接口并没有什么差别。  123public interface Dat...</div></div></div></a><a class="pagination-related" href="/posts/f0675471" title="jvm简介与内存架构"><img class="cover" src="https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-18</div><div class="info-item-2">jvm简介与内存架构</div></div><div class="info-2"><div class="info-item-1">简介 更多信息查看官网  JVM，全称是 Java Virtual Machine，Java运行环境（Java二进制字节码的运行环境） 优点：  是Java一次编写，到处运行的基石。 自动内存管理，垃圾回收功能 数组下标越界检查 多态  JVM有很多，常见的JVM有：HotSpot Opent JDK edition（平时使用的）、Eclipse OpenJ9等 内存架构程序计数器Program Counter Register，程序计数器（寄存器）：作用是记住下一条jvm指令的执行地址，在物理上，是通过cpu中的寄存器来实现的。他是线程私有，且是唯一一个不会存在内存溢出的区域。 工作流程：java源码编译为二进制字节码，字节码中包含jvm指令，这些指令交给解释器-&gt;机器码-&gt;CPU执行。 1234567891011121314151617181920//  二进制字节码                         java 源代码// 其中iconst_x 就是程序计数器0: getstatic    #20                 | PrintStr...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">coder-xuyong</div><div class="author-info-description">生如牛马不得闲</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">103</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">100</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">48</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/coder-xuyong"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://coder-xuyong.github.io/resume/?user=coder-xuyong&amp;template=template2" target="_blank" title="resume"><i class="fa-solid fa-address-card" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/coder-xuyong" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">内置数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">引用数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">3.3.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.4.</span> <span class="toc-text">自动类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.5.</span> <span class="toc-text">强制类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E5%90%AB%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.6.</span> <span class="toc-text">隐含强制类型转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">变量类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F"><span class="toc-number">4.1.</span> <span class="toc-text">参数变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text">访问修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6-1"><span class="toc-number">5.1.</span> <span class="toc-text">访问修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">5.2.</span> <span class="toc-text">非访问修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.</span> <span class="toc-text">运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.1.</span> <span class="toc-text">算术运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.2.</span> <span class="toc-text">关系运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.3.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.4.</span> <span class="toc-text">位运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">6.5.</span> <span class="toc-text">其他运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">7.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="toc-number">9.</span> <span class="toc-text">成员变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">10.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD-Overloading"><span class="toc-number">10.1.</span> <span class="toc-text">方法重载 (Overloading)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0-Varargs"><span class="toc-number">10.2.</span> <span class="toc-text">可变参数 (Varargs)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">11.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">12.</span> <span class="toc-text">代码块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">12.1.</span> <span class="toc-text">静态代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">12.2.</span> <span class="toc-text">实例代码块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">13.</span> <span class="toc-text">内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">13.1.</span> <span class="toc-text">成员内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">13.2.</span> <span class="toc-text">静态内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">13.3.</span> <span class="toc-text">匿名内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BD%A2%E5%BC%8F"><span class="toc-number">13.3.1.</span> <span class="toc-text">常见形式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">14.</span> <span class="toc-text">异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="toc-number">14.1.</span> <span class="toc-text">自定义异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88"><span class="toc-number">14.2.</span> <span class="toc-text">异常处理方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">15.</span> <span class="toc-text">字符集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81"><span class="toc-number">15.1.</span> <span class="toc-text">编码和解码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%B1%BB"><span class="toc-number">16.</span> <span class="toc-text">常用类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Number"><span class="toc-number">16.1.</span> <span class="toc-text">Number</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Math"><span class="toc-number">16.2.</span> <span class="toc-text">Math</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Character"><span class="toc-number">16.3.</span> <span class="toc-text">Character</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String"><span class="toc-number">16.4.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StringBuffer"><span class="toc-number">16.5.</span> <span class="toc-text">StringBuffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scanner"><span class="toc-number">16.6.</span> <span class="toc-text">Scanner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stream%E3%80%81File%E3%80%81IO"><span class="toc-number">16.7.</span> <span class="toc-text">Stream、File、IO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81"><span class="toc-number">16.7.1.</span> <span class="toc-text">字节流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81"><span class="toc-number">16.7.2.</span> <span class="toc-text">字符流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E7%B1%BB%EF%BC%88File%E7%B1%BB%E7%AD%89%EF%BC%89"><span class="toc-number">16.7.3.</span> <span class="toc-text">辅助类（File类等）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BE%8B%E5%AD%90"><span class="toc-number">16.7.4.</span> <span class="toc-text">基本例子</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81-1"><span class="toc-number">16.7.4.1.</span> <span class="toc-text">字节流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81-1"><span class="toc-number">16.7.4.2.</span> <span class="toc-text">字符流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A0%81IO"><span class="toc-number">16.7.4.3.</span> <span class="toc-text">指定编码IO</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E6%B5%81buffer"><span class="toc-number">16.7.5.</span> <span class="toc-text">缓冲流buffer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E7%B1%BB"><span class="toc-number">16.8.</span> <span class="toc-text">日期时间相关类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Date"><span class="toc-number">16.8.1.</span> <span class="toc-text">Date</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">16.8.1.1.</span> <span class="toc-text">基本使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SimpleDateFormat"><span class="toc-number">16.8.2.</span> <span class="toc-text">SimpleDateFormat</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">16.8.2.1.</span> <span class="toc-text">使用示例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">16.8.2.2.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calendar"><span class="toc-number">16.8.3.</span> <span class="toc-text">Calendar</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">16.8.3.1.</span> <span class="toc-text">常用方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9-1"><span class="toc-number">16.8.3.2.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java-time"><span class="toc-number">16.8.4.</span> <span class="toc-text">java.time</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-1"><span class="toc-number">16.8.4.1.</span> <span class="toc-text">基本使用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">17.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>基础特性</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/9dd42db4" title="java 高级"><img src="https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 高级"></a><div class="content"><a class="title" href="/posts/9dd42db4" title="java 高级">java 高级</a><time datetime="2025-08-30T08:16:53.000Z" title="发表于 2025-08-30 16:16:53">2025-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/48b2453f" title="java 面向对象"><img src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 面向对象"></a><div class="content"><a class="title" href="/posts/48b2453f" title="java 面向对象">java 面向对象</a><time datetime="2025-08-30T06:38:56.000Z" title="发表于 2025-08-30 14:38:56">2025-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b8b0eacd" title="java 基础"><img src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java 基础"></a><div class="content"><a class="title" href="/posts/b8b0eacd" title="java 基础">java 基础</a><time datetime="2025-07-30T02:40:30.000Z" title="发表于 2025-07-30 10:40:30">2025-07-30</time></div></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/4592b2fd" title="shell"><img src="https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell"/></a><div class="content"><a class="title" href="/posts/4592b2fd" title="shell">shell</a><time datetime="2025-11-16T06:52:35.000Z" title="发表于 2025-11-16 14:52:35">2025-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7ebb9be2" title="分布式基础"><img src="https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式基础"/></a><div class="content"><a class="title" href="/posts/7ebb9be2" title="分布式基础">分布式基础</a><time datetime="2025-11-04T00:15:33.000Z" title="发表于 2025-11-04 08:15:33">2025-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c16f2ba9" title="ForkJoin框架"><img src="https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ForkJoin框架"/></a><div class="content"><a class="title" href="/posts/c16f2ba9" title="ForkJoin框架">ForkJoin框架</a><time datetime="2025-10-18T07:27:46.000Z" title="发表于 2025-10-18 15:27:46">2025-10-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By coder-xuyong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div><div class="footer_custom_text">Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><!-- butterfly右下角悬浮菜单栏 百分比--><span id="percent">0</span></button><!-- butterfly右下角悬浮菜单栏 直达底部--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23li4gzANXxmx9072g',
+      clientSecret: 'b4da9f4490b2864bfdee5df73655329a642c6112',
+      repo: 'coder-xuyong.github.io',
+      owner: 'coder-xuyong',
+      admin: ['coder-xuyong'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '0e9c6c96679f3021462f24e20c3c71cb'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="/self/custom.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="https://cn.vercount.one/js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search key word" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
