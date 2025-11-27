@@ -66,7 +66,7 @@ windows defender可能会影响性能
 
 打开项目所在位置，找到你的项目下面的.idea\workspace.xml
 
-搜索 <component name="PropertiesComponent"> 标签，在其内部末尾位置添加以下配置：
+搜索 `<component name="PropertiesComponent">` 标签，在其内部末尾位置添加以下配置：
 ```xml
 <property name="dynamic.classpath" value="true" /> 
 ```
