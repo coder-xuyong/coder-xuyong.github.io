@@ -1,7 +1,7 @@
 ---
 title: idea 使用方便记录
 category:
-  - 1.Tools
+  - 5.Tools
   - 1.idea
 tag:
   - idea
