@@ -1,16 +1,10 @@
 ---
 title: idea 使用方便记录
-cover: >-
-  https://webstatic.mihoyo.com/upload/contentweb/2022/07/04/d063646e97392638e07da24ce6b8c3cb_3567507076955258130.png
-icon: file
-author: xuyong
-lastUpdated: true
 category:
-  - idea
+  - 1.Tools
+  - 1.idea
 tag:
   - idea
-sticky: false
-star: false
 abbrlink: 60fa03a6
 date: 2024-12-21 00:00:00
 ---
