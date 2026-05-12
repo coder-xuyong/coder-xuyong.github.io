@@ -135,24 +135,29 @@ cover:
   position: both
   # 当未设置封面时，显示默认封面
   default_cover:
-    - https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/0b28c3fd7f1e433d9327dd08ae7943ef20250905.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/6edb712c4a9a46bb843646404a0ff2db20250904.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/dbc6de3bf3ec4db59f8ca4288cfa3e3c20250507.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/f59dff6fb93d4904b442d315738e6a6420250507.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/dddd5d37f41343ac9c0b9500f111fbae20250423.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp
-    - https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp
-    # - https://mc.kurogames.com/static4.0/assets/younuo-691764b5.webp
+    - https://mc.kurogames.com/static4.0/assets/feixue-5efa315b.webp
+    - https://mc.kurogames.com/static4.0/assets/aimisi-eb60fae0.webp
+    - https://mc.kurogames.com/static4.0/assets/moning-dbe1c28d.webp
+    - https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp
+    - https://mc.kurogames.com/static4.0/assets/qianxiao-63525a92.webp
+    - https://mc.kurogames.com/static4.0/assets/younuo-691764b5.webp
     # - https://mc.kurogames.com/static4.0/assets/augusta-08ddb40d.webp
     # - https://mc.kurogames.com/static4.0/assets/fuluoluo-232aa3a3.webp
-    # - https://mc.kurogames.com/static4.0/assets/katixiya-fa64ee5a.webp
+    - https://mc.kurogames.com/static4.0/assets/katixiya-fa64ee5a.webp
     # - https://mc.kurogames.com/static4.0/assets/xiakong-dbbda672.webp
-    # - https://mc.kurogames.com/static4.0/assets/zanni-41ce156d.webp
+    - https://mc.kurogames.com/static4.0/assets/zanni-41ce156d.webp
+    # - https://prod-alicdn-community.kurobbs.com/forum/86e33bf60c4d48499faa119f83e96fa120250619.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/5803ca9faed74b0080a1156e0ef93aae20250529.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/0b28c3fd7f1e433d9327dd08ae7943ef20250905.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/6edb712c4a9a46bb843646404a0ff2db20250904.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/20260fdbdfe74ca9842680f7ff9039c220250829.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/43b6840836b84793980f93d5e9d786ce20250730.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/7f933184dd4747a0bb326ff1bca1eda720250730.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/dbc6de3bf3ec4db59f8ca4288cfa3e3c20250507.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/f59dff6fb93d4904b442d315738e6a6420250507.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/dddd5d37f41343ac9c0b9500f111fbae20250423.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/8cff74db40294c4c9532f964cc2065b720250408.jpg?x-oss-process=image%2Fformat%2Cwebp
+    # - https://prod-alicdn-community.kurobbs.com/forum/dcdad1b7aa454b97b412899068f94aa620250313.jpg?x-oss-process=image%2Fformat%2Cwebp
     # - https://mc.kurogames.com/static4.0/assets/cantarella-01b25be7.png
     # # - https://mc.kurogames.com/static4.0/assets/bulante-c31ca81d.png
     # - https://mc.kurogames.com/static4.0/assets/feibi-36352884.png

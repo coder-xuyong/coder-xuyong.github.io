@@ -8,7 +8,7 @@ tags:
   - Java
   - maven
 abbrlink: f9b3a702
-date: 2026-05-11 14:09:25
+date: 2026-05-11 10:09:25
 ---
 # maven依赖查找官网
 > https://mvnrepository.com/
