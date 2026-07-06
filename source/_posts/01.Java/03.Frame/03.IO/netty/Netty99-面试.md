@@ -1,6 +1,5 @@
 ---
 title: Netty面试
-date: 2026-06-24 13:49:02
 categories:
   - 1.Java
   - 3.Frame
@@ -10,6 +9,8 @@ tag:
   - nio
   - netty
 order: 99
+abbrlink: d566eaea
+date: 2026-06-24 13:49:02
 ---
 ## Netty的ByteBuf与ByteBuffer相比的优势
 - **灵活性和易用性**：Java NIO的ByteBuffer虽然提供了对直接内存的支持，但其API相对较低级，使用起来相对繁琐。Netty的ByteBuf则是对Java NIO ByteBuffer的封装，并提供了更加灵活和易用的API，使得开发者可以更方便地操作数据，处理字节缓冲区。
