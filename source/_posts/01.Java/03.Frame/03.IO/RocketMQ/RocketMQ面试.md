@@ -8,6 +8,7 @@ categories:
 tag:
   - mq
 order: 99
+abbrlink: 4e6b805a
 date: 2026-07-19 13:49:02
 ---
 ## 如何保证消息的可靠性
