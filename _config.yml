@@ -40,7 +40,8 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
+# hexo new file ,是否创建文件目录
+post_asset_folder: false
 # 图片插件
 inline_image:  
     enabled: true
