@@ -805,7 +805,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const handleToggleBtn = e => {
       const target = e.target
-      if (target.nodeName === 'I') {
+      const isCategorySpan = target.nodeName === 'SPAN' && (target.classList.contains('card-category-list-name') || target.classList.contains('card-category-list-count'))
+      if (target.nodeName === 'I' || isCategorySpan) {
         e.preventDefault()
         target.parentNode.classList.toggle('expand')
       }
