@@ -12,4 +12,4 @@ abbrlink: e67f9749
 date: 2026-08-12 20:46:10
 ---
 ## 学海无涯
-naocs、swagger、rabbitmg、redis、xxl-job、ruoy、security、 JWT、 sentinel, seata、 mybatis-plus, TDengine,nebula graph、 milvus、 MinlO/ FastDFS/ 七牛云、XXL-J0B.APIFOX、pageHelper、自定义注解、雪花算法、策略模式、python脚本、git、github
+naocs、swagger、rabbitmg、redis、xxl-job、ruoy、security、 JWT、 sentinel, seata、 mybatis-plus, TDengine,nebula graph、 milvus、 MinlO/ FastDFS/ 七牛云、XXL-J0B.APIFOX、pageHelper、自定义注解、雪花算法、策略模式、python脚本、git、github、软考、pmp

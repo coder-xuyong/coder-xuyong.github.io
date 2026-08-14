@@ -3,7 +3,7 @@ title: java
 ---
 ## github
 {% note green 'fas fa-rocket' %}
-{% post_link hexo/02.md语法 ' 🚀 markdown 语法可以查看' %}
+{% post_link 06.Frontend/02.hexo/02.md语法 ' 🚀 markdown 语法可以查看' %}
 
 {% endnote %}
 
