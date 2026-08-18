@@ -65,3 +65,13 @@ windows defender可能会影响性能
 <property name="dynamic.classpath" value="true" /> 
 ```
 然后重启idea即可
+## 运行 'XXXXXApplication' 时出错运行XXXXXApplication时出错。命令行过长。通过JAR清单或通过类路径文件缩短命令行，然后重新运行。
+在 IDEA 顶部工具栏，点击运行下拉框（锤子图标旁边），选择 Edit Configurations...（编辑配置）。
+
+在左侧找到你的启动类 wwdDigitApplication。
+
+找到 Shorten command line（缩短命令行）选项（通常在 Build and run 区域下方，或 Environment 选项卡中）。
+
+将下拉框从 <none> 改为 JAR manifest（推荐）或 classpath file。
+
+点击 Apply -> OK，重新运行程序即可
