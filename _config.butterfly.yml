@@ -52,7 +52,7 @@ code_blocks:
   # 是否使用 Mac 风格
   macStyle: false
   # 代码块高度限制（单位: px）
-  height_limit: 300
+  height_limit: 150
   # 是否自动换行
   word_wrap: false
 
@@ -135,9 +135,12 @@ cover:
   position: both
   # 当未设置封面时，显示默认封面
   default_cover:
+    - https://mc.kurogames.com/static4.0/assets/yangyang_xuanling-23ae3abe.webp
+    - https://mc.kurogames.com/static4.0/assets/suisui-1726abe8.webp
+    - https://mc.kurogames.com/static4.0/assets/qingxiao-a6e4a1e7.webp
     - https://mc.kurogames.com/static4.0/assets/feixue-5efa315b.webp
     - https://mc.kurogames.com/static4.0/assets/aimisi-eb60fae0.webp
-    - https://mc.kurogames.com/static4.0/assets/moning-dbe1c28d.webp
+    # - https://mc.kurogames.com/static4.0/assets/moning-dbe1c28d.webp
     - https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp
     - https://mc.kurogames.com/static4.0/assets/qianxiao-63525a92.webp
     - https://mc.kurogames.com/static4.0/assets/younuo-691764b5.webp
