@@ -1,6 +1,5 @@
 ---
 title: Sentinel流量控制与熔断降级
-date: 2026-08-21 13:31:09
 order: 3
 categories:
   - 1.Java
@@ -9,6 +8,8 @@ categories:
 tags:
   - 分布式
   - sentinel
+abbrlink: '57012585'
+date: 2026-08-21 13:31:09
 ---
 
 ## 环境搭建
