@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>场景分析 | coder-xuyong</title><meta name="author" content="coder-xuyong"><meta name="copyright" content="coder-xuyong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="⭐海量数据下的实时模糊检索问题核心思路是：将“模糊检索”工作从关系型数据库（如MySQL）中剥离，交给专业的搜索&#x2F;分析引擎来处理。 例如人：通过名字模糊查询用户，2000w数据，20%每月数据量增长，返回列表要怎么做？方案一：mysql硬撑方案二：引入第三方专业引擎，如ES，这是处理海量数据模糊搜索的标准工业级方案。方案三：高阶方案——分库分表 + ES 线程安全问题下面这段代码有什么线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="场景分析">
+<meta property="og:url" content="https://coder-xuyong.github.io/posts/94b53e8f">
+<meta property="og:site_name" content="coder-xuyong">
+<meta property="og:description" content="⭐海量数据下的实时模糊检索问题核心思路是：将“模糊检索”工作从关系型数据库（如MySQL）中剥离，交给专业的搜索&#x2F;分析引擎来处理。 例如人：通过名字模糊查询用户，2000w数据，20%每月数据量增长，返回列表要怎么做？方案一：mysql硬撑方案二：引入第三方专业引擎，如ES，这是处理海量数据模糊搜索的标准工业级方案。方案三：高阶方案——分库分表 + ES 线程安全问题下面这段代码有什么线">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp">
+<meta property="article:published_time" content="2026-07-31T07:07:55.000Z">
+<meta property="article:modified_time" content="2026-08-21T09:08:56.348Z">
+<meta property="article:author" content="coder-xuyong">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JavaSE">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "场景分析",
+  "url": "https://coder-xuyong.github.io/posts/94b53e8f",
+  "image": "https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp",
+  "datePublished": "2026-07-31T07:07:55.000Z",
+  "dateModified": "2026-08-21T09:08:56.348Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "coder-xuyong",
+      "url": "https://coder-xuyong.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/medias/img/logo.png"><link rel="canonical" href="https://coder-xuyong.github.io/posts/94b53e8f"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":150,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: coder-xuyong","link":"链接: ","source":"来源: coder-xuyong","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '场景分析',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/self/custom.css"><link rel="stylesheet" href="/self/progress_bar.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/self/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-color: #fafafa;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">128</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/medias/img/logo.png" alt="Logo"><span class="site-name">coder-xuyong</span></a><a class="nav-page-title" href="/"><span class="site-name">场景分析</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-bars-progress"></i><span> 合集</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/java/"><i class="fa-fw fa-brands fa-java"></i><span> Java</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">场景分析<a class="post-edit-link" href="https://github.com/coder-xuyong/coder-xuyong.github.io/edit/main/source/_posts/01.Java/01.JavaSE/99.场景分析/01.场景分析.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-31T07:07:55.000Z" title="发表于 2026-07-31 15:07:55">2026-07-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-21T09:08:56.348Z" title="更新于 2026-08-21 17:08:56">2026-08-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/">1.Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/1-JavaSE/">1.JavaSE</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/1-Java/1-JavaSE/99-%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/">99.查漏补缺</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;已经过了&quot;,&quot;messageNext&quot;:&quot;天自上次更新，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2026-08-21 17:08:56&quot;}" hidden></div><h1 id="⭐"><a href="#⭐" class="headerlink" title="⭐"></a>⭐</h1><h2 id="海量数据下的实时模糊检索问题"><a href="#海量数据下的实时模糊检索问题" class="headerlink" title="海量数据下的实时模糊检索问题"></a>海量数据下的实时模糊检索问题</h2><p>核心思路是：<strong>将“模糊检索”工作从关系型数据库（如MySQL）中剥离，交给专业的搜索&#x2F;分析引擎来处理。</strong></p>
+<p>例如人：通过名字模糊查询用户，2000w数据，20%每月数据量增长，返回列表要怎么做？<br>方案一：mysql硬撑<br>方案二：引入第三方专业引擎，如ES，这是处理海量数据模糊搜索的标准工业级方案。<br>方案三：高阶方案——分库分表 + ES</p>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2><p>下面这段代码有什么线程安全问题，有几种方案解决？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="comment">//处理业务</span></span><br><span class="line"></span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题：</p>
+<ul>
+<li>锁是局部变量，无法实现线程间互斥</li>
+<li>未使用 try-finally，可能造成锁永不释放</li>
+</ul>
+<p>解决方案一：将锁提升为成员变量，并配合使用try-finally</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();  <span class="comment">// 实例锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 处理业务</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>优点：同一个 Demo 实例的所有线程共享一把锁，实现互斥。<br>缺点：如果多个 Demo 实例，则锁不共享；如需全局共享，用静态变量。</p>
+</blockquote>
+<p>方案二：使用静态所（所有实例共享）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 处理业务</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>优点：所有实例所有线程共用一把锁，类级别互斥。<br>缺点：并发度最低，适合保护静态资源。</p>
+</blockquote>
+<p>方案三：使用<code>synchronized</code>内置锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;  <span class="comment">// 实例方法锁，等效于 synchronized(this)</span></span><br><span class="line">        <span class="comment">// 处理业务</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(lock) &#123;</span><br><span class="line">            <span class="comment">// 处理业务</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方案四：使用<code>ReentrantLock</code>的静态内部类单例锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 静态内部类持有锁实例（单例）</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">LockHolder</span> &#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">LOCK</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 对外提供获取锁的方法（可选）</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock <span class="title function_">getLock</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> LockHolder.LOCK;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="网络安全性问题"><a href="#网络安全性问题" class="headerlink" title="网络安全性问题"></a>网络安全性问题</h2><p>例如：前端和minio直接存数据，会有安全问题。如何解决？</p>
+<p>解决这个问题的核心思路是：<strong>由可信的后端服务颁发有时效、有限权限的临时凭证，前端仅使用这些凭证与 MinIO 交互。</strong></p>
+<p>主要有两种标准的解决方案：预签名 URL (Presigned URL) 和 STS 临时凭证 (Security Token Service)。</p>
+<ul>
+<li>预签名：将有时效性的Access Key 和 Secret Key放在url中，minio去验证签名</li>
+<li>STS临时凭证：给前端颁发一组临时的 Access Key、Secret Key 和 Session Token，前端可以在有效期内和权限范围内自由操作 MinIO。</li>
+</ul>
+<h2 id="docker相关问题"><a href="#docker相关问题" class="headerlink" title="docker相关问题"></a>docker相关问题</h2><p>编写Dockerfile：这是一个包含构建指令的文本文件，定义了从基础环境、依赖安装、端口映射和启动命令的全部步骤<br>集群情况下使用：<code>docker buildx bake</code>一次构建多个镜像，提高效率。</p>
+<h2 id="遇到OOM问题如何定位和解决？"><a href="#遇到OOM问题如何定位和解决？" class="headerlink" title="遇到OOM问题如何定位和解决？"></a>遇到OOM问题如何定位和解决？</h2><p>原因：</p>
+<ul>
+<li>一次性申请对象太多了</li>
+<li>内存资源耗尽没有释放</li>
+<li>本身资源不够，可以使用jmap -heap 查看堆信息</li>
+</ul>
+<p>定位：</p>
+<ul>
+<li>系统已经OOM挂了，提前设置<code>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=</code>（要保证磁盘空间），可以在服务宕机的时候导出dump文件到指定的路径中。通过VisualVM程序去查看这个文件，可以去看到实例数和占的大小；我们可以去看这个示例，看它的gc root，找到线程引用查看到具体的代码。</li>
+<li>系统运行中还未OOM，导出dump文件：<code>jmap -dump:format=b,file=文件名.hprof PID</code>或者第三方工具Arthas，虽然导出dump文件会stw，但是不导出影响更大。也可以使用<code>jmap -histo:live pid</code> 实时查看。</li>
+<li>结合VisualVM进行调试。</li>
+</ul>
+<h2 id="常用的Linux命令"><a href="#常用的Linux命令" class="headerlink" title="常用的Linux命令"></a>常用的Linux命令</h2><ul>
+<li>文件操作：ls, cd, cp, mv, rm, find；重点说 find：比如用 find . -name “*.log” -mtime -7 查找7天内修改的日志，配合 xargs 批量删除或移动。</li>
+<li>状态性能：top, free, df&#x2F;du, ps, netstat；这是区分初级和中级的关键。重点说习惯用 top 看整体负载后，按 P（CPU）和 M（内存）排序；排查内存溢出时必用 jmap 或 free -h 看缓存占比。</li>
+<li>网络状态：ping, telnet, curl, ss；强调现在用 ss -tunlp 替代 netstat（更快），并主动提及用 curl -o &#x2F;dev&#x2F;null -s -w ‘%{time_total}’ 来测试接口响应时间</li>
+<li>文本三剑客：grep，awk，sed；要说：排查业务报错时，先用 grep ERROR 过滤，再用 awk ‘{print $5}’ 提取IP或耗时，最后用 sed 做批量替换配置。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io">coder-xuyong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://coder-xuyong.github.io/posts/94b53e8f">https://coder-xuyong.github.io/posts/94b53e8f</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://coder-xuyong.github.io" target="_blank">coder-xuyong</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/JavaSE/">JavaSE</a><a class="post-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></div><div class="post-share"><div class="social-share" data-image="https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/e67f9749" title="study"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/yangyang_xuanling-23ae3abe.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">study</div></div><div class="info-2"><div class="info-item-1">学海无涯naocs、feign、swagger、rabbitmg、redis、xxl-job、ruoy、security、 JWT、 sentinel, seata、 mybatis-plus, TDengine,nebula graph、 milvus、 MinlO&#x2F; FastDFS&#x2F; 七牛云、XXL-J0B.APIFOX、pageHelper、自定义注解、雪花算法、策略模式、python脚本、git、github、软考、pmp、group by 也得研究一下。 </div></div></div></a><a class="pagination-related" href="/posts/5eb9d1ec" title="jvm面试"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/qianxiao-63525a92.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">jvm面试</div></div><div class="info-2"><div class="info-item-1">JNI是什么Java编译器把Java文件编译为字节码文件之后，jvm执行引擎将字节码指令解释为对应操作系统能运行的指令，这也是为什么Java是编译和解释共存的语言。当Java代码执行的时候，需要调用底层的c或者c++写的本地方法，所以这里就需要本地方法接口（JNI）去和本地方法库做交互。 JVM的垃圾回收机制是怎么样的？想要回收垃圾，先得看一个对象他是不是垃圾，一般有两种方法：  引用计数法：如果对象被引用了，计数器+1，如果取消引用了就-1，计数器为零就可以回收了，简单除暴。但是他无法处理循环引用的问题。 可达性分析：对象A引用B，B引用C，C引用D会形成一个有向图。可达性分析会从根对象（gc root）出发遍历这个有向图，遍历不到的就是不可达对象，就是垃圾。 三色标记法：用于遍历标记判断的，用三种颜色去标记对象的状态。但是存在两个问题，一个是浮动垃圾，另一个是漏标的问题。    判断对象是垃圾之后，就需要使用垃圾回收算法去处理。基础的算法有三种：  标记清除算法：从gc roots 出发，去遍历标记所有可达性的对象，之后遍历堆去清除所有不可达的对象。缺点会产生内存碎片。 标记...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/5eb9d1ec" title="jvm类加载"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/qingxiao-a6e4a1e7.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-25</div><div class="info-item-2">jvm类加载</div></div><div class="info-2"><div class="info-item-1">类加载机制 类是在运行期间动态加载的。  类的加载指的是将类的 .class 文件中的二进制数据读入到内存中，并转为可执行的代码的过程。 类的生命周期 Java 类的完整生命周期包括图片中这几个阶段： 加载、验证、准备、初始化和卸载这 5 个阶段的顺序是确定的，类的加载过程必须按照这种顺序按部就班地开始。而解析过程在某些情况下可以在初始化阶段之后再开始，这是为了支持 Java 的动态绑定。 类加载过程是指加载、验证、准备、解析和初始化这 5 个阶段。 （一）加载加载流程：  通过类的全限定名获取定义此类的二进制字节流 将字节流所代表的静态存储结构转换为方法区的运行时数据结构 在内存中生成一个代表该类的java.lang.Class对象  加载来源：  本地文件系统: .class文件 网络下载: Applet 压缩包: JAR、WAR文件 运行时计算生成: 动态代理 其他文件生成: JSP  （二）验证验证是链接阶段的第一步。验证的目标是确保 Class 文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全。 验证阶段大致会完成 4 个阶段的检验动作：  文...</div></div></div></a><a class="pagination-related" href="/posts/ebd55e42" title="Java查漏补缺"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/yangyang_xuanling-23ae3abe.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-22</div><div class="info-item-2">Java查漏补缺</div></div><div class="info-2"><div class="info-item-1">基础工具类String String 类能被继承吗？ String，StringBuffer，StringBuilder 的区别。  String 类不能被继承。因为其被 final 修饰，所以无法被继承。 StringBuffer，StringBuilder 拼接字符串，使用 append 比 String 效率高。因为 String 会隐式 new String 对象。 StringBuffer 主要方法都用 synchronized 修饰，是线程安全的；而 StringBuilder 不是。 面向对象 抽象类和接口的区别？ 类可以继承多个类么？接口可以继承多个接口么？类可以实现多个接口么？  类只能继承一个类，但是可以实现多个接口。接口可以继承多个接口。  继承和聚合的区别在哪？  一般，能用聚合就别用继承。聚合是“has-a”，类似 school 类存在 teachers 的变量。 反射⭐ 创建实例 反射创建实例有几种方式？  通过反射来创建实例对象主要有两种方式：  用 Class 对象的 newInstance 方法。 用 Constructor 对象的 newIns...</div></div></div></a><a class="pagination-related" href="/posts/e67f9749" title="study"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/yangyang_xuanling-23ae3abe.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-12</div><div class="info-item-2">study</div></div><div class="info-2"><div class="info-item-1">学海无涯naocs、feign、swagger、rabbitmg、redis、xxl-job、ruoy、security、 JWT、 sentinel, seata、 mybatis-plus, TDengine,nebula graph、 milvus、 MinlO&#x2F; FastDFS&#x2F; 七牛云、XXL-J0B.APIFOX、pageHelper、自定义注解、雪花算法、策略模式、python脚本、git、github、软考、pmp、group by 也得研究一下。 </div></div></div></a><a class="pagination-related" href="/posts/3082f8d4" title="Java 编码和加密"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/suisui-1726abe8.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">Java 编码和加密</div></div><div class="info-2"><div class="info-item-1">Java 编码和加密Base64 编码Base64 原理Base64 内容传送编码是一种以任意 8 位字节序列组合的描述形式，这种形式不易被人直接识别。 Base64 是一种很常见的编码规范，其作用是将二进制序列转换为人类可读的 ASCII 字符序列，常用在需用通过文本协议（比如 HTTP 和 SMTP）来传输二进制数据的情况下。Base64 并不是加密解密算法，尽管我们有时也听到使用 Base64 来加密解密的说法，但这里所说的加密与解密实际是指编码（encode） 和 解码（decode）的过程，其变换是非常简单的，仅仅能够避免信息被直接识别。 Base64 算法主要是将给定的字符以字符编码(如 ASCII 码，UTF-8 码)对应的十进制数为基准，做编码操作：  将给定的字符串以字符为单位，转换为对应的字符编码。 将获得字符编码转换为二进制 对二进制码做分组转换，每 3 个字节为一组，转换为每 4 个 6 位二进制位一组（不足 6 位时低位补 0）。这是一个分组变化的过程，3 个 8 位二进制码和 4 个 6 位二进制码的长度都是 24 位（3*8 = 4*6 = 24）。...</div></div></div></a><a class="pagination-related" href="/posts/29e7dc52" title="理解 Java 类加载器"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/zanni-41ce156d.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-16</div><div class="info-item-2">理解 Java 类加载器</div></div><div class="info-2"><div class="info-item-1">深度理解 Java SPISPI 简介SPI 全称 Service Provider Interface，是 Java 提供的，旨在由第三方实现或扩展的 API，它是一种用于动态加载服务的机制。它的作用是让程序能够自动发现、加载和使用第三方提供的实现，从而实现基于接口的解耦和可插拔的扩展架构。 Java SPI 有四个要素：  SPI 接口：为服务提供者实现类约定的接口或抽象类。 SPI 实现类：实际提供服务的实现类。 SPI 配置：Java SPI 机制约定的配置文件，提供查找服务实现类的逻辑。配置文件必须置于 META-INF/services 目录中，并且，文件名应与服务提供者接口的完全限定名保持一致。文件中的每一行都有一个实现服务类的详细信息，同样是服务提供者类的完全限定名称。 ServiceLoader：Java SPI 的核心类，用于加载 SPI 实现类。 ServiceLoader 中有各种实用方法来获取特定实现、迭代它们或重新加载服务。  SPI 示例 定义接口需要定义一个 SPI 接口，和普通接口并没有什么差别。  123public interface Dat...</div></div></div></a><a class="pagination-related" href="/posts/32d96a2b" title="Java并发简介"><img class="cover" src="https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-15</div><div class="info-item-2">Java并发简介</div></div><div class="info-2"><div class="info-item-1">并发概念进程和线程 进程： 可以视为程序的一个实例。  线程： 线程作为最小调度单位，进程作为资源分配的最小单位。  一个进程之内可以分为一到多个线程。  一个线是一个指令流，将指令流中的一条条指令以一定的顺序交给 CPU 执行  Java 中，线程作为最小调度单位，进程作为资源分配的最小单位。 在 windows 中进程是不活动的，只是作为线程的容器。   进程和线程的差异：  一个程序至少有一个进程，一个进程至少有一个线程。 线程比进程划分更细，所以执行开销更小，并发性更高 进程是一个实体，拥有独立的资源；而同一个进程中的资源是多个线程共享的。  并行与并发单核 cpu 下，线程实际还是串行执行的。操作系统中有一个组件叫做任务调度器，将 cpu 的时间片（windows下时间片最小约为 15 毫秒）分给不同的程序使用，只是由于 cpu 在线程间（时间片很短）的切换非常快，人类感觉是 同时运行的 。总结为一句话就是： 微观串行，宏观并行 ，一般会将这种 线程轮流使用 CPU 的做法称为并发， concurrent    cpu 时间片1 时间片2 时间片3 时间片4    co...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/medias/img/logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">coder-xuyong</div><div class="author-info-description">生如牛马不得闲</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">128</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">110</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">58</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/coder-xuyong"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/coder-xuyong" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%AD%90"><span class="toc-number">1.</span> <span class="toc-text">⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E4%B8%8B%E7%9A%84%E5%AE%9E%E6%97%B6%E6%A8%A1%E7%B3%8A%E6%A3%80%E7%B4%A2%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">海量数据下的实时模糊检索问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">线程安全问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">网络安全性问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">docker相关问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0OOM%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E5%92%8C%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">遇到OOM问题如何定位和解决？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84Linux%E5%91%BD%E4%BB%A4"><span class="toc-number">1.6.</span> <span class="toc-text">常用的Linux命令</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/57012585" title="Sentinel流量控制与熔断降级"><img src="https://mc.kurogames.com/static4.0/assets/qingxiao-a6e4a1e7.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sentinel流量控制与熔断降级"/></a><div class="content"><a class="title" href="/posts/57012585" title="Sentinel流量控制与熔断降级">Sentinel流量控制与熔断降级</a><time datetime="2026-08-21T05:31:09.000Z" title="发表于 2026-08-21 13:31:09">2026-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/dd5ebbd0" title="OpenFeign服务间远程调用"><img src="https://mc.kurogames.com/static4.0/assets/katixiya-fa64ee5a.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenFeign服务间远程调用"/></a><div class="content"><a class="title" href="/posts/dd5ebbd0" title="OpenFeign服务间远程调用">OpenFeign服务间远程调用</a><time datetime="2026-08-21T02:38:54.000Z" title="发表于 2026-08-21 10:38:54">2026-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/83f95c9c" title="Nacos注册中心于服务发现"><img src="https://mc.kurogames.com/static4.0/assets/zanni-41ce156d.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nacos注册中心于服务发现"/></a><div class="content"><a class="title" href="/posts/83f95c9c" title="Nacos注册中心于服务发现">Nacos注册中心于服务发现</a><time datetime="2026-08-19T07:57:28.000Z" title="发表于 2026-08-19 15:57:28">2026-08-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://mc.kurogames.com/static4.0/assets/linnai-468d7ecc.webp);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By coder-xuyong</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div><div class="footer_custom_text">Hi, welcome to coder-xuyong's <a href="https://coder-xuyong.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><!-- butterfly右下角悬浮菜单栏 百分比--><span id="percent">0</span></button><!-- butterfly右下角悬浮菜单栏 直达底部--><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23li4gzANXxmx9072g',
+      clientSecret: 'b4da9f4490b2864bfdee5df73655329a642c6112',
+      repo: 'coder-xuyong.github.io',
+      owner: 'coder-xuyong',
+      admin: ['coder-xuyong'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '31fa68339cfaeaf2f909d71b0ddf3540'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="/self/custom.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="https://cn.vercount.one/js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search key word" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
