@@ -34,6 +34,17 @@ date: 2024-12-21 00:00:00
 快速折叠if/else语句：Ctrl+Shift+。
 try-catch-finally:Ctrl+Alt+T
 ```
+## 序列化随机生成serialVersionUID
+
+在 IntelliJ IDEA 中，这个功能默认是关闭的，需要手动开启。
+启用检查：
+- 进入 File -> Settings (Ctrl + Alt + S)，在设置中，导航到 Editor -> Inspections。
+- 在搜索框输入 Serializable class without 'serialVersionUID'，在搜索结果中，勾选这个检查项。
+
+开启之后，使用alt+enter就可以选择生成`serialVersionUID`了
+
+> 注意：不同版本的 IDEA 路径可能略有不同，也可能在 JVM Languages或 Java -> Serialization issues下。
+
 ## 使用过程中遇到的问题
 ### 启动报错 windows defender might impact performance
 ```shell
