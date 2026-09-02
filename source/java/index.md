@@ -24,10 +24,7 @@ tags: 'java'
 
 ## JavaEE
 ### JavaWeb
-{% post_link 01.Java/02.JavaEE/01.JavaWeb/01.JavaWeb之Servlet指南 ' JavaWeb之Servlet指南' %} <br/>
-{% post_link 01.Java/02.JavaEE/01.JavaWeb/02.JavaWeb之Jsp指南 ' JavaWeb之Servlet指南' %} <br/>
-{% post_link 01.Java/02.JavaEE/01.JavaWeb/03.JavaWeb之Filter和Listener ' JavaWeb之Filter和Listener' %} <br/>
-{% post_link 01.Java/02.JavaEE/01.JavaWeb/04.JavaWeb之Cookie和Session ' JavaWeb之Cookie和Session' %} <br/>
+
 
 ### tomcat
 {% post_link 01.Java/02.JavaEE/02.Tomcat/01.Tomcat快速入门 ' Tomcat快速入门' %} <br/>
