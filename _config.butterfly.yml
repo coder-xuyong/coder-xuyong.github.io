@@ -13,6 +13,7 @@ nav:
 
 menu:
   首页: / || fas fa-home
+  开往: https://www.travellings.cn/go.html || fas fa-subway
   合集||fa-solid fa-bars-progress:
     Java: /java/ || fa-brands fa-java
   归档: /archives/ || fas fa-archive
