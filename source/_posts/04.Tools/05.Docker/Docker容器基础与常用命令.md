@@ -1,8 +1,12 @@
 ---
 title: Docker容器基础与常用命令
 categories:
-  - 1.Java
-  - 7.Tools
+  - 4.Tools
+  - 1.Docker
+tags:
+  - Docker
+  - 容器
+  - DevOps
 abbrlink: 8654682d
 date: 2026-08-27 09:35:41
 ---

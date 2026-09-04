@@ -1,9 +1,10 @@
 ---
 title: Java21 新特性
+order: 3
 categories:
   - 1.Java
-  - 2.JavaEE
-  - 3.NewFeature
+  - 2.JavaSE
+  - 4.NewFeature
 tags:
   - Java
 abbrlink: dbf5ad5b

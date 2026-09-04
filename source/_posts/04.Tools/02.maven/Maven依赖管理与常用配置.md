@@ -1,5 +1,5 @@
 ---
-title: maven 使用记录
+title: Maven依赖管理与常用配置
 order: 1
 categories:
   - 4.Tools
@@ -15,7 +15,8 @@ date: 2026-05-11 10:09:25
 
 ## dependencyManagement
 
-**`dependency` 真正引入依赖**，而 **`dependencyManagement` 只是声明依赖版本等信息，并不实际引入**。其中的`<type>pom</type>`和`<scope>import</scope>`引入的不是代码依赖，而是版本管理信息
+**`dependency` 真正引入依赖**，而 **`dependencyManagement` 只是声明依赖版本等信息，并不实际引入**。一般使用在父模块中，子模块声明这个依赖的时候，就不需要声明版本信息。
+其中的`<type>pom</type>`和`<scope>import</scope>`引入的不是代码依赖，而是版本管理信息
 
 ## `<relativePath/>`
 空标签等价于 <relativePath></relativePath>，它告诉 Maven：
