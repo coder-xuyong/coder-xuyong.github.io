@@ -1,6 +1,5 @@
 ---
 title: OkHttp3网络请求与连接管理
-date: 2026-09-04 10:43:45
 categories:
   - 1.Java
   - 3.Frame
@@ -10,6 +9,8 @@ tags:
   - OkHttp
   - HTTP
   - 网络请求
+abbrlink: 3b757cbb
+date: 2026-09-04 10:43:45
 ---
 
 ## 一、为什么选择 OkHttp3？

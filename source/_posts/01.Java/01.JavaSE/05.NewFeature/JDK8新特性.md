@@ -9,6 +9,7 @@ tags:
   - Java
   - JDK17
   - 新特性
+abbrlink: 30d38426
 date: 2026-09-03 10:08:31
 ---
 ## Java Stream 集合转 Map 

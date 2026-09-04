@@ -9,5 +9,6 @@ tags:
   - Java
   - JDK17
   - 新特性
+abbrlink: 30d38426
 date: 2026-09-04 10:08:31
 ---
