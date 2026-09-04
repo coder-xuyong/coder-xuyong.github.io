@@ -47,8 +47,8 @@ tags: 'java'
 - {% post_link 01.Java/03.Frame/03.IO/minio/03.MinioClient基本使用 ' MinioClient基本使用' %}<br/>
 
 4. modbus
-- {% post_link 01.Java/03.Frame/03.IO/modbus/01.modbus基础 ' modbus基础' %}<br/>
-- {% post_link 01.Java/03.Frame/03.IO/modbus/02.modbus-java ' modbus整合java' %}<br/>
+- {% post_link 08.IoT/01.modbus/01.modbus基础 ' modbus基础' %}<br/>
+- {% post_link 08.IoT/01.modbus/02.modbus-java ' modbus整合java' %}<br/>
 
 5. netty
 - {% post_link 01.Java/03.Frame/03.IO/netty/Netty01-nio ' Netty01-nio' %}<br/>
